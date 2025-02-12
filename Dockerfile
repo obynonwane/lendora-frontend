@@ -1,5 +1,5 @@
 # Use official Node.js image as base
-FROM node:18-alpine AS builder
+FROM --platform=linux/amd64 node:18-alpine AS builder
 
 # Set working directory inside container
 WORKDIR /app
@@ -19,7 +19,7 @@ RUN npm run build
 # ---------------------
 # Production stage
 # ---------------------
-FROM node:18-alpine AS runner
+FROM --platform=linux/amd64 node:18-alpine AS runner
 
 # Set environment variable to production
 ENV NODE_ENV=production
