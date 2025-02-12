@@ -22,10 +22,11 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Build and Push Docker Image
+      - name: Build and Push Docker Image (Multi-Arch)
         uses: docker/build-push-action@v4
         with:
           context: .
           file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64  # ✅ Build for both AMD64 and ARM64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/lendora-frontend:1.0.0
