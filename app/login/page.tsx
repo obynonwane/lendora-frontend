@@ -68,7 +68,7 @@ function Page() {
           password,
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       // unverified email
       //   {
       //     "error": true,
@@ -121,7 +121,7 @@ function Page() {
         abortEarly: false,
       });
 
-      const response: unknown = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/request-verification-email`,
         {
           email,

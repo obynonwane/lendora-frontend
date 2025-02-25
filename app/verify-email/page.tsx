@@ -1,8 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import * as yup from "yup";
-// import { getFromLocalStorage, saveToLocalStorage } from "./utility";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { BsFillEnvelopeSlashFill } from "react-icons/bs";
@@ -118,7 +116,7 @@ function Page() {
       }
     };
     verifyEmail();
-  }, []);
+  }, [router, toastOptions, token]);
 
   return (
     <main className="flex justify-center flex-col md:h-screen items-center p-5 overflow-y-auto">

@@ -49,7 +49,8 @@ function Page() {
         abortEarly: false,
       });
 
-      const response: unknown = await axios.post(
+      // const response: unknown =
+      await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/reset-password-email`,
         {
           email,

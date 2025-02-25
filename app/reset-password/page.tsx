@@ -58,7 +58,7 @@ function Page() {
       // validateinput
       await resetPasswordSchema.validate(formData, { abortEarly: false });
 
-      const response: unknown = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/change-password`,
         {
           password,
@@ -99,7 +99,7 @@ function Page() {
     if (!token) {
       return router.push("/login");
     }
-  }, []);
+  }, [token, router]);
 
   return (
     <main className="flex justify-center flex-col md:h-screen items-center p-5 overflow-y-auto">

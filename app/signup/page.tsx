@@ -62,7 +62,7 @@ function Page() {
       // validateinput
       await signupSchema.validate(formData, { abortEarly: false });
 
-      const response: unknown = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/signup`,
         {
           last_name: firstName,
@@ -79,20 +79,27 @@ function Page() {
 
       // navigate("/dashboard");
     } catch (errors) {
+      setIsLoading(false);
+
       if (errors instanceof yup.ValidationError) {
-        const validationErrors = {};
         const error = errors.inner[0];
-        validationErrors[error.path] = error.message;
+        if (error?.path) {
+          toast.error(error.message, toastOptions);
+        }
+        return;
+      }
 
-        // Display the first error
-        toast.error(error.message, toastOptions);
-        setIsLoading(false);
-      } else {
-        // console.log(errors);
+      if (
+        errors instanceof Error &&
+        "response" in errors &&
+        errors.response?.data?.message
+      ) {
         toast.error(errors.response.data.message, toastOptions);
-
-        // toast.error("check phone number and try again");
-        setIsLoading(false);
+      } else {
+        toast.error(
+          "An unexpected error occurred. Please try again.",
+          toastOptions
+        );
       }
     }
   };
