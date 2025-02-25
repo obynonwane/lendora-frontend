@@ -54,33 +54,48 @@ function Page() {
       // validateinput
       await loginSchema.validate(formData, { abortEarly: false });
 
-      const response: unknown = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/request-verification-email`,
         {
           email,
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
 
       setIsLoading(false);
       setEmail("");
       toast.success("Email sent", toastOptions);
 
       // navigate("/dashboard");
-    } catch (errors) {
+    } catch (errors: unknown) {
       if (errors instanceof yup.ValidationError) {
-        const validationErrors = {};
+        // Handle Yup validation errors
+        const validationErrors: Record<string, string> = {};
         const error = errors.inner[0];
-        validationErrors[error.path] = error.message;
 
-        // Display the first error
-        toast.error(error.message, toastOptions);
+        if (error && error.path) {
+          // Ensure error.path is defined before using it as an index
+          validationErrors[error.path] = error.message;
+
+          // Display the first error
+          toast.error(error.message, toastOptions);
+        } else {
+          toast.error("An unknown validation error occurred.", toastOptions);
+        }
+
+        setIsLoading(false);
+      } else if (axios.isAxiosError(errors)) {
+        // Handle Axios errors
+        if (errors.response?.data?.message) {
+          toast.error(errors.response.data.message, toastOptions);
+        } else {
+          toast.error("An unknown error occurred.", toastOptions);
+        }
+
         setIsLoading(false);
       } else {
-        // console.log(errors);
-        toast.error(errors.response.data.message, toastOptions);
-
-        // toast.error("check phone number and try again");
+        // Handle all other errors
+        toast.error("An unexpected error occurred.", toastOptions);
         setIsLoading(false);
       }
     }
@@ -95,28 +110,32 @@ function Page() {
       try {
         setIsLoading(true);
 
-        const response: unknown = await axios.get(
+        axios.get(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/verify-email?token=${token}`
         );
-        console.log(response.data);
+        // console.log(response.data);
         setEmail("");
         setIsLoading(false);
         toast.success("sign-in successful!", toastOptions);
 
         // navigate("/dashboard");
-      } catch (errors) {
-        console.log(errors.response.data.status_code);
-        if (errors.response.data.status_code === 400) {
-          setStep("email-token-expired");
-        }
-        // toast.error(errors.response.data.message, toastOptions);
-
-        // toast.error("check phone number and try again");
+      } catch (error: unknown) {
         setIsLoading(false);
+
+        if (axios.isAxiosError(error)) {
+          if (error.response?.data?.status_code === 400) {
+            setStep("email-token-expired");
+          } else {
+            toast.error("An unexpected error occurred.", toastOptions);
+          }
+        } else {
+          // console.error("Non-Axios error:", error);
+          toast.error("Something went wrong.", toastOptions);
+        }
       }
     };
     verifyEmail();
-  }, [router, toastOptions, token]);
+  }, [router, token]);
 
   return (
     <main className="flex justify-center flex-col md:h-screen items-center p-5 overflow-y-auto">

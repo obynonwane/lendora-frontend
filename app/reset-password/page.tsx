@@ -71,25 +71,35 @@ function Page() {
 
       setStep("password-reset-successfully");
       // navigate("/dashboard");
-    } catch (errors) {
-      console.log(errors);
-
+    } catch (errors: unknown) {
       if (errors instanceof yup.ValidationError) {
+        // Handle Yup validation errors
         const validationErrors: Record<string, string> = {};
         const error = errors.inner[0];
 
-        if (error.path) {
+        if (error && error.path) {
+          // Ensure error.path is defined before using it as an index
           validationErrors[error.path] = error.message;
-        }
-        validationErrors[error.path] = error.message;
 
-        // Display the first error
-        toast.error(error.message, toastOptions);
+          // Display the first error
+          toast.error(error.message, toastOptions);
+        } else {
+          toast.error("An unknown validation error occurred.", toastOptions);
+        }
+
+        setIsLoading(false);
+      } else if (axios.isAxiosError(errors)) {
+        // Handle Axios errors
+        if (errors.response?.data?.message) {
+          toast.error(errors.response.data.message, toastOptions);
+        } else {
+          toast.error("An unknown error occurred.", toastOptions);
+        }
+
         setIsLoading(false);
       } else {
-        toast.error(errors.response.data.message, toastOptions);
-
-        // toast.error("check phone number and try again");
+        // Handle all other errors
+        toast.error("An unexpected error occurred.", toastOptions);
         setIsLoading(false);
       }
     }
