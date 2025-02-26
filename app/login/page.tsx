@@ -61,7 +61,7 @@ function Page() {
       // validateinput
       await loginSchema.validate(formData, { abortEarly: false });
 
-      const response: unknown = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/login`,
         {
           email,
@@ -69,13 +69,6 @@ function Page() {
         }
       );
 
-      if (
-        response.data.message === "email not verified, please verify your email"
-      ) {
-        setStep("unverified-email");
-        setIsLoading(false);
-        return;
-      }
       setIsLoading(false);
       toast.success("sign-in successful!", toastOptions);
 
@@ -99,10 +92,14 @@ function Page() {
         setIsLoading(false);
       } else if (axios.isAxiosError(errors)) {
         // Handle Axios errors
-        if (errors.response?.data?.message) {
-          toast.error(errors.response.data.message, toastOptions);
+        if (
+          errors.response?.data?.message ===
+          "email not verified, please verify your email"
+        ) {
+          setStep("unverified-email");
+          setIsLoading(false);
         } else {
-          toast.error("An unknown error occurred.", toastOptions);
+          toast.error("Incorrect credentials, try again", toastOptions);
         }
 
         setIsLoading(false);
