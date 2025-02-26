@@ -1,18 +1,22 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { BsFillEnvelopeSlashFill } from "react-icons/bs";
 import { FaEnvelope } from "react-icons/fa";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 type StepState =
   | "loading"
   | "email-token-expired"
   | "email-verified-successfully"
   | "resend-verification-email";
 
-function Page() {
+function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const [email, setEmail] = useState("");
 
   const [isLoading, setIsLoading] = useState(true);
@@ -29,8 +33,7 @@ function Page() {
     theme: "colored",
   };
 
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  const token = use(searchParams);
 
   const router = useRouter();
 

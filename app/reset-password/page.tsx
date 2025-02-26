@@ -1,15 +1,19 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import Link from "next/link";
 import * as yup from "yup";
 // import { getFromLocalStorage, saveToLocalStorage } from "./utility";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { BsFillEnvelopeSlashFill } from "react-icons/bs";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 type StepState = "reset-password" | "password-reset-successfully";
 
-function Page() {
+function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -27,8 +31,7 @@ function Page() {
     theme: "colored",
   };
 
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  const { token } = use(searchParams);
 
   const router = useRouter();
 
