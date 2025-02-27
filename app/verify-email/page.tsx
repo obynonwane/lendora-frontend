@@ -33,11 +33,11 @@ function Page({
     theme: "colored",
   };
 
-  const token = use(searchParams);
+  const { token } = use(searchParams);
 
   const router = useRouter();
 
-  const loginSchema = yup.object().shape({
+  const resendEmailSchema = yup.object().shape({
     email: yup
       .string()
       .email("Invalid email format")
@@ -55,7 +55,7 @@ function Page({
         email,
       };
       // validateinput
-      await loginSchema.validate(formData, { abortEarly: false });
+      await resendEmailSchema.validate(formData, { abortEarly: false });
 
       await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/request-verification-email`,
@@ -113,16 +113,17 @@ function Page({
       try {
         setIsLoading(true);
 
-        axios.get(
+        await axios.get(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/verify-email?token=${token}`
         );
         // console.log(response.data);
-        setEmail("");
+        // setEmail("");
         setIsLoading(false);
-        toast.success("sign-in successful!", toastOptions);
+        toast.success("Email Verified Succesfully!", toastOptions);
 
         // navigate("/dashboard");
       } catch (error: unknown) {
+        console.log("there is n err");
         setIsLoading(false);
 
         if (axios.isAxiosError(error)) {
@@ -144,7 +145,7 @@ function Page({
     <main className="flex justify-center flex-col md:h-screen items-center p-5 overflow-y-auto">
       {step === "loading" && (
         <div>
-          <div className="relative text-center">
+          <div className="relative text-center mt-12">
             <FaEnvelope className="animate-pulse text-[#F7972D] text-sm absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
 
             <svg
@@ -185,7 +186,7 @@ function Page({
 
           <button
             onClick={() => setStep("resend-verification-email")}
-            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-2 ${
+            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 ${
               isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
             }`}
           >
@@ -218,7 +219,7 @@ function Page({
 
           <button
             onClick={() => setStep("resend-verification-email")}
-            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-2 ${
+            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 ${
               isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
             }`}
           >

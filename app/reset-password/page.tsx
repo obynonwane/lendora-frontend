@@ -7,6 +7,9 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { BsFillEnvelopeSlashFill } from "react-icons/bs";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+
+import logoIcon from "../../images/logo-icon.png";
 type StepState = "reset-password" | "password-reset-successfully";
 
 function Page({
@@ -115,7 +118,7 @@ function Page({
   }, [token, router]);
 
   return (
-    <main className="flex justify-center flex-col md:h-screen items-center p-5 overflow-y-auto">
+    <main className="flex justify-center flex-col md:h-screen items-center px-5 overflow-y-auto">
       {step === "password-reset-successfully" && (
         <div className="w-full md:w-[400px] pt-10 text-center">
           <p className="text-center  mb-2">
@@ -132,7 +135,7 @@ function Page({
 
           <Link
             href="/login"
-            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-2`}
+            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4`}
           >
             Login
           </Link>
@@ -141,7 +144,15 @@ function Page({
 
       {step === "reset-password" && (
         <form className="w-full md:w-[400px] pt-10 " onSubmit={resetPassword}>
-          <h2 className="mb-4 text-slate-900 text-2xl lg:text-3xl font-semibold ">
+          <Link className=" " href="/">
+            <Image
+              src={logoIcon}
+              alt="logo-icon"
+              className="w-16 mx-auto mb-4"
+            />
+          </Link>
+
+          <h2 className="mb-4 text-slate-900 text-xl text-center font-semibold ">
             Reset Your Password
           </h2>
 
@@ -172,7 +183,7 @@ function Page({
 
           <button
             type="submit"
-            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-2 ${
+            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 ${
               isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
             }`}
           >
