@@ -17,6 +17,7 @@ RUN npm run build
 FROM node:18-alpine AS runner
 
 ENV NODE_ENV=production
+ENV NEXT_PUBLIC_SERVER_URL=https://api.lendora.ng/api/v1
 WORKDIR /app
 
 # Copy necessary files from builder stage
