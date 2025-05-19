@@ -3,6 +3,7 @@ import { Geist_Mono, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "./components/Header";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${geistMono.variable} ${dmSans.className} antialiased`}
       >
+        <Header />
         <ToastContainer />
         {children}
       </body>
