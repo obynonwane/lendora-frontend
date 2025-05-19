@@ -18,3 +18,7 @@
 * {
   transition: all .2s ease-in-out;
 }
+
+.home-hero-section {
+  background-image: url("/home-hero.webp");
+}

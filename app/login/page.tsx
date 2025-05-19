@@ -19,6 +19,8 @@ function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  console.log(process.env.NEXT_PUBLIC_SERVER_URL);
+
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState<StepState>("login-form");
   // login-form
@@ -140,6 +142,7 @@ function Page() {
 
       // navigate("/dashboard");
     } catch (errors: unknown) {
+      console.log(errors);
       if (errors instanceof yup.ValidationError) {
         // Handle Yup validation errors
         const validationErrors: Record<string, string> = {};
