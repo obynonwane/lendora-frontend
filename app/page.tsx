@@ -1,26 +1,26 @@
 "use client";
 // import Link from "next/link";
+// import { useState, useEffect } from "react";
+import { useEffect } from "react";
 // import Image from "next/image";
-import { useState, useEffect } from "react";
 // import logoIcon from "../images/logo-icon.png";
-import LocationSelectModal from "./components/LocationSelectModal";
+// import LocationSelectModal from "./components/LocationSelectModal";
 import { FaCaretDown } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
-import axios from "axios";
+// import axios from "axios";
 
 export default function Home() {
-  const [isShowSelectStateModal, setIsShowSelectStateModal] = useState(false);
-  const [selectedState, setSelectedState] = useState(null);
-  const [allStates, setAllStates] = useState(null);
+  // const [isShowSelectStateModal, setIsShowSelectStateModal] = useState(false);
+  // const [selectedState, setSelectedState] = useState(null);
+  // const [allStates, setAllStates] = useState(null);
 
   useEffect(() => {
     const getStates = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/states`
-        );
-
-        setAllStates(response.data);
+        // const response = await axios.get(
+        //   `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/states`
+        // );
+        // setAllStates(response.data);
         // navigate("/dashboard");
       } catch (error) {
         console.log(error);
@@ -56,7 +56,7 @@ export default function Home() {
           </h1>
           <div className="flex items-center justify-center px-5   max-w-md mx-auto">
             <button
-              onClick={() => setIsShowSelectStateModal(true)}
+              // onClick={() => setIsShowSelectStateModal(true)}
               className="flex items-center hover:bg-[#FFAB4E] hover:shadow-lg shadow   bg-[#F7972D] rounded p-3  text-white gap-x-2"
             >
               Lagos <FaCaretDown />
@@ -73,14 +73,14 @@ export default function Home() {
               <IoSearch className="text-base text-slate-700" />
             </div>
           </div>
-          {isShowSelectStateModal && (
+          {/* {isShowSelectStateModal && (
             <LocationSelectModal
               selectedState={selectedState}
               setSelectedState={setSelectedState}
               setIsShowSelectStateModal={setIsShowSelectStateModal}
               allStates={allStates}
             />
-          )}
+          )} */}
         </section>
       </main>
     </>
