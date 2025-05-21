@@ -41,7 +41,7 @@ export default function Home() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [router, searchQuery, selectedState?.id, selectedLGA?.id]);
 
   return (
     <>

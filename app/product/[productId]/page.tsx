@@ -7,27 +7,9 @@ interface Params {
   productId: string;
 }
 
-interface SearchParams {
-  [key: string]: string | string[];
-}
-
-interface ProjectUser {
-  firstName: string;
-  lastName: string;
-}
-
-interface Project {
-  name: string;
-  description: string;
-  imageUrl: string;
-  user: ProjectUser;
-}
-
-interface ProjectResponse {
-  data: {
-    project: Project;
-  };
-}
+// interface SearchParams {
+//   [key: string]: string | string[];
+// }
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -38,7 +20,9 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const { productId } = await params;
+  // const { productId } = await params;
+  // console.log(productId, "productId");
+  console.log(params, searchParams);
 
   const product = await fetch(`https://fakestoreapi.com/products/1`).then(
     (res) => res.json()
@@ -64,6 +48,8 @@ async function getData(productId: string): Promise<ProjectResponse> {
   const res = await fetch(`https://fakestoreapi.com/products/1`, {
     cache: "no-store",
   });
+
+  console.log(productId);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");

@@ -15,7 +15,7 @@ export default function ProtectedLayout({
     if (isAuthChecked && !isLoggedIn) {
       router.replace("/login");
     }
-  }, [isAuthChecked, isLoggedIn]);
+  }, [isAuthChecked, isLoggedIn, router]);
 
   if (!isAuthChecked) {
     // Optional loading state while checking auth
