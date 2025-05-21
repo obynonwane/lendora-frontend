@@ -3,10 +3,6 @@
 import ProductPage from "@/app/components/ProductPage";
 import type { Metadata, ResolvingMetadata } from "next";
 
-interface Params {
-  productId: string;
-}
-
 // interface SearchParams {
 //   [key: string]: string | string[];
 // }
@@ -44,7 +40,7 @@ export async function generateMetadata(
   };
 }
 
-async function getData(productId: string): Promise<ProjectResponse> {
+async function getData(productId: string) {
   const res = await fetch(`https://fakestoreapi.com/products/1`, {
     cache: "no-store",
   });
@@ -58,7 +54,11 @@ async function getData(productId: string): Promise<ProjectResponse> {
   return res.json();
 }
 
-export default async function Page({ params }: { params: Params }) {
+export default async function Page({
+  params,
+}: {
+  params: { productId: string }; // Corrected type: params is an object, not a Promise
+}) {
   const data = await getData(params.productId);
   return (
     <main className="bg-zinc-100">
