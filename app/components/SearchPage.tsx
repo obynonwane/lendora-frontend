@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-function SearchPage() {
+function Search() {
   const searchParams = useSearchParams();
 
   const s = searchParams.get("s");
@@ -11,6 +11,13 @@ function SearchPage() {
   // URL -> `/dashboard?search=my-project`
   // `search` -> 'my-project'
   return <>Search: {s}</>;
+}
+function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Search />
+    </Suspense>
+  );
 }
 
 export default SearchPage;

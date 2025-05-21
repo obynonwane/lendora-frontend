@@ -3,12 +3,34 @@
 import ProductPage from "@/app/components/ProductPage";
 import type { Metadata, ResolvingMetadata } from "next";
 
+// interface Params {
+//   productId: string;
+// }
+
 // interface SearchParams {
 //   [key: string]: string | string[];
 // }
 
+// interface ProjectUser {
+//   firstName: string;
+//   lastName: string;
+// }
+
+// interface Project {
+//   name: string;
+//   description: string;
+//   imageUrl: string;
+//   user: ProjectUser;
+// }
+
+// interface ProjectResponse {
+//   data: {
+//     project: Project;
+//   };
+// }
+
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ productId: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
@@ -16,9 +38,8 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  // const { productId } = await params;
-  // console.log(productId, "productId");
-  console.log(params, searchParams);
+  const { productId } = await params;
+  console.log(productId, searchParams, "productId");
 
   const product = await fetch(`https://fakestoreapi.com/products/1`).then(
     (res) => res.json()
@@ -41,25 +62,36 @@ export async function generateMetadata(
 }
 
 async function getData(productId: string) {
+  // async function getData(productId: string): Promise<ProjectResponse> {
+  console.log(productId);
   const res = await fetch(`https://fakestoreapi.com/products/1`, {
     cache: "no-store",
   });
 
-  console.log(productId);
-
   if (!res.ok) {
-    throw new Error("Failed to fetch data.");
+    throw new Error("Failed to fetch data");
   }
 
   return res.json();
 }
 
+// export default async function Page({ params }: { params: Params }) {
+//   const data = await getData(params.productId);
+//   return (
+//     <main className="bg-zinc-100">
+//       <ProductPage product={data} />
+//     </main>
+//   );
+// }
+
 export default async function Page({
   params,
 }: {
-  params: { productId: string }; // Corrected type: params is an object, not a Promise
+  params: Promise<{ productId: string }>;
 }) {
-  const data = await getData(params.productId);
+  const { productId } = await params;
+  const data = await getData(productId);
+
   return (
     <main className="bg-zinc-100">
       <ProductPage product={data} />
