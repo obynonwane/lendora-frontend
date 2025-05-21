@@ -112,9 +112,9 @@ function Page() {
     }
   };
   return (
-    <main className="flex justify-center md:h-screen items-center p-5 overflow-y-auto md:mt-0 mt-8">
+    <main className="flex justify-center  items-center p-5 overflow-y-auto md:mt-0 mt-5">
       {step === "signup-form" && (
-        <form className=" w-full md:w-[400px] md:mt-12" onSubmit={signup}>
+        <form className=" w-full md:w-[400px] md:mt-0" onSubmit={signup}>
           <Link className=" " href="/">
             <Image
               src={logoIcon}
@@ -194,14 +194,17 @@ function Page() {
           </div>
           <p className="mt-4 text-center text-slate-700 text-xs ">
             By continuing you agree to Lendora&apos;s
-            <Link className="text-[#F7972D] underline" href="/terms-conditions">
+            <Link
+              className="text-orange-400 underline"
+              href="/terms-conditions"
+            >
               {" "}
               Terms and Conditions
             </Link>{" "}
           </p>
           <button
             type="submit"
-            className={`flex w-full justify-center rounded font-semibold bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-3 py-4 ${
+            className={`flex w-full justify-center rounded font-semibold bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-3 py-4 ${
               isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
             }`}
           >
@@ -210,7 +213,7 @@ function Page() {
 
           <p className="mt-5 text-center text-sm  text-slate-700 ">
             Got an account?{" "}
-            <Link className="text-[#F7972D] underline" href="/login">
+            <Link className="text-orange-400 underline" href="/login">
               Login
             </Link>{" "}
           </p>
@@ -220,7 +223,7 @@ function Page() {
       {step === "signup-success" && (
         <div className="w-full md:w-[400px] pt-10 text-center">
           <p className="text-center  mb-2">
-            <FaCheckCircle className="text-6xl text-[#F7972D] mx-auto" />
+            <FaCheckCircle className="text-6xl text-orange-400 mx-auto" />
           </p>
           <h2 className="mb-2 text-slate-900 text-xl font-semibold ">
             Signup Successful!
@@ -228,7 +231,7 @@ function Page() {
 
           <p className="mb-1   text-slate-700">
             Your account has been successfully created! Please check your email
-            <span className="text-[#F7972D] font-medium underline">
+            <span className="text-orange-400 font-medium underline">
               {" "}
               {email}
             </span>{" "}
@@ -237,7 +240,7 @@ function Page() {
 
           {/* <Link href="/login"
             type="submit"
-            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-2 ${
+            className={`flex w-full justify-center rounded bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-2 ${
               isLoading
                 ? "animate-pulse cursor-wait "
                 : " opacity-100 "
