@@ -5,6 +5,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 
+import { AuthProvider } from "./auth-context"; // path to context
+
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -29,9 +31,12 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${geistMono.variable} ${dmSans.className} antialiased`}
       >
-        <Header />
-        <ToastContainer />
-        {children}
+        <AuthProvider>
+          <Header />
+          <ToastContainer />
+
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

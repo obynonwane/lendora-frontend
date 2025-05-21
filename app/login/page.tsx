@@ -2,24 +2,29 @@
 import { useState } from "react";
 import Link from "next/link";
 import * as yup from "yup";
-// import { getFromLocalStorage, saveToLocalStorage } from "./utility";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { FaEnvelope } from "react-icons/fa";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../auth-context";
 
 import logoIcon from "../../images/logo-icon.png";
-
+import { saveToLocalStorage } from "@/app/utility";
 type StepState =
   | "login-form"
   | "unverified-email"
   | "resend-verification-email";
 
 function Page() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("chibuikennaji306+lendora2@gmail.com");
+  const [password, setPassword] = useState(
+    "chibuikennaji306+lendora2@gmail.com"
+  );
 
-  console.log(process.env.NEXT_PUBLIC_SERVER_URL);
+  const { refreshAuth } = useAuth();
+
+  const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState<StepState>("login-form");
@@ -63,7 +68,7 @@ function Page() {
       // validateinput
       await loginSchema.validate(formData, { abortEarly: false });
 
-      await axios.post(
+      const data = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/login`,
         {
           email,
@@ -71,12 +76,25 @@ function Page() {
         }
       );
 
+      const user = await axios.get(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/get-me`,
+        {
+          headers: {
+            Authorization: `Bearer ${data.data.data.access_token}`,
+          },
+        }
+      );
+
       setIsLoading(false);
       toast.success("sign-in successful!", toastOptions);
+      saveToLocalStorage("lendora_user", user.data.data);
+      saveToLocalStorage("lendora_ac_tk", data.data.data.access_token);
+      refreshAuth(); // Call this before or after redirect
 
-      // navigate("/dashboard");
+      router.push("/");
     } catch (errors: unknown) {
       if (errors instanceof yup.ValidationError) {
+        console.log(errors);
         // Handle Yup validation errors
         const validationErrors: Record<string, string> = {};
         const error = errors.inner[0];
@@ -221,7 +239,7 @@ function Page() {
 
           <button
             type="submit"
-            className={`flex w-full justify-center rounded font-semibold bg-[#F7972D] hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white mt-5 py-4 ${
+            className={`flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white mt-5 py-4 ${
               isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
             }`}
           >
@@ -230,14 +248,14 @@ function Page() {
 
           <p className="mt-5 text-center text-slate-700 text-sm ">
             Don&apos;t have an account?{" "}
-            <Link className="text-[#F7972D] underline" href="/signup">
+            <Link className="text-orange-400 underline" href="/signup">
               Signup
             </Link>{" "}
           </p>
 
           <Link
             href="/forgot-password"
-            className={` text-center block mt-4 text-[#F7972D] text-sm  underline  `}
+            className={` text-center block mt-4 text-orange-400 text-sm  underline  `}
           >
             Forgot Password?
           </Link>
@@ -255,7 +273,7 @@ function Page() {
 
           <p className="mb-1   text-slate-700">
             Your email{" "}
-            <span className="text-[#F7972D] font-medium underline">
+            <span className="text-orange-400 font-medium underline">
               {" "}
               {email}
             </span>{" "}
@@ -265,7 +283,7 @@ function Page() {
 
           <button
             onClick={() => setStep("login-form")}
-            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 font-semibold `}
+            className={`flex w-full justify-center rounded bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 font-semibold `}
           >
             Back to Login
           </button>
@@ -312,7 +330,7 @@ function Page() {
 
           <button
             onClick={() => setStep("resend-verification-email")}
-            className={`flex w-full justify-center rounded font-semibold bg-[#F7972D] hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white mt-5 py-4 ${
+            className={`flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white mt-5 py-4 ${
               isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
             }`}
           >

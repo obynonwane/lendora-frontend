@@ -135,7 +135,7 @@ function Page({
 
           <Link
             href="/login"
-            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4`}
+            className={`flex w-full justify-center rounded bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4`}
           >
             Login
           </Link>
@@ -183,7 +183,7 @@ function Page({
 
           <button
             type="submit"
-            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 ${
+            className={`flex w-full justify-center rounded bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 ${
               isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
             }`}
           >

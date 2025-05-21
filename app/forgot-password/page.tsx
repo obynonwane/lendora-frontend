@@ -128,7 +128,7 @@ function Page() {
           </div>
           <button
             type="submit"
-            className={`flex w-full justify-center rounded py-4 bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 font-semibold ${
+            className={`flex w-full justify-center rounded py-4 bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 font-semibold ${
               isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
             }`}
           >
@@ -136,7 +136,7 @@ function Page() {
           </button>
           <Link
             href="/login"
-            className={` text-center block mt-4 text-sm text-[#F7972D]  underline  `}
+            className={` text-center block mt-4 text-sm text-orange-400  underline  `}
           >
             Back to Login
           </Link>
@@ -146,7 +146,7 @@ function Page() {
       {step === "password-reset-email-sent" && (
         <div className="w-full md:w-[400px] pt-10 text-center">
           <p className="text-center  mb-2 ">
-            <GiEnvelope className="text-6xl text-[#F7972D] mx-auto" />
+            <GiEnvelope className="text-6xl text-orange-400 mx-auto" />
           </p>
           <h2 className="mb-4 text-slate-900 text-xl font-semibold ">
             Email Sent!
@@ -154,7 +154,7 @@ function Page() {
 
           <p className="mb-1   text-slate-700">
             A password reset link has been sent to your email{" "}
-            <span className="text-[#F7972D] font-medium underline">
+            <span className="text-orange-400 font-medium underline">
               {" "}
               {email}
             </span>
@@ -164,7 +164,7 @@ function Page() {
 
           <Link
             href="/login"
-            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 `}
+            className={`flex w-full justify-center rounded bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 `}
           >
             Back to Login
           </Link>

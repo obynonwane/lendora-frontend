@@ -146,7 +146,7 @@ function Page({
       {step === "loading" && (
         <div>
           <div className="relative text-center mt-12">
-            <FaEnvelope className="animate-pulse text-[#F7972D] text-sm absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+            <FaEnvelope className="animate-pulse text-orange-400 text-sm absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
 
             <svg
               className="w-12 h-12 mx-auto mb-2 text-gray-200 animate-spin dark:text-gray-300 fill-amber-500"
@@ -186,7 +186,7 @@ function Page({
 
           <button
             onClick={() => setStep("resend-verification-email")}
-            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 ${
+            className={`flex w-full justify-center rounded bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 ${
               isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
             }`}
           >
@@ -219,7 +219,7 @@ function Page({
 
           <button
             onClick={() => setStep("resend-verification-email")}
-            className={`flex w-full justify-center rounded bg-[#F7972D]  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 ${
+            className={`flex w-full justify-center rounded bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 ${
               isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
             }`}
           >
