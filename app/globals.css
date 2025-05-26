@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 
+* {
+  outline: none !important;
+}
+
 /* custom style for react toast component */
 .Toastify__toast {
   min-height: 25px !important;
@@ -14,10 +18,10 @@
   background: var(--toastify-color-success);
 } */
 
-
+/* 
 * {
   transition: all .2s ease-in-out;
-}
+} */
 
 .home-hero-section {
   background-image: url("/home-hero.webp");
@@ -63,4 +67,16 @@
 .gallery-slide.active {
   opacity: 1;
   z-index: 10;
+}
+
+
+.SelectContent {
+  width: var(--radix-select-trigger-width);
+  /* max-height: var(--radix-select-content-available-height); */
+}
+
+/* styles.css */
+.PopoverContent {
+  width: var(--radix-popover-trigger-width);
+  /* max-height: var(--radix-popover-content-available-height); */
 }
