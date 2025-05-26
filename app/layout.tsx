@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSans.variable} ${geistMono.variable} ${dmSans.className} antialiased`}
+        className={`${dmSans.variable} ${geistMono.variable} ${dmSans.className} antialiased bg-white`}
       >
         <AuthProvider>
           <Header />

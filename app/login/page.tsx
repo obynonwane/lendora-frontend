@@ -85,10 +85,10 @@ function Page() {
         }
       );
 
-      setIsLoading(false);
-      toast.success("sign-in successful!", toastOptions);
       saveToLocalStorage("lendora_user", user.data.data);
       saveToLocalStorage("lendora_ac_tk", data.data.data.access_token);
+      setIsLoading(false);
+      toast.success("sign-in successful!", toastOptions);
       refreshAuth(); // Call this before or after redirect
 
       router.push("/");
