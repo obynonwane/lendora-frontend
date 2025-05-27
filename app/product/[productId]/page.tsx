@@ -1,22 +1,20 @@
 // app/products/[productId]/page.tsx
 
 import ProductPage from "@/app/components/ProductPage";
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 // --- Helper Function for Slug Extraction ---
 function extractSlugId(productId: string): string {
   const parts = productId.split("-");
   const slugId = parts[parts.length - 1];
-
-  // Basic validation for the extracted slug
   if (!slugId || slugId.length === 0) {
     throw new Error("Invalid product ID format. Slug not found.");
   }
   return slugId;
 }
 
-// --- Type Definitions for API Response ---
+// --- Type Definitions ---
 interface ProductImage {
   id: string;
   live_url: string;
@@ -65,19 +63,14 @@ interface ApiResponse {
 async function getProductData(slugId: string): Promise<ApiResponse> {
   const res = await fetch(
     `https://api.lendora.ng/api/v1/inventory/inventory-detail?slug_ulid=${slugId}`,
-    {
-      cache: "no-store",
-    }
+    { cache: "no-store" }
   );
 
   if (res.status === 404) {
-    // If the resource is not found, use Next.js's notFound()
     notFound();
   }
 
   if (!res.ok) {
-    // For any other HTTP error (e.g., 500, network issues),
-    // throw an error to be caught by error.tsx
     throw new Error(
       `Failed to fetch product data: ${res.status} ${res.statusText}`
     );
@@ -85,58 +78,52 @@ async function getProductData(slugId: string): Promise<ApiResponse> {
 
   const jsonResponse: ApiResponse = await res.json();
 
-  // You might want to add a check here if the API itself signals an error
-  // even with a 200 OK status, based on its 'error' field in the JSON.
-  if (jsonResponse.error === true) {
+  if (jsonResponse.error) {
     throw new Error(`API returned an error: ${jsonResponse.message}`);
   }
 
   return jsonResponse;
 }
 
-// --- Type for Page Props ---
+// --- Page Props Type ---
 type PageProps = {
-  params: { productId: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ productId: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-// --- generateMetadata Function ---
+// --- generateMetadata ---
 export async function generateMetadata({
   params,
+  searchParams,
 }: PageProps): Promise<Metadata> {
-  const slugId = extractSlugId(params.productId);
+  const { productId } = await params;
 
-  // Fetch product data specifically for metadata
-  const productResponse = await getProductData(slugId); // This is now ApiResponse type
-  const product = productResponse.data; // Access the 'data' field
-
-  // const previousImages = (await parent).openGraph?.images || [];
-
-  // Ensure images array exists and has at least one image before accessing [0]
-  const imageUrl = product.images[0].live_url;
-
+  const slugId = extractSlugId(productId);
+  const productResponse = await getProductData(slugId);
+  const product = productResponse.data;
+  const imageUrl = product.images?.[0]?.live_url || "";
+  console.log(searchParams);
   return {
     title: product.inventory.name,
     description: product.inventory.description,
     openGraph: {
-      images: [imageUrl],
+      images: imageUrl ? [imageUrl] : [],
       title: product.inventory.name,
       description: product.inventory.description,
-      // url: `https://yourdomain.com/products/${params.productId}`,
     },
   };
 }
 
 // --- Page Component ---
 export default async function Page({ params }: PageProps) {
-  const slugId = extractSlugId(params.productId);
+  const { productId } = await params;
 
-  // Fetch product data for the page content
-  const dataResponse = await getProductData(slugId); // This is now ApiResponse type
-  const productData = dataResponse.data; // Access the 'data' field
+  const slugId = extractSlugId(productId);
+  const dataResponse = await getProductData(slugId);
+  const productData = dataResponse.data;
 
   return (
-    <main className="">
+    <main>
       <ProductPage product={productData} />
     </main>
   );
