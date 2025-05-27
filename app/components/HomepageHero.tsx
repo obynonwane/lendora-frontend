@@ -15,7 +15,7 @@ type LGA = {
   name: string;
 };
 
-export default function Home() {
+export default function Home({ isHomepage }: { isHomepage: boolean }) {
   const [isShowSelectStateModal, setIsShowSelectStateModal] = useState(false);
   const [selectedState, setSelectedState] = useState<State | null>(null);
   const [selectedLGA, setSelectedLGA] = useState<LGA | null>(null);
@@ -23,6 +23,11 @@ export default function Home() {
   const router = useRouter();
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const handleSearch = () => {
+    router.push(
+      `/search?s=${searchQuery}&state_id=${selectedState?.id}&lga_id=${selectedLGA?.id}`
+    );
+  };
 
   useEffect(() => {
     if (!isShowSelectStateModal && inputRef.current) {
@@ -30,12 +35,12 @@ export default function Home() {
     }
   }, [isShowSelectStateModal]);
   useEffect(() => {
+    if (searchQuery.length === 0) {
+      return;
+    }
     const handleKeyDown = (e: KeyboardEvent) => {
       if (document.activeElement === inputRef.current && e.key === "Enter") {
-        // handleSearch();
-        router.push(
-          `/search?s=${searchQuery}&state=${selectedState?.id}&lga=${selectedLGA?.id}`
-        );
+        handleSearch();
       }
     };
 
@@ -45,10 +50,22 @@ export default function Home() {
 
   return (
     <>
-      <section className="py-40 w-full relative home-hero-section  border-y-orange-400 border-y-[8px]">
-        <h1 className="mb-4 text-white text-xl text-center font-semibold ">
-          What are you looking to rent?
-        </h1>
+      <section
+        className={` w-full relative   ${
+          isHomepage
+            ? "home-hero-section py-40 border-y-orange-400 border-y-[8px] "
+            : "bg-zinc-100 py-16"
+        } `}
+      >
+        {isHomepage ? (
+          <h1 className="mb-4 text-white text-xl text-center font-semibold ">
+            What are you looking to rent?
+          </h1>
+        ) : (
+          <h1 className="mb-4 text-black text-xl text-center font-semibold ">
+            Search{" "}
+          </h1>
+        )}
         <div className="flex items-center justify-center px-5   max-w-md mx-auto">
           <button
             onClick={() => setIsShowSelectStateModal(true)}

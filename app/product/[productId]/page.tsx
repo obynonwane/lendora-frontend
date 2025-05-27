@@ -1,100 +1,143 @@
-// app/projects/[projectId]/page.tsx or similar
+// app/products/[productId]/page.tsx
 
 import ProductPage from "@/app/components/ProductPage";
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-// interface Params {
-//   productId: string;
-// }
+// --- Helper Function for Slug Extraction ---
+function extractSlugId(productId: string): string {
+  const parts = productId.split("-");
+  const slugId = parts[parts.length - 1];
 
-// interface SearchParams {
-//   [key: string]: string | string[];
-// }
+  // Basic validation for the extracted slug
+  if (!slugId || slugId.length === 0) {
+    throw new Error("Invalid product ID format. Slug not found.");
+  }
+  return slugId;
+}
 
-// interface ProjectUser {
-//   firstName: string;
-//   lastName: string;
-// }
+// --- Type Definitions for API Response ---
+interface ProductImage {
+  id: string;
+  live_url: string;
+  local_url: string;
+  inventory_id: string;
+  created_at: { seconds: number };
+  updated_at: { seconds: number };
+}
 
-// interface Project {
-//   name: string;
-//   description: string;
-//   imageUrl: string;
-//   user: ProjectUser;
-// }
+interface Inventory {
+  id: string;
+  name: string;
+  description: string;
+  user_id: string;
+  category_id: string;
+  subcategory_id: string;
+  created_at_human: string;
+  updated_at_human: string;
+}
 
-// interface ProjectResponse {
-//   data: {
-//     project: Project;
-//   };
-// }
+interface User {
+  id: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  verified: boolean;
+  created_at_human: string;
+  updated_at_human: string;
+}
 
-type Props = {
-  params: Promise<{ productId: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
+interface ProductDetailData {
+  inventory: Inventory;
+  user: User;
+  images: ProductImage[];
+}
 
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const { productId } = await params;
-  console.log(productId, searchParams, "productId");
+interface ApiResponse {
+  error: boolean;
+  message: string;
+  status_code: number;
+  data: ProductDetailData;
+}
 
-  const product = await fetch(`https://fakestoreapi.com/products/1`).then(
-    (res) => res.json()
+// --- Data Fetching Function ---
+async function getProductData(slugId: string): Promise<ApiResponse> {
+  const res = await fetch(
+    `https://api.lendora.ng/api/v1/inventory/inventory-detail?slug_ulid=${slugId}`,
+    {
+      cache: "no-store",
+    }
   );
 
-  console.log(product, "frm a products");
+  if (res.status === 404) {
+    // If the resource is not found, use Next.js's notFound()
+    notFound();
+  }
 
-  const previousImages = (await parent).openGraph?.images || [];
+  if (!res.ok) {
+    // For any other HTTP error (e.g., 500, network issues),
+    // throw an error to be caught by error.tsx
+    throw new Error(
+      `Failed to fetch product data: ${res.status} ${res.statusText}`
+    );
+  }
+
+  const jsonResponse: ApiResponse = await res.json();
+
+  // You might want to add a check here if the API itself signals an error
+  // even with a 200 OK status, based on its 'error' field in the JSON.
+  if (jsonResponse.error === true) {
+    throw new Error(`API returned an error: ${jsonResponse.message}`);
+  }
+
+  return jsonResponse;
+}
+
+// --- Type for Page Props ---
+type PageProps = {
+  params: { productId: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+// --- generateMetadata Function ---
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const slugId = extractSlugId(params.productId);
+
+  // Fetch product data specifically for metadata
+  const productResponse = await getProductData(slugId); // This is now ApiResponse type
+  const product = productResponse.data; // Access the 'data' field
+
+  // const previousImages = (await parent).openGraph?.images || [];
+
+  // Ensure images array exists and has at least one image before accessing [0]
+  const imageUrl = product.images[0].live_url;
 
   return {
-    title: product.title,
-    description: product.description,
+    title: product.inventory.name,
+    description: product.inventory.description,
     openGraph: {
-      images: [product.image, ...previousImages],
-      title: product.title, // Title for social media
-      description: product.description, // Description for social media
-      url: product.url, // Canonical URL for social sharing
+      images: [imageUrl],
+      title: product.inventory.name,
+      description: product.inventory.description,
+      // url: `https://yourdomain.com/products/${params.productId}`,
     },
   };
 }
 
-async function getData(productId: string) {
-  // async function getData(productId: string): Promise<ProjectResponse> {
-  console.log(productId);
-  const res = await fetch(`https://fakestoreapi.com/products/1`, {
-    cache: "no-store",
-  });
+// --- Page Component ---
+export default async function Page({ params }: PageProps) {
+  const slugId = extractSlugId(params.productId);
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
-
-// export default async function Page({ params }: { params: Params }) {
-//   const data = await getData(params.productId);
-//   return (
-//     <main className="bg-zinc-100">
-//       <ProductPage product={data} />
-//     </main>
-//   );
-// }
-
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ productId: string }>;
-}) {
-  const { productId } = await params;
-  const data = await getData(productId);
+  // Fetch product data for the page content
+  const dataResponse = await getProductData(slugId); // This is now ApiResponse type
+  const productData = dataResponse.data; // Access the 'data' field
 
   return (
-    <main className="bg-zinc-100">
-      <ProductPage product={data} />
+    <main className="">
+      <ProductPage product={productData} />
     </main>
   );
 }

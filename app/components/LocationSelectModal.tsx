@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { RxCaretRight } from "react-icons/rx";
+import { useRouter } from "next/navigation";
 
 type State = {
   id: string;
@@ -41,6 +42,9 @@ function LocationSelectModal({
   const [step, setStep] = useState<number>(1);
   // step 1 is select state
   // step 2 is select lga
+
+  const router = useRouter();
+
   useEffect(() => {
     const fetchStates = async () => {
       setLoading(true);
@@ -212,6 +216,9 @@ function LocationSelectModal({
                               onClick={() => {
                                 setSelectedLGA(item);
                                 setIsShowSelectStateModal(false);
+                                router.push(
+                                  `/search?s=socks&state_id=${selectedState.id}&lga_id=${item?.id}`
+                                );
                               }}
                               className={`p-2 rounded flex justify-between items-center transition text-sm ${
                                 selectedLGA?.id === item.id

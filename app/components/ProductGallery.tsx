@@ -2,8 +2,24 @@
 import React, { useState } from "react";
 // import "./ProductGallery.css";
 
+// interface ProductGalleryProps {
+//   images: string[];
+// }
+type ProductImage = {
+  id: string;
+  live_url: string;
+  local_url: string;
+  inventory_id: string;
+  created_at: {
+    seconds: number;
+  };
+  updated_at: {
+    seconds: number;
+  };
+};
+
 interface ProductGalleryProps {
-  images: string[];
+  images: ProductImage[];
 }
 
 const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
@@ -19,7 +35,7 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
             className={`gallery-slide  ${idx === activeIndex ? "active" : ""} `}
           >
             <img
-              src={img}
+              src={img.live_url}
               alt={`Image ${idx}`}
               className="h-full w-full object-cover"
             />
@@ -35,12 +51,12 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
             onClick={() => setActiveIndex(idx)}
             className={`border rounded min-w-20 w-20 h-20   overflow-hidden   ${
               activeIndex === idx
-                ? "border-orange-400 "
+                ? "border-orange-400"
                 : "border-transparent hover:border-gray-300"
             }`}
           >
             <img
-              src={img}
+              src={img.live_url}
               alt={`Thumb ${idx + 1}`}
               className="w-full h-full object-cover"
             />

@@ -17,10 +17,8 @@ type StepState =
   | "resend-verification-email";
 
 function Page() {
-  const [email, setEmail] = useState("chibuikennaji306+lendora2@gmail.com");
-  const [password, setPassword] = useState(
-    "chibuikennaji306+lendora2@gmail.com"
-  );
+  const [email, setEmail] = useState("chibuikennaji306@gmail.com");
+  const [password, setPassword] = useState("@Password2020");
 
   const { refreshAuth } = useAuth();
 

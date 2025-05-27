@@ -1,7 +1,7 @@
 "use client";
 import CategoryList from "./components/CategoryList";
 import HomepageHero from "./components/HomepageHero";
-import ProductCard from "./components/ProductCard";
+// import ProductCard from "./components/ProductCard";
 
 export default function Home() {
   return (
@@ -24,16 +24,16 @@ export default function Home() {
       </header> */}
 
       <main className="">
-        <HomepageHero />
+        <HomepageHero isHomepage />
 
         <section className="bg-white w-full pt-10 flex flex-wrap max-w-7xl mx-auto">
           <div className="lg:w-[20%] w-full lg:pl-3 lg:sticky lg:top-20 self-start">
             <CategoryList />
           </div>
           <div className="lg:w-[80%] w-full lg:pl-5 rounded px-3 grid grid-cols-12 gap-x-5 gap-y-7">
-            {[...Array(50)].map((_, index) => (
+            {/* {[...Array(50)].map((_, index) => (
               <ProductCard key={index} />
-            ))}
+            ))} */}
           </div>
         </section>
       </main>

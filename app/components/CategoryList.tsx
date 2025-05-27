@@ -150,14 +150,15 @@ function CategoryList() {
           <>
             {categories?.map((category) => (
               // categories
-              <div
-                onClick={() =>
-                  router.push(`/catalog?category-id=${category.id}`)
-                }
+              <Link
+                // onClick={() =>
+                //   router.push(`/categories/${category.category_slug}`)
+                // }
+                href={`/categories/${category.category_slug}`}
                 key={category.id + category.name}
                 className={`flex items-center gap-3 hover:bg-zinc-100 border-t group cursor-pointer  px-3 py-2 rounded`}
                 onMouseEnter={() => {
-                  console.log(category);
+                  //   console.log(category);
                   //   setHovered(category);
                   fetchSubcategories(category?.id);
                 }}
@@ -196,21 +197,25 @@ function CategoryList() {
                       // sub categories list
                       <>
                         {subCategories.map((sub_category) => (
-                          <Link
-                            href={`/catalog?category-id=${category.id}&sub_category_id=${sub_category.id}`}
+                          <div
+                            onClick={() =>
+                              router.push(
+                                `/categories/${category.category_slug}?subcategory_id=${sub_category.id}`
+                              )
+                            }
                             key={sub_category.id}
                             className={`flex border-t  items-center gap-2 cursor-pointer hover:bg-gray-100 px-3 py-2 rounded`}
                           >
                             <span className="whitespace-nowrap overflow-hidden text-ellipsis">
                               {sub_category.name}{" "}
                             </span>
-                          </Link>
+                          </div>
                         ))}
                       </>
                     )}
                   </div>
                 </section>
-              </div>
+              </Link>
             ))}
           </>
         )}

@@ -69,7 +69,7 @@ function Page({
       setEmail("");
       toast.success("Email sent", toastOptions);
 
-      // navigate("/dashboard");
+      router.push("/login");
     } catch (errors: unknown) {
       if (errors instanceof yup.ValidationError) {
         // Handle Yup validation errors
