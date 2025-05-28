@@ -6,7 +6,7 @@ import useSWRInfinite from "swr/infinite";
 // import CategoryList from "./CategoryList";
 import HomepageHero from "./HomepageHero";
 import ProductCard from "./ProductCard";
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 10;
 
 const fetcher = async ([url, body]: [string, unknown]) => {
   const res = await fetch(url, {

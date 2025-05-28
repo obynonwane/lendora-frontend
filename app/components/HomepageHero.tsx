@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import LocationSelectModal from "./LocationSelectModal";
 import { FaCaretDown } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type State = {
   id: string;
@@ -16,16 +16,36 @@ type LGA = {
 };
 
 export default function Home({ isHomepage }: { isHomepage: boolean }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const searchParams = useSearchParams();
+  const state_id = searchParams.get("state_id") || "";
+  const lga_id = searchParams.get("lga_id") || "";
+  const category_id = searchParams.get("category_id") || "";
+  const subcategory_id = searchParams.get("subcategory_id") || "";
+  const s = searchParams.get("s") || "";
+
   const [isShowSelectStateModal, setIsShowSelectStateModal] = useState(false);
-  const [selectedState, setSelectedState] = useState<State | null>(null);
-  const [selectedLGA, setSelectedLGA] = useState<LGA | null>(null);
-  const [searchQuery, setSearchQurey] = useState<string>("");
+  const [selectedState, setSelectedState] = useState<State | null>(
+    state_id ? { id: state_id, name: "" } : null
+  );
+  const [selectedLGA, setSelectedLGA] = useState<LGA | null>(
+    lga_id ? { id: lga_id, name: "" } : null
+  );
+  const [searchQuery, setSearchQurey] = useState<string>(s || "");
+  // const [categoryId, setCategoryId] = useState<{
+  //   id: string;
+  //   name: string;
+  // } | null>(category_id ? { id: category_id, name: "" } : null);
+  // const [subcategoryId, setSubcategoryId] = useState<{
+  //   id: string;
+  //   name: string;
+  // } | null>(subcategory_id ? { id: subcategory_id, name: "" } : null);
+
   const router = useRouter();
 
-  const inputRef = useRef<HTMLInputElement>(null);
   const handleSearch = () => {
     router.push(
-      `/search?s=${searchQuery}&state_id=${selectedState?.id}&lga_id=${selectedLGA?.id}`
+      `/?s=${searchQuery}&category_id=${category_id}&subcategory_id=${subcategory_id}&state_id=${selectedState?.id}&lga_id=${selectedLGA?.id}`
     );
   };
 

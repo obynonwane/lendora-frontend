@@ -13,6 +13,7 @@ export interface InventoryUserResponse {
     name: string;
     description: string;
     user_id: string;
+    offer_price: number;
     category_id: string;
     subcategory_id: string;
     created_at_human: string;
@@ -143,8 +144,8 @@ function ProductPage({ product }: { product: InventoryUserResponse }) {
           <div className="sticky top-20  rounded  ">
             <div className="bg-white p-3 rounded border ">
               <p className=" flex justify-between items-center mt-3">
-                <span className="text-3xl  font-bold text-[#FFAB4E]">
-                  $19.99
+                <span className="text-3xl  font-bold text-black">
+                  ₦{product.inventory.offer_price.toLocaleString("en-US")}
                 </span>
                 <span className="flex items-center text-slate-500">
                   <IoLocation /> <span className="text-xs ">Lagos, Ikeja</span>

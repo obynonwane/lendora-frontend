@@ -28,6 +28,7 @@ interface Inventory {
   id: string;
   name: string;
   description: string;
+  offer_price: number;
   user_id: string;
   category_id: string;
   subcategory_id: string;

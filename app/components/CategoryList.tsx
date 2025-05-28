@@ -163,11 +163,15 @@ function CategoryList() {
                   fetchSubcategories(category?.id);
                 }}
               >
-                <span className="w-5 h-5 flex-shrink-0 bg-zinc-200 rounded"></span>{" "}
+                <span className="w-7 h-7 flex-shrink-0 flex items-center justify-center bg-zinc-100 rounded">
+                  <i
+                    className={`${category.icon_class}  text-[0.8rem] text-gray-500`}
+                  ></i>
+                </span>{" "}
                 <span className="whitespace-nowrap overflow-hidden text-ellipsis">
                   {category.name}{" "}
                 </span>
-                <section className="pl-2 absolute left-[100%] top-0 w-40 h-full lg:group-hover:block hidden ">
+                <section className="pl-2 absolute left-[100%] top-0 w-52 h-full lg:group-hover:block hidden ">
                   <div className=" w-full h-full bg-white rounded border">
                     {/* hello {category.name} */}
                     {isGetingSubCategories ? (
@@ -206,9 +210,17 @@ function CategoryList() {
                             key={sub_category.id}
                             className={`flex border-t  items-center gap-2 cursor-pointer hover:bg-gray-100 px-3 py-2 rounded`}
                           >
+                            <span className="w-7 h-7 flex-shrink-0 flex items-center justify-center bg-zinc-100 rounded">
+                              <i
+                                className={`${sub_category.icon_class}  text-[0.8rem] text-gray-500`}
+                              ></i>
+                            </span>{" "}
                             <span className="whitespace-nowrap overflow-hidden text-ellipsis">
                               {sub_category.name}{" "}
                             </span>
+                            {/* <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+                              {sub_category.name}{" "}
+                            </span> */}
                           </div>
                         ))}
                       </>
