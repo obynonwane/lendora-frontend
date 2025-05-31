@@ -1,100 +1,131 @@
-// app/projects/[projectId]/page.tsx or similar
+// app/products/[productId]/page.tsx
 
 import ProductPage from "@/app/components/ProductPage";
-import type { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
-// interface Params {
-//   productId: string;
-// }
+// --- Helper Function for Slug Extraction ---
+function extractSlugId(productId: string): string {
+  const parts = productId.split("-");
+  const slugId = parts[parts.length - 1];
+  if (!slugId || slugId.length === 0) {
+    throw new Error("Invalid product ID format. Slug not found.");
+  }
+  return slugId;
+}
 
-// interface SearchParams {
-//   [key: string]: string | string[];
-// }
+// --- Type Definitions ---
+interface ProductImage {
+  id: string;
+  live_url: string;
+  local_url: string;
+  inventory_id: string;
+  created_at: { seconds: number };
+  updated_at: { seconds: number };
+}
 
-// interface ProjectUser {
-//   firstName: string;
-//   lastName: string;
-// }
+interface Inventory {
+  id: string;
+  name: string;
+  description: string;
+  offer_price: number;
+  user_id: string;
+  category_id: string;
+  subcategory_id: string;
+  created_at_human: string;
+  updated_at_human: string;
+}
 
-// interface Project {
-//   name: string;
-//   description: string;
-//   imageUrl: string;
-//   user: ProjectUser;
-// }
+interface User {
+  id: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  verified: boolean;
+  created_at_human: string;
+  updated_at_human: string;
+}
 
-// interface ProjectResponse {
-//   data: {
-//     project: Project;
-//   };
-// }
+interface ProductDetailData {
+  inventory: Inventory;
+  user: User;
+  images: ProductImage[];
+}
 
-type Props = {
-  params: Promise<{ productId: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
+interface ApiResponse {
+  error: boolean;
+  message: string;
+  status_code: number;
+  data: ProductDetailData;
+}
 
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const { productId } = await params;
-  console.log(productId, searchParams, "productId");
-
-  const product = await fetch(`https://fakestoreapi.com/products/1`).then(
-    (res) => res.json()
+// --- Data Fetching Function ---
+async function getProductData(slugId: string): Promise<ApiResponse> {
+  const res = await fetch(
+    `https://api.lendora.ng/api/v1/inventory/inventory-detail?slug_ulid=${slugId}`,
+    { cache: "no-store" }
   );
 
-  console.log(product, "frm a products");
+  if (res.status === 404) {
+    notFound();
+  }
 
-  const previousImages = (await parent).openGraph?.images || [];
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch product data: ${res.status} ${res.statusText}`
+    );
+  }
 
+  const jsonResponse: ApiResponse = await res.json();
+
+  if (jsonResponse.error) {
+    throw new Error(`API returned an error: ${jsonResponse.message}`);
+  }
+
+  return jsonResponse;
+}
+
+// --- Page Props Type ---
+type PageProps = {
+  params: Promise<{ productId: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+// --- generateMetadata ---
+export async function generateMetadata({
+  params,
+  searchParams,
+}: PageProps): Promise<Metadata> {
+  const { productId } = await params;
+
+  const slugId = extractSlugId(productId);
+  const productResponse = await getProductData(slugId);
+  const product = productResponse.data;
+  const imageUrl = product.images?.[0]?.live_url || "";
+  console.log(searchParams);
   return {
-    title: product.title,
-    description: product.description,
+    title: product.inventory.name,
+    description: product.inventory.description,
     openGraph: {
-      images: [product.image, ...previousImages],
-      title: product.title, // Title for social media
-      description: product.description, // Description for social media
-      url: product.url, // Canonical URL for social sharing
+      images: imageUrl ? [imageUrl] : [],
+      title: product.inventory.name,
+      description: product.inventory.description,
     },
   };
 }
 
-async function getData(productId: string) {
-  // async function getData(productId: string): Promise<ProjectResponse> {
-  console.log(productId);
-  const res = await fetch(`https://fakestoreapi.com/products/1`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
-
-// export default async function Page({ params }: { params: Params }) {
-//   const data = await getData(params.productId);
-//   return (
-//     <main className="bg-zinc-100">
-//       <ProductPage product={data} />
-//     </main>
-//   );
-// }
-
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ productId: string }>;
-}) {
+// --- Page Component ---
+export default async function Page({ params }: PageProps) {
   const { productId } = await params;
-  const data = await getData(productId);
+
+  const slugId = extractSlugId(productId);
+  const dataResponse = await getProductData(slugId);
+  const productData = dataResponse.data;
 
   return (
-    <main className="bg-zinc-100">
-      <ProductPage product={data} />
+    <main>
+      <ProductPage product={productData} />
     </main>
   );
 }

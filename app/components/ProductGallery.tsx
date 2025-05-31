@@ -1,47 +1,68 @@
 "use client";
-import React, { useState } from "react";
-// import "./ProductGallery.css";
+import React, { useState, useMemo } from "react";
+
+type ProductImage = {
+  id: string;
+  live_url: string;
+  local_url: string;
+  inventory_id: string;
+  created_at: {
+    seconds: number;
+  };
+  updated_at: {
+    seconds: number;
+  };
+};
 
 interface ProductGalleryProps {
-  images: string[];
+  images: ProductImage[];
 }
 
 const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Derive the currently active image for clearer rendering
+  const activeImage = useMemo(() => {
+    return images[activeIndex];
+  }, [activeIndex, images]);
+
+  if (!images || images.length === 0) {
+    return (
+      <div className="text-center text-gray-500 py-10">
+        No images available.
+      </div>
+    );
+  }
+
   return (
     <div>
       {/* Main Image Area */}
-      <div className="relative w-full h-[300px] md:h-[400px] bg-gray-100 overflow-hidden mb-4 rounded">
-        {images.map((img, idx) => (
-          <div
-            key={idx}
-            className={`gallery-slide  ${idx === activeIndex ? "active" : ""} `}
-          >
-            <img
-              src={img}
-              alt={`Image ${idx}`}
-              className="h-full w-full object-cover"
-            />
-          </div>
-        ))}
+      <div className="relative w-full h-[330px] md:h-[550px] bg-gray-100 overflow-hidden mb-4 rounded">
+        {activeImage && (
+          <img
+            src={activeImage.live_url}
+            alt={`Product Image ${activeIndex + 1}`}
+            className="h-full w-full object-cover transition-opacity duration-300 ease-in-out"
+          />
+        )}
       </div>
 
       {/* Thumbnails */}
       <div className="flex gap-3 overflow-x-auto flex-nowrap">
         {images.map((img, idx) => (
           <button
-            key={idx}
+            key={img.id} // Use a unique ID for the key if available, otherwise fall back to idx
             onClick={() => setActiveIndex(idx)}
-            className={`border rounded min-w-20 w-20 h-20   overflow-hidden   ${
+            className={`border rounded min-w-20 w-20 h-20 overflow-hidden ${
               activeIndex === idx
-                ? "border-orange-400 "
+                ? "border-orange-400"
                 : "border-transparent hover:border-gray-300"
             }`}
+            aria-label={`View image ${idx + 1}`} // Added for accessibility
           >
             <img
-              src={img}
-              alt={`Thumb ${idx + 1}`}
+              src={img.live_url}
+              alt={`Thumbnail ${idx + 1}`}
               className="w-full h-full object-cover"
             />
           </button>

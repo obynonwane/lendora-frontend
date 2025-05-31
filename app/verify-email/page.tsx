@@ -69,7 +69,7 @@ function Page({
       setEmail("");
       toast.success("Email sent", toastOptions);
 
-      // navigate("/dashboard");
+      router.push("/login");
     } catch (errors: unknown) {
       if (errors instanceof yup.ValidationError) {
         // Handle Yup validation errors
@@ -139,7 +139,7 @@ function Page({
       }
     };
     verifyEmail();
-  }, [router, token]);
+  }, [router, toastOptions, token]);
 
   return (
     <main className="flex justify-center flex-col md:h-screen items-center p-5 overflow-y-auto">

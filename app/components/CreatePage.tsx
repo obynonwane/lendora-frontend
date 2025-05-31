@@ -37,8 +37,9 @@ function CreatePage() {
   const [selectedState, setSelectedState] = useState<State_TYPE | null>(null);
   const [selectedLGA, setSelectedLGA] = useState<LGA_TYPE | null>(null);
 
-  const [states, setStates] = useState<State_TYPE[]>([]);
+  const [price, setPrice] = useState("");
   const [lgas, setLGAs] = useState<LGA_TYPE[]>([]);
+  const [states, setStates] = useState<State_TYPE[]>([]);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -49,6 +50,16 @@ function CreatePage() {
 
   const titleMaxLength = 60;
   const descriptionMaxLength = 800;
+
+  const formatNumber = (value: string): string => {
+    const num = value.replace(/\D/g, ""); // Remove non-numeric characters
+    return num.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Add commas
+  };
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const rawValue = e.target.value;
+    setPrice(formatNumber(rawValue));
+  };
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -153,12 +164,22 @@ function CreatePage() {
     setLoading(true);
 
     const validationSchema = yup.object().shape({
-      title: yup.string().required(),
-      description: yup.string().required(),
+      title: yup.string().required("Title is required"),
+
+      price: yup
+        .string()
+        .required("Price is required")
+        .test("is-valid-price", "Price must be a valid number", (value) => {
+          if (!value) return false;
+          const numericValue = value.replace(/,/g, "");
+          return !isNaN(Number(numericValue)) && Number(numericValue) > 0;
+        }),
+      description: yup.string().min(100).required("Description is required"),
     });
 
     const data = {
       title,
+      price: price.replace(/,/g, ""),
       description,
     };
 
@@ -176,9 +197,10 @@ function CreatePage() {
         selectedSubCategory?.id?.toString() ?? ""
       );
       formData.append("state_id", selectedState?.id?.toString() ?? "");
-      formData.append("country_id", "f07d063c-4626-4c06-abd4-c33aa61509e9");
       formData.append("lga_id", selectedLGA?.id?.toString() ?? "");
       formData.append("name", title);
+      formData.append("offer_price", price.replace(/,/g, ""));
+      formData.append("country_id", "b0f29346-d996-4993-8f50-8bf22769a925");
       formData.append("description", description);
       if (primaryImage) {
         formData.append("images", primaryImage);
@@ -200,11 +222,28 @@ function CreatePage() {
 
       console.log(response.data);
       setLoading(false);
+      toast.success("Listing Created Successfully!", toastOptions);
+
       // setStep(3)
       // formData.append("price", price.toString());
     } catch (errors: unknown) {
       if (errors instanceof yup.ValidationError) {
-        // handle validation error...
+        console.log(errors);
+        // Handle Yup validation errors
+        const validationErrors: Record<string, string> = {};
+        const error = errors.inner[0];
+
+        if (error && error.path) {
+          // Ensure error.path is defined before using it as an index
+          validationErrors[error.path] = error.message;
+
+          // Display the first error
+          toast.error(error.message, toastOptions);
+        } else {
+          toast.error("An unknown validation error occurred.", toastOptions);
+        }
+
+        setLoading(false);
       } else {
         if (
           typeof errors === "object" &&
@@ -349,12 +388,15 @@ function CreatePage() {
     );
   }
   return (
-    <div className="p-5 text-sm">
+    <div className="p-5 text-sm min-h-[calc(100vh-3.5rem)] ">
       {step !== 3 && (
         <section className="max-w-lg w-full mb-3 rounded mx-auto bg-white p-3 flex  ">
           {step === 2 && (
             <span
-              onClick={() => setStep(1)}
+              onClick={() => {
+                setLoading(false);
+                setStep(1);
+              }}
               className="text-sm flex items-center mr-auto justify-center cursor-pointer"
             >
               {" "}
@@ -410,7 +452,24 @@ function CreatePage() {
               id="title"
               value={title}
               onChange={handleTitleChange}
-              className="border border-gray-300 px-2 py-3 rounded w-full"
+              className="border border-slate-400 px-2 py-3 rounded w-full"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="title"
+              className="mb-2 mt-2 flex w-full justify-between items-center"
+            >
+              <span>Price</span>
+            </label>
+            <input
+              type="text"
+              id="price"
+              value={price}
+              className="border border-slate-400 px-2 py-3 rounded w-full"
+              // className="currency-input appearance-none border-r border-y rounded-r-md  w-full py-3 px-3 bg-white text-gray-500 leading-tight focus:outline-none"
+              placeholder="Price"
+              onInput={handleAmountChange}
             />
           </div>
 
@@ -428,7 +487,7 @@ function CreatePage() {
               id="description"
               value={description}
               onChange={handleDescriptionChange}
-              className="border border-gray-300 h-40  p-2 rounded w-full"
+              className="border border-slate-400 h-40  p-2 rounded w-full"
             />
           </div>
 
@@ -584,6 +643,7 @@ function CreatePage() {
                       );
                       if (selected) {
                         setSelectedState(selected);
+                        setSelectedLGA(null);
                       }
                     }}
                   >

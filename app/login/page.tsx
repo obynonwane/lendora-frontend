@@ -17,10 +17,8 @@ type StepState =
   | "resend-verification-email";
 
 function Page() {
-  const [email, setEmail] = useState("chibuikennaji306+lendora2@gmail.com");
-  const [password, setPassword] = useState(
-    "chibuikennaji306+lendora2@gmail.com"
-  );
+  const [email, setEmail] = useState("chibuikennaji306@gmail.com");
+  const [password, setPassword] = useState("@Password2020");
 
   const { refreshAuth } = useAuth();
 
@@ -195,7 +193,7 @@ function Page() {
   };
 
   return (
-    <main className="flex justify-center md:h-screen items-center p-5 md:mt-0 mt-8 overflow-y-auto">
+    <main className="flex justify-center  items-center p-5 mt-10  overflow-y-auto">
       {step === "login-form" && (
         <form className=" w-full md:w-[400px]" onSubmit={login}>
           <Link className=" " href="/">
