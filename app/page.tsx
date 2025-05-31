@@ -9,6 +9,7 @@ import useSWRInfinite from "swr/infinite";
 // import CategoryList from "./CategoryList";
 // import HomepageHero from "./components/HomepageHero";
 import ProductCard from "./components/ProductCard";
+import HomepageSlider from "./components/HomepageSlider";
 const PAGE_SIZE = 5;
 
 function Home() {
@@ -99,8 +100,8 @@ function Home() {
         <main className="">
           {/* <HomepageHero isHomepage /> */}
 
-          <div className="bg-gradient-to-br from-orange-500 to-red-500  min-h-[500px] flex items-center justify-center banner"></div>
-
+          {/* <div className="bg-gradient-to-br from-orange-500 to-red-500  min-h-[500px] flex items-center justify-center banner"></div> */}
+          <HomepageSlider />
           <section className="bg-white w-full pt-10 max-w-7xl mx-auto">
             {/* <div className="lg:w-[20%] w-full lg:pl-3 lg:sticky z-30 lg:top-20 self-start">
             </div> */}

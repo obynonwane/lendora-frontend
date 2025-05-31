@@ -57,7 +57,7 @@ function Sidebar({ categoryData }: { categoryData: Category_TYPE }) {
 
   if (!subCategories || subCategories.length === 0) {
     return (
-      <div className=" text-center  w-full mb-5   py-20 flex justify-center">
+      <div className=" text-center  w-full mb-5   py-10 flex justify-center">
         {" "}
         <svg
           aria-hidden="true"
@@ -83,7 +83,7 @@ function Sidebar({ categoryData }: { categoryData: Category_TYPE }) {
       {/* <h1 className="mb-2 pl-1 border-l-4 border-l-orange-400 bg-orange-50 p-1">
         {categoryData.name}
       </h1> */}
-      <div className="w-full text-sm rounded bg-white block lg:grid grid-cols-12 gap-x-5 gap-y-7  relative lg:border mb-10">
+      <div className="w-full text-sm rounded bg-white grid  grid-cols-12 gap-3 lg:gap-0  relative lg:border mb-5">
         {subCategories?.map((category) => (
           // categories
           <Link
@@ -95,7 +95,7 @@ function Sidebar({ categoryData }: { categoryData: Category_TYPE }) {
               selectedSubCategory === category.subcategory_slug
                 ? "font-semibold"
                 : " text-slate-700"
-            } flex items-center gap-3 lg:col-span-12 col-span-6 hover:bg-zinc-100 border-t group cursor-pointer  px-3 py-2 rounded`}
+            } flex items-center gap-3 lg:col-span-12 col-span-6 first:border-0 hover:bg-zinc-100 lg:bg-white bg-zinc-100 lg:border-t group cursor-pointer  px-3 py-2 rounded`}
           >
             <span className="w-7 h-7 flex-shrink-0 flex items-center justify-center bg-zinc-100 rounded">
               <i
