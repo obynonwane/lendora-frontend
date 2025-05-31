@@ -3,7 +3,7 @@ import { useAuth } from "../auth-context";
 import Link from "next/link";
 import Image from "next/image";
 import logoIcon from "../../images/logo-icon.png";
-import HomepageHero from "./HomepageHero";
+import Search from "./Search";
 import CategoryList from "./CategoryList";
 
 export default function Header() {
@@ -27,7 +27,7 @@ export default function Header() {
         </Link>
         {/* <span className="lg:hidden w-1/2"></span> */}
         <div className="lg:flex-1 lg:order-1 order-4  header-search-container relative lg:pt-0 pt-2 mt-2 lg:mt-0 w-full">
-          <HomepageHero />
+          <Search />
         </div>
         {!isAuthChecked ? (
           <span className="w-32 py-5 rounded bg-zinc-100 animate-pulse order-2 lg:order-3"></span>

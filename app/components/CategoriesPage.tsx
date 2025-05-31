@@ -86,7 +86,7 @@ function Category({ categoryData }: { categoryData: Category_TYPE }) {
   }, [isReachingEnd, isLoadingMore, setSize]);
 
   return (
-    <section className="bg-white w-full pt-10 flex flex-wrap max-w-7xl mx-auto px-3">
+    <section className="bg-white w-full lg:pt-10 pt-5 flex flex-wrap max-w-7xl mx-auto px-3">
       <div className="w-full lg:mb-10 mb-5">
         <h3 className="text-xl font-semibold capitalize">
           Rent {subcategory_id ? subcategory_id : categoryData.name}
@@ -106,7 +106,7 @@ function Category({ categoryData }: { categoryData: Category_TYPE }) {
         <section className="bg-white w-full max-w-7xl mx-auto">
           {/* <div className="lg:w-[20%] w-full lg:pl-3 lg:sticky z-30 lg:top-20 self-start">
             </div> */}
-          <div className="lgg:w-[80%] w-full  lg:pl-5 rounded px-3 grid grid-cols-12 gap-x-5 gap-y-7">
+          <div className="lgg:w-[80%] w-full  lg:pl-5 rounded  grid grid-cols-12 gap-x-5 gap-y-7">
             <>
               {error && (
                 <p className="text-red-500 col-span-12">
