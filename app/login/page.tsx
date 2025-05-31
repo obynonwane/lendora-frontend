@@ -193,7 +193,7 @@ function Page() {
   };
 
   return (
-    <main className="flex justify-center md:h-screen items-center p-5 md:mt-0 mt-8 overflow-y-auto">
+    <main className="flex justify-center  items-center p-5 mt-10  overflow-y-auto">
       {step === "login-form" && (
         <form className=" w-full md:w-[400px]" onSubmit={login}>
           <Link className=" " href="/">

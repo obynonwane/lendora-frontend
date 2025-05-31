@@ -5,6 +5,7 @@ import { IoLocation } from "react-icons/io5";
 import ProductGallery from "./ProductGallery";
 import { RiUserSmileFill } from "react-icons/ri";
 import useSWRInfinite from "swr/infinite";
+import Link from "next/link";
 const PAGE_SIZE = 5;
 
 export interface InventoryUserResponse {
@@ -125,7 +126,7 @@ function ProductPage({ product }: { product: InventoryUserResponse }) {
       {/* Two Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left: Image + Info */}
-        <div className="lg:col-span-2 bg-white  border p-3 rounded">
+        <div className="lg:col-span-2 bg-white   lg:pt-3 rounded">
           {/* <img
             src="https://cdn.dribbble.com/userupload/14784546/file/still-f6768b0524bebb144d9b51aa25531b7a.png?format=webp&resize=400x300&vertical=center"
             // src={product.image}
@@ -174,11 +175,12 @@ function ProductPage({ product }: { product: InventoryUserResponse }) {
             </div>
 
             <div className=" bg-white p-3 rounded  mt-5 border">
-              <button
+              <Link
+                href={`/create`}
                 className={`flex w-full justify-center rounded font-semibold border border-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg hover:text-white text-sm shadow text-orange-400  py-2 `}
               >
                 Post an Ad like this!
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,132 +1,157 @@
 "use client";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
+
+// import axios from "axios";
 import { Category_TYPE, SubCategory_TYPE } from "../types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+// import buildFilteredQueryString from "../utils/buildFilteredQueryString";
+import { usePathname } from "next/navigation";
+import { IoMenu } from "react-icons/io5";
+import { localCategories } from "../categories";
+import { RxCaretDown } from "react-icons/rx";
+import { RiCloseLine } from "react-icons/ri";
 
-function CategoryList() {
+function CategoryList({ isMobileOnly }: { isMobileOnly: boolean }) {
   const router = useRouter();
+  const pathname = usePathname();
 
-  const [loading, setLoading] = useState<boolean>(false);
-  const [categories, setCategories] = useState<Category_TYPE[] | null>([]);
-  const [isShowMobleCategorySelectModal, setIsShowMobleCategorySelectModal] =
-    useState(false);
-  const [subCategories, setSubCategories] = useState<SubCategory_TYPE[]>([]);
-  const [isGetingSubCategories, setIsGetingSubCategories] = useState(false);
-  //   const [hovered, setHovered] = useState<Category_TYPE | null>(null);
+  // const [loading, setLoading] = useState<boolean>(false);
+  // const [categories, setCategories] = useState<Category_TYPE[] | null>([]);
+  const categories: Category_TYPE[] = localCategories;
+  // const [isShowMobleCategorySelectModal, setIsShowMobleCategorySelectModal] =
+  //   useState(false);
+  // const [subCategories, setSubCategories] = useState<SubCategory_TYPE[]>([]);
+  // const [isGetingSubCategories, setIsGetingSubCategories] = useState(false);
   const [selectedCategoryForMobile, setSelectedCategoryForMobile] =
     useState<Category_TYPE | null>(null);
 
-  //   useEffect(() => {
-  const fetchSubcategories = async (id: string) => {
-    setIsGetingSubCategories(true);
+  // const state_id = searchParams.get("state_id") || "";
+  // const lga_id = searchParams.get("lga_id") || "";
+  // const category_id = searchParams.get("category_id") || "";
+  // const subcategory_id = searchParams.get("subcategory_id") || "";
+  // const s = searchParams.get("s") || "";
+  const [isOpenAllcategoriesModal, setIsOpenAllcategoriesModal] =
+    useState(false);
 
-    try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/inventory/category/subcategory/${id}`
-      );
-      // setTimeout(() => {
-      setSubCategories(response.data.data);
-      setIsGetingSubCategories(false);
-      // }, 5000);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        // setError(err.message || "Failed to fetch LGAs");
-      } else {
-        // setError("Failed to fetch LGAs");
-      }
-    } finally {
-      setLoading(false);
-    }
+  // function useScreenWidth() {
+  //   const [screenWidth, setScreenWidth] = useState(
+  //     typeof window !== "undefined" ? window.innerWidth : 0
+  //   );
+
+  //   useEffect(() => {
+  //     const handleResize = () => setScreenWidth(window.innerWidth);
+  //     window.addEventListener("resize", handleResize);
+  //     return () => window.removeEventListener("resize", handleResize);
+  //   }, []);
+
+  //   return screenWidth;
+  // }
+  // console.log(useScreenWidth());
+  const handleSubCategoryCLick = (
+    sub_category: SubCategory_TYPE,
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    // setIsShowMobleCategorySelectModal(false);
+    e.stopPropagation(); // prevent bubbling
+    e.preventDefault(); // prevent link navigation
+
+    // const rawQuery: Record<string, string | number | undefined | null> = {
+    //   category_id: selectedCategoryForMobile?.category_slug,
+    //   subcategory_id: sub_category.id,
+    //   state_id,
+    //   lga_id,
+    //   s,
+    // };
+
+    // const queryString = buildFilteredQueryString(rawQuery);
+    // router.push(`/?${queryString}`);
+    router.push(
+      `/categories/${selectedCategoryForMobile?.category_slug}?subcategory_id=${sub_category.subcategory_slug}`
+    );
+    setIsOpenAllcategoriesModal(false);
+    // console.log(queryString, "queryString");
   };
 
-  // fetchSubcategories(hovered?.id);
-  //   }, [hovered, selectedCategoryForMobile]);
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     setLoading(true);
 
-  useEffect(() => {
-    const fetchStates = async () => {
-      setLoading(true);
+  //     try {
+  //       const response = await axios.get(
+  //         `${process.env.NEXT_PUBLIC_SERVER_URL}/inventory/all-categories`
+  //       );
+  //       console.log(response.data.data, "response");
+  //       setCategories(response.data.data);
+  //     } catch (err: unknown) {
+  //       if (err instanceof Error) {
+  //       } else {
+  //       }
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/inventory/all-categories`
-        );
-        console.log(response.data.data, "response");
-        setCategories(response.data.data);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          // setError(err.message || "Failed to fetch categories");
-        } else {
-          // setError("Failed to fetch states");
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
+  //   fetchCategories();
+  // }, []);
 
-    fetchStates();
-  }, []);
-
-  const mobileCategoryModal = () => (
-    <>
-      <div
-        onClick={() => setIsShowMobleCategorySelectModal(false)}
-        className="fixed lg:hidden block z-[299] cursor-pointer inset-0 bg-black/50"
-      ></div>
-      <div className="bg-[#EBF2F7] z-[300] fixed lendora-modal top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[400px] h-[90%] md:h-[80%] overflow-x-hidden rounded-md">
-        <div className=" w-full h-full bg-white rounded border">
-          {/* hello {category.name} */}
-          {isGetingSubCategories ? (
-            // subcategories loader
-            <>
-              <div className=" text-center  pt-10 flex justify-center">
-                {" "}
-                <svg
-                  aria-hidden="true"
-                  className="w-5 h-5 text-gray-200 animate-spin dark:text-gray-400 fill-orange-400"
-                  viewBox="0 0 100 101"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                    fill="currentFill"
-                  />
-                </svg>
-              </div>
-            </>
-          ) : (
-            // sub categories list
-            <>
-              {subCategories.map((sub_category) => (
-                <Link
-                  href={`/catalog?category-id=${selectedCategoryForMobile?.id}&sub_category_id=${sub_category.id}`}
-                  key={sub_category.id}
-                  className={`flex border-t  items-center gap-2 cursor-pointer hover:bg-gray-100 px-3 py-2 rounded`}
-                >
-                  <span className="w-5 h-5 flex-shrink-0 bg-zinc-200 rounded"></span>{" "}
-                  <span className="whitespace-nowrap overflow-hidden text-ellipsis">
-                    {sub_category.name}{" "}
-                  </span>
-                </Link>
-              ))}
-            </>
-          )}
-        </div>
-      </div>
-    </>
-  );
-
-  return (
-    <aside className="w-full text-sm rounded bg-white  relative lg:border mb-10">
-      {/* desktop only */}
-      <div className="hidden lg:block min-h-60">
-        {loading ? (
+  // const mobileCategoryModal = () => (
+  //   <>
+  //     <div
+  //       onClick={() => setIsShowMobleCategorySelectModal(false)}
+  //       className="fixed lg:hidden block z-[299] cursor-pointer inset-0 bg-black/50"
+  //     ></div>
+  //     <div className="bg-[#EBF2F7] z-[300] fixed lendora-modal top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[400px] h-[90%] md:h-[80%] overflow-x-hidden rounded-md">
+  //       <div className=" w-full h-full bg-white rounded border">
+  //         {isGetingSubCategories ? (
+  //           <>
+  //             <div className=" text-center  pt-10 flex justify-center">
+  //               {" "}
+  //               <svg
+  //                 aria-hidden="true"
+  //                 className="w-5 h-5 text-gray-200 animate-spin dark:text-gray-400 fill-orange-400"
+  //                 viewBox="0 0 100 101"
+  //                 fill="none"
+  //                 xmlns="http://www.w3.org/2000/svg"
+  //               >
+  //                 <path
+  //                   d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+  //                   fill="currentColor"
+  //                 />
+  //                 <path
+  //                   d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+  //                   fill="currentFill"
+  //                 />
+  //               </svg>
+  //             </div>
+  //           </>
+  //         ) : (
+  //         <>
+  //           {subCategories.map((sub_category) => (
+  //             <Link
+  //               href={`/catalog?category-id=${selectedCategoryForMobile?.id}&sub_category_id=${sub_category.id}`}
+  //               key={sub_category.id}
+  //               className={`flex border-t  items-center gap-2 cursor-pointer hover:bg-gray-100 px-3 py-2 rounded`}
+  //             >
+  //               <span className="w-5 h-5 flex-shrink-0 bg-zinc-200 rounded"></span>{" "}
+  //               <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+  //                 {sub_category.name}{" "}
+  //               </span>
+  //             </Link>
+  //           ))}
+  //         </>
+  //          )}
+  //       </div>
+  //     </div>
+  //   </>
+  // );
+  if (isMobileOnly) {
+    return (
+      <aside className="w-full text-sm rounded bg-white mb-10  relative  ">
+        <h3 className="text-xl text-slate-900 mb-3 lg:pl-0 pl-3">Categories</h3>
+        {/* modal to select sub category for mobile */}
+        {/* <> {isShowMobleCategorySelectModal && mobileCategoryModal()}</> */}
+        {/* {loading ? (
           <div className=" text-center  w-full mb-5   py-20 flex justify-center">
             {" "}
             <svg
@@ -146,148 +171,232 @@ function CategoryList() {
               />
             </svg>
           </div>
-        ) : (
-          <>
-            {categories?.map((category) => (
-              // categories
-              <Link
-                // onClick={() =>
-                //   router.push(`/categories/${category.category_slug}`)
-                // }
-                href={`/categories/${category.category_slug}`}
-                key={category.id + category.name}
-                className={`flex items-center gap-3 hover:bg-zinc-100 border-t group cursor-pointer  px-3 py-2 rounded`}
-                onMouseEnter={() => {
-                  //   console.log(category);
-                  //   setHovered(category);
-                  fetchSubcategories(category?.id);
-                }}
-              >
-                <span className="w-7 h-7 flex-shrink-0 flex items-center justify-center bg-zinc-100 rounded">
+        ) : ( */}
+        <div className=" flex overflow-x-auto gap-5 text-slate-700 lg:pl-0 pl-3 ">
+          {categories?.map((category) => (
+            // categories
+            <div
+              onClick={() =>
+                router.push(`/categories/${category.category_slug}`)
+              }
+              key={category.id + category.name}
+              className={`flex flex-col col-span-4  items-center gap-2    group cursor-pointer   rounded`}
+              // onClick={() => {
+              //   console.log(category);
+              //   //   setHovered(category);
+              //   // set selected category for mobile
+              //   setSelectedCategoryForMobile(category);
+              //   // open modal
+              //   fetchSubcategories(category?.id);
+              //   setIsShowMobleCategorySelectModal(true);
+              // }}
+            >
+              <span className="w-32 h-20 flex-shrink-0 flex items-center justify-center bg-orange-50 rounded">
+                <i
+                  className={`${category.icon_class} group-hover:animate-bounce  text-3xl text-orange-400`}
+                ></i>
+              </span>{" "}
+              <span className="text-center  text-sm">
+                {/* <span className="lg:whitespace-nowrap lg:overflow-hidden lg:text-ellipsis"> */}
+                {category.name}{" "}
+              </span>
+            </div>
+          ))}
+        </div>
+        {/* )} */}
+      </aside>
+    );
+  }
+  return (
+    <section className="lg:w-full text-sm rounded lg:bg-white   relative  category-list  ">
+      {/* desktop only */}
+      <div className=" overflow-x-auto  flex ">
+        {/* {loading ? (
+          <div className=" text-center  w-full mb-5   py-4 flex justify-center">
+            {" "}
+            <svg
+              aria-hidden="true"
+              className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-400 fill-orange-400"
+              viewBox="0 0 100 101"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                fill="currentColor"
+              />
+              <path
+                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                fill="currentFill"
+              />
+            </svg>
+          </div>
+        ) : ( */}
+        <>
+          {/* all categories button */}
+          <div
+            className=" group/categories"
+            onMouseEnter={() => setIsOpenAllcategoriesModal(true)}
+            onMouseLeave={() => {
+              setIsOpenAllcategoriesModal(false);
+              // setHoveredCategory(null);
+            }}
+          >
+            <button
+              className="flex items-center relative gap-3  cursor-pointer lg:py-2 lg:pr-2 "
+              // onClick={() => alert("e")}
+              // onClick={(e) => console.log(e)}
+            >
+              <span className="whitespace-nowrap flex items-center gap-2">
+                <IoMenu className="lg:text-xl text-3xl" />
+                <span className="hidden lg:block"> All Categories</span>
+              </span>
+            </button>
+
+            {/* Categories Dropdown */}
+            {isOpenAllcategoriesModal && (
+              <>
+                <div className="bg-white fixed h-screen w-screen bottom-0 top-0 left-0 right-0 z-40 lg:hidden flex "></div>
+                <></>
+                <div className="lg:absolute fixed top-0 lg:top-full lg:bottom-px bottom-0  left-0 lg:right-px right-0 z-50 hidden lg:w-[300px] bg-white group-hover/categories:block shadow-md">
+                  <h3 className="text-lg lg:hidden flex pt-2 justify-between items-center px-3 font-medium text-slate-900 mb-2">
+                    All Categories
+                    <RiCloseLine
+                      onClick={() => {
+                        setIsOpenAllcategoriesModal(false);
+                        // setHoveredCategory(null);
+                      }}
+                    />
+                  </h3>
+                  {categories?.map((category) => (
+                    <div
+                      key={category.id}
+                      className=" group/category "
+                      onMouseEnter={() =>
+                        setSelectedCategoryForMobile(category)
+                      }
+                    >
+                      <Link
+                        href={`/categories/${category.category_slug}`}
+                        onNavigate={() => {
+                          setIsOpenAllcategoriesModal(false);
+                        }}
+                        className={`flex  items-center gap-3 border-t px-3 py-2 hover:bg-zinc-100 bg-white ${
+                          pathname.includes(
+                            `/categories/${category.category_slug}`
+                          )
+                            ? "text-orange-400"
+                            : ""
+                        }`}
+                      >
+                        <span className="w-7 h-7 flex items-center justify-center bg-zinc-100 rounded">
+                          <i
+                            className={`${category.icon_class} text-[0.8rem] text-gray-500`}
+                          ></i>
+                        </span>
+                        <span className="whitespace-nowrap">
+                          {category.name}
+                        </span>
+
+                        <span className="ml-auto lg:hidden">
+                          <RxCaretDown className="text-base" />
+                        </span>
+                      </Link>
+
+                      {/* Subcategories Panel */}
+                      <div className="lg:absolute lg:inset-y-0 lg:left-full z-50 hidden lg:min-w-[200px] bg-white h-full group-hover/category:block lg:border-x  ">
+                        <div className="">
+                          {" "}
+                          <>
+                            {category.subcategories.map((sub_category) => (
+                              <div
+                                onClick={(e) =>
+                                  handleSubCategoryCLick(sub_category, e)
+                                }
+                                key={sub_category.id}
+                                className={`flex border-t  items-center gap-2 cursor-pointer hover:bg-gray-100 bg-white px-3 py-2 `}
+                              >
+                                <span className="w-7 h-7 flex-shrink-0 flex items-center justify-center bg-zinc-100 rounded">
+                                  <i
+                                    className={`${sub_category.icon_class}  text-[0.8rem] text-gray-500`}
+                                  ></i>
+                                </span>{" "}
+                                <span className="text-slate-700">
+                                  {/* <span className="whitespace-nowrap overflow-hidden text-ellipsis"> */}
+                                  {sub_category.name}{" "}
+                                </span>
+                                {/* <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+                              {sub_category.name}{" "}
+                            </span> */}
+                              </div>
+                            ))}
+                          </>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+
+          {categories?.slice(0, 6).map((category) => (
+            // categories
+            <Link
+              href={`/categories/${category.category_slug}`}
+              key={category.id + category.name}
+              className={`lg:flex hidden items-center gap-3 ${
+                pathname.includes(`/categories/${category.category_slug}`)
+                  ? "text-orange-400"
+                  : ""
+              }  hover:bg-zinc-100 group cursor-pointer  px-3 py-2 `}
+              onMouseEnter={() => {
+                // console.log(category);
+                setSelectedCategoryForMobile(category);
+                //   setHovered(category);
+                // fetchSubcategories(category?.id);
+              }}
+            >
+              {/* <span className="w-7 h-7 flex-shrink-0 flex items-center justify-center bg-zinc-100 rounded">
                   <i
                     className={`${category.icon_class}  text-[0.8rem] text-gray-500`}
                   ></i>
-                </span>{" "}
-                <span className="whitespace-nowrap overflow-hidden text-ellipsis">
-                  {category.name}{" "}
-                </span>
-                <section className="pl-2 absolute left-[100%] top-0 w-52 h-full lg:group-hover:block hidden ">
-                  <div className=" w-full h-full bg-white rounded border">
-                    {/* hello {category.name} */}
-                    {isGetingSubCategories ? (
-                      // subcategories loader
-                      <>
-                        <div className=" text-center  pt-10 flex justify-center">
-                          {" "}
-                          <svg
-                            aria-hidden="true"
-                            className="w-5 h-5 text-gray-200 animate-spin dark:text-gray-400 fill-orange-400"
-                            viewBox="0 0 100 101"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                              fill="currentColor"
-                            />
-                            <path
-                              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                              fill="currentFill"
-                            />
-                          </svg>
-                        </div>
-                      </>
-                    ) : (
-                      // sub categories list
-                      <>
-                        {subCategories.map((sub_category) => (
-                          <div
-                            onClick={() =>
-                              router.push(
-                                `/categories/${category.category_slug}?subcategory_id=${sub_category.id}`
-                              )
-                            }
-                            key={sub_category.id}
-                            className={`flex border-t  items-center gap-2 cursor-pointer hover:bg-gray-100 px-3 py-2 rounded`}
-                          >
-                            <span className="w-7 h-7 flex-shrink-0 flex items-center justify-center bg-zinc-100 rounded">
-                              <i
-                                className={`${sub_category.icon_class}  text-[0.8rem] text-gray-500`}
-                              ></i>
-                            </span>{" "}
-                            <span className="whitespace-nowrap overflow-hidden text-ellipsis">
-                              {sub_category.name}{" "}
-                            </span>
-                            {/* <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+                </span>{" "} */}
+              {/* <span className=""> */}
+              <span className="whitespace-nowrap ">{category.name} </span>
+              <section className=" absolute top-full  z-50 min-w-[200px]  lg:group-hover:block hidden ">
+                <div className="  h-full bg-white mt-0 -ml-3   shadow-md">
+                  <>
+                    {category.subcategories.map((sub_category) => (
+                      <div
+                        onClick={(e) => handleSubCategoryCLick(sub_category, e)}
+                        key={sub_category.id}
+                        className={`flex border-t  items-center gap-2 cursor-pointer hover:bg-gray-100 px-3 py-2 `}
+                      >
+                        <span className="w-7 h-7 flex-shrink-0 flex items-center justify-center bg-zinc-100 rounded">
+                          <i
+                            className={`${sub_category.icon_class}  text-[0.8rem] text-gray-500`}
+                          ></i>
+                        </span>{" "}
+                        <span className="text-slate-700">
+                          {/* <span className="whitespace-nowrap overflow-hidden text-ellipsis"> */}
+                          {sub_category.name}{" "}
+                        </span>
+                        {/* <span className="whitespace-nowrap overflow-hidden text-ellipsis">
                               {sub_category.name}{" "}
                             </span> */}
-                          </div>
-                        ))}
-                      </>
-                    )}
-                  </div>
-                </section>
-              </Link>
-            ))}
-          </>
-        )}
+                      </div>
+                    ))}
+                  </>
+                </div>
+              </section>
+            </Link>
+          ))}
+        </>
+        {/* )} */}
       </div>
-
       {/* mobile */}
-      <div className="lg:hidden block">
-        {/* modal to select sub category for mobile */}
-        <> {isShowMobleCategorySelectModal && mobileCategoryModal()}</>
-        {loading ? (
-          <div className=" text-center  w-full mb-5   py-20 flex justify-center">
-            {" "}
-            <svg
-              aria-hidden="true"
-              className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-400 fill-orange-400"
-              viewBox="0 0 100 101"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                fill="currentColor"
-              />
-              <path
-                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                fill="currentFill"
-              />
-            </svg>
-          </div>
-        ) : (
-          <div className="grid grid-cols-12 gap-x-5 ">
-            {categories?.map((category) => (
-              // categories
-              <div
-                // onClick={() =>
-                //   router.push(`/catalog?category-id=${category.id}`)
-                // }
-                key={category.id + category.name}
-                className={`flex flex-col col-span-4  items-center gap-3 hover:bg-zinc-100  group cursor-pointer  px-3 py-2 rounded`}
-                onClick={() => {
-                  console.log(category);
-                  //   setHovered(category);
-                  // set selected category for mobile
-                  setSelectedCategoryForMobile(category);
-                  // open modal
-                  fetchSubcategories(category?.id);
-                  setIsShowMobleCategorySelectModal(true);
-                }}
-              >
-                <span className="w-10 h-10 flex-shrink-0 bg-zinc-200 rounded"></span>{" "}
-                <span className="text-center">
-                  {/* <span className="lg:whitespace-nowrap lg:overflow-hidden lg:text-ellipsis"> */}
-                  {category.name}{" "}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </aside>
+    </section>
   );
 }
 

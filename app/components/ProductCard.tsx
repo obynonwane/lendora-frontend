@@ -19,10 +19,13 @@ function ProductCard({ product }: { product: InventoryItem }) {
           {product.name}{" "}
         </h3>
         <p className=" flex justify-between items-center">
-          <span className="text-lg font-bold text-orange-400">$19.99</span>
+          <span className=" font-semibold text-sm text-orange-400">
+            {" "}
+            ₦{product.offer_price.toLocaleString()}
+          </span>
           <span className="flex items-center text-slate-500">
             <IoLocation className="text-xs" />{" "}
-            <span className="text-xs ">
+            <span className="text-xs text-nowrap">
               {product.state.name}, {product.lga.name}
             </span>
           </span>

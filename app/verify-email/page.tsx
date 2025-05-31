@@ -139,7 +139,7 @@ function Page({
       }
     };
     verifyEmail();
-  }, [router, token]);
+  }, [router, toastOptions, token]);
 
   return (
     <main className="flex justify-center flex-col md:h-screen items-center p-5 overflow-y-auto">

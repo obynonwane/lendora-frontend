@@ -1,15 +1,17 @@
 "use client";
 import CategoryList from "./components/CategoryList";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import useSWRInfinite from "swr/infinite";
+// import { FaFilter } from "react-icons/fa";
+
 // import CategoryList from "./CategoryList";
-import HomepageHero from "./components/HomepageHero";
+// import HomepageHero from "./components/HomepageHero";
 import ProductCard from "./components/ProductCard";
 const PAGE_SIZE = 5;
 
-export default function Home() {
+function Home() {
   const fetcher = async ([url, body]: [string, unknown]) => {
     const res = await fetch(url, {
       method: "POST",
@@ -40,6 +42,7 @@ export default function Home() {
       `${process.env.NEXT_PUBLIC_SERVER_URL}/inventory/search`,
       {
         // country_id: "d147b57a-e5b3-4a6a-a021-a3aa042e0888",
+        // category_slug: stateId,
         state_id: stateId,
         lga_id: lgaId,
         text: query,
@@ -73,69 +76,83 @@ export default function Home() {
       }
     );
 
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current);
+    const currentLoader = loaderRef.current;
+
+    if (currentLoader) {
+      observer.observe(currentLoader);
     }
 
     return () => {
-      if (loaderRef.current) observer.unobserve(loaderRef.current);
+      if (currentLoader) observer.unobserve(currentLoader);
     };
   }, [isReachingEnd, isLoadingMore, setSize]);
-  // if (error) {
-  //   return (
-  //     <div className="w-full h-screen flex items-center justify-center">
-  //       <h1 className="text-red-500 text-2xl">Failed to load products</h1>
-  //     </div>
-  //   );
-  // }
+
   return (
     <>
-      <main className="">
-        <HomepageHero isHomepage />
-
-        <section className="bg-white w-full pt-10 flex flex-wrap max-w-7xl mx-auto">
-          <div className="lg:w-[20%] w-full lg:pl-3 lg:sticky lg:top-20 self-start">
-            <CategoryList />
+      <Suspense
+        fallback={
+          <div className="w-full h-screen flex items-center justify-center">
+            Loading...
           </div>
-          {/* <div className="lg:w-[80%] w-full lg:pl-5 rounded px-3 grid grid-cols-12 gap-x-5 gap-y-7">
-            {[...Array(50)].map((_, index) => (
-              <ProductCard key={index} />
-            ))}
-          </div> */}
+        }
+      >
+        <main className="">
+          {/* <HomepageHero isHomepage /> */}
 
-          <div className="lg:w-[80%] w-full lg:pl-5 rounded px-3 grid grid-cols-12 gap-x-5 gap-y-7">
-            <>
-              {error && (
-                <p className="text-red-500 col-span-12">
-                  Failed to load results.
-                </p>
-              )}
+          <div className="bg-gradient-to-br from-orange-500 to-red-500  min-h-[500px] flex items-center justify-center banner"></div>
 
-              {results.length === 0 && !isLoading ? (
-                <p className="col-span-12">No results found.</p>
-              ) : (
-                <>
-                  {results.map((item, index) => (
-                    <ProductCard product={item} key={index} />
-                  ))}
-                </>
-              )}
+          <section className="bg-white w-full pt-10 max-w-7xl mx-auto">
+            {/* <div className="lg:w-[20%] w-full lg:pl-3 lg:sticky z-30 lg:top-20 self-start">
+            </div> */}
+            <CategoryList isMobileOnly={true} />
+            <div className="lgg:w-[80%] w-full  lg:pl-5 rounded px-3 grid grid-cols-12 gap-x-5 gap-y-7">
+              {/* <div className="  flex z-10 col-span-12 sticky bg-white top-[57px] p-2 justify-end">
+                <span className="flex gap-2 text-slate-600 items-center justify-center">
+                  <FaFilter />
+                  Filter
+                </span>
+              </div> */}
+              <>
+                {error && (
+                  <p className="text-red-500 col-span-12">
+                    Failed to load results.
+                  </p>
+                )}
 
-              {/* Infinite Scroll Loader Trigger */}
-              <div
-                ref={loaderRef}
-                className="h-10 my-3 flex justify-center items-center col-span-12"
-              >
-                {!isReachingEnd && isValidating && <p>Loading...</p>}
-              </div>
-            </>
+                {results.length === 0 && !isLoading ? (
+                  <p className="col-span-12">No results found.</p>
+                ) : (
+                  <>
+                    {results.map((item, index) => (
+                      <ProductCard product={item} key={index} />
+                    ))}
+                  </>
+                )}
 
-            {/* {[...Array(50)].map((_, index) => (
+                {/* Infinite Scroll Loader Trigger */}
+                <div
+                  ref={loaderRef}
+                  className="h-10 my-3 flex justify-center items-center col-span-12"
+                >
+                  {!isReachingEnd && isValidating && <p>Loading...</p>}
+                </div>
+              </>
+
+              {/* {[...Array(50)].map((_, index) => (
             <ProductCard key={index} />
           ))} */}
-          </div>
-        </section>
-      </main>
+            </div>
+          </section>
+        </main>
+      </Suspense>
     </>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={<div>Loading search...</div>}>
+      <Home />
+    </Suspense>
   );
 }

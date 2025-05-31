@@ -4,7 +4,6 @@ import React, { Suspense, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import useSWRInfinite from "swr/infinite";
 // import CategoryList from "./CategoryList";
-import HomepageHero from "./HomepageHero";
 import ProductCard from "./ProductCard";
 const PAGE_SIZE = 10;
 
@@ -84,8 +83,6 @@ function Search() {
 
   return (
     <main className="">
-      <HomepageHero isHomepage={false} />
-
       {/* <h1 className="text-xl font-semibold mb-4 col text-center -mt-10 z-30">
         Search: {query}
       </h1> */}

@@ -38,7 +38,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${dmSans.variable} ${geistMono.variable} ${dmSans.className} antialiased bg-white`}
+        className={`${dmSans.variable} ${geistMono.variable} ${dmSans.className} antialiased bg-white `}
       >
         <AuthProvider>
           <Header />

@@ -1,52 +1,59 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import LocationSelectModal from "./LocationSelectModal";
-import { FaCaretDown } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import { useRouter, useSearchParams } from "next/navigation";
-
-type State = {
-  id: string;
-  name: string;
-};
+import buildFilteredQueryString from "../utils/buildFilteredQueryString";
+import { IoLocationSharp } from "react-icons/io5";
 
 type LGA = {
   id: string;
   name: string;
+  lga_slug: string;
 };
 
-export default function Home({ isHomepage }: { isHomepage: boolean }) {
+type State = {
+  id: string;
+  name: string;
+  state_slug: string;
+  lgas: LGA[];
+};
+
+function Home() {
   const inputRef = useRef<HTMLInputElement>(null);
   const searchParams = useSearchParams();
   const state_id = searchParams.get("state_id") || "";
   const lga_id = searchParams.get("lga_id") || "";
-  const category_id = searchParams.get("category_id") || "";
-  const subcategory_id = searchParams.get("subcategory_id") || "";
+  const category_id = searchParams.get("category_id") || null;
+  const subcategory_id = searchParams.get("subcategory_id") || null;
   const s = searchParams.get("s") || "";
 
   const [isShowSelectStateModal, setIsShowSelectStateModal] = useState(false);
   const [selectedState, setSelectedState] = useState<State | null>(
-    state_id ? { id: state_id, name: "" } : null
+    state_id ? { id: state_id, name: "", state_slug: "", lgas: [] } : null
   );
   const [selectedLGA, setSelectedLGA] = useState<LGA | null>(
-    lga_id ? { id: lga_id, name: "" } : null
+    lga_id ? { id: lga_id, name: "", lga_slug: "" } : null
   );
   const [searchQuery, setSearchQurey] = useState<string>(s || "");
-  // const [categoryId, setCategoryId] = useState<{
-  //   id: string;
-  //   name: string;
-  // } | null>(category_id ? { id: category_id, name: "" } : null);
-  // const [subcategoryId, setSubcategoryId] = useState<{
-  //   id: string;
-  //   name: string;
-  // } | null>(subcategory_id ? { id: subcategory_id, name: "" } : null);
 
   const router = useRouter();
 
   const handleSearch = () => {
-    router.push(
-      `/?s=${searchQuery}&category_id=${category_id}&subcategory_id=${subcategory_id}&state_id=${selectedState?.id}&lga_id=${selectedLGA?.id}`
-    );
+    if (searchQuery.length === 0) {
+      return;
+    }
+    const rawQuery = {
+      s: searchQuery,
+
+      category_id,
+      subcategory_id,
+      state_id: selectedState?.id,
+      lga_id: selectedLGA?.id,
+    };
+
+    const queryString = buildFilteredQueryString(rawQuery);
+    router.push(`/search/?${queryString}`);
   };
 
   useEffect(() => {
@@ -55,11 +62,12 @@ export default function Home({ isHomepage }: { isHomepage: boolean }) {
     }
   }, [isShowSelectStateModal]);
   useEffect(() => {
-    if (searchQuery.length === 0) {
-      return;
-    }
+    // if (searchQuery.length === 0) {
+    //   return;
+    // }
     const handleKeyDown = (e: KeyboardEvent) => {
       if (document.activeElement === inputRef.current && e.key === "Enter") {
+        console.log("Enter key pressed");
         handleSearch();
       }
     };
@@ -70,45 +78,36 @@ export default function Home({ isHomepage }: { isHomepage: boolean }) {
 
   return (
     <>
-      <section
-        className={` w-full relative   ${
-          isHomepage
-            ? "home-hero-section py-40 border-y-orange-400 border-y-[8px] "
-            : "bg-zinc-100 py-16"
-        } `}
-      >
-        {isHomepage ? (
-          <h1 className="mb-4 text-white text-xl text-center font-semibold ">
-            What are you looking to rent?
-          </h1>
-        ) : (
-          <h1 className="mb-4 text-black text-xl text-center font-semibold ">
-            Search{" "}
-          </h1>
-        )}
-        <div className="flex items-center justify-center px-5   max-w-md mx-auto">
+      {/* <div className="bg-red-100 h-full px-2">sas</div> */}
+
+      <>
+        <div className="flex items-center h-10 border overflow-hidden rounded  justify-center   lg:max-w-lg w-full mx-auto">
+          {/* open location modal */}
           <button
             onClick={() => setIsShowSelectStateModal(true)}
-            className="flex items-center hover:bg-[#FFAB4E] hover:shadow-lg shadow bg-orange-400 rounded py-4 text-white pr-2 max-w-[200px]"
+            className="flex items-center pr-2 pl-2 text-slate-500 border-r h-full "
           >
-            <span className="truncate block whitespace-nowrap text-sm overflow-hidden text-ellipsis w-[70px] pl-2">
-              {!selectedState ? "Nigeria" : selectedState.name}
+            <IoLocationSharp />{" "}
+            <span className="lg:w-fit w-[50px] truncate block whitespace-nowrap text-sm overflow-hidden text-ellipsis pl-1">
+              {!selectedState ? "NG" : selectedState.name}
             </span>
-            <FaCaretDown />
           </button>
+          <input
+            className="h-ful px-4  w-full py-2  border-none outline-none"
+            type="text"
+            ref={inputRef}
+            placeholder="Press Enter to search..."
+            // placeholder="I am looking to rent..."
+            value={searchQuery}
+            onChange={(e) => setSearchQurey(e.target.value)}
+          />
 
-          <div className="flex bg-white overflow-hidden border items-center order-slate-400 text-slate-700  ml-4 pr-3 focus:border-amber-500 w-full   rounded">
-            <input
-              className="e py-3 px-4  w-full  border-none outline-none"
-              type="text"
-              ref={inputRef}
-              placeholder="Press Enter to search..."
-              // placeholder="I am looking to rent..."
-              value={searchQuery}
-              onChange={(e) => setSearchQurey(e.target.value)}
-            />
-            <IoSearch className="text-base text-slate-700" />
-          </div>
+          <button
+            onClick={handleSearch}
+            className=" items-center px-3 block    h-full bg-orange-400 text-white "
+          >
+            <IoSearch />{" "}
+          </button>
         </div>
         {isShowSelectStateModal && (
           <LocationSelectModal
@@ -119,7 +118,23 @@ export default function Home({ isHomepage }: { isHomepage: boolean }) {
             setIsShowSelectStateModal={setIsShowSelectStateModal}
           />
         )}
-      </section>
+      </>
     </>
+  );
+}
+
+export default function HomepageHero() {
+  return (
+    <main>
+      <Suspense
+        fallback={
+          <div className="w-full h-screen flex items-center justify-center">
+            Loading...
+          </div>
+        }
+      >
+        <Home />
+      </Suspense>
+    </main>
   );
 }

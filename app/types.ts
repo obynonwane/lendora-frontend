@@ -1,20 +1,20 @@
+export type SubCategory_TYPE = {
+  id: string;
+  name: string;
+  description: string;
+  subcategory_slug: string;
+  icon_class: string;
+  created_at_human: string;
+  updated_at_human: string;
+};
+
 export type Category_TYPE = {
   id: string;
   name: string;
   description: string;
   icon_class: string;
   category_slug: string;
-  created_at_human: string;
-  updated_at_human: string;
-};
-
-export type SubCategory_TYPE = {
-  id: string;
-  category_id: string;
-  name: string;
-  description: string;
-  category_slug: string;
-  icon_class: string;
+  subcategories: SubCategory_TYPE[];
   created_at_human: string;
   updated_at_human: string;
 };

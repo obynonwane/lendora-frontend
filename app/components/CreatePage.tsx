@@ -388,7 +388,7 @@ function CreatePage() {
     );
   }
   return (
-    <div className="p-5 text-sm min-h-screen">
+    <div className="p-5 text-sm min-h-[calc(100vh-3.5rem)] ">
       {step !== 3 && (
         <section className="max-w-lg w-full mb-3 rounded mx-auto bg-white p-3 flex  ">
           {step === 2 && (
@@ -452,7 +452,7 @@ function CreatePage() {
               id="title"
               value={title}
               onChange={handleTitleChange}
-              className="border border-gray-300 px-2 py-3 rounded w-full"
+              className="border border-slate-400 px-2 py-3 rounded w-full"
             />
           </div>
           <div>
@@ -466,7 +466,7 @@ function CreatePage() {
               type="text"
               id="price"
               value={price}
-              className="border border-gray-300 px-2 py-3 rounded w-full"
+              className="border border-slate-400 px-2 py-3 rounded w-full"
               // className="currency-input appearance-none border-r border-y rounded-r-md  w-full py-3 px-3 bg-white text-gray-500 leading-tight focus:outline-none"
               placeholder="Price"
               onInput={handleAmountChange}
@@ -487,7 +487,7 @@ function CreatePage() {
               id="description"
               value={description}
               onChange={handleDescriptionChange}
-              className="border border-gray-300 h-40  p-2 rounded w-full"
+              className="border border-slate-400 h-40  p-2 rounded w-full"
             />
           </div>
 
