@@ -19,7 +19,7 @@ type State = {
   lgas: LGA[];
 };
 
-function Home() {
+function SearchComponent() {
   const inputRef = useRef<HTMLInputElement>(null);
   const searchParams = useSearchParams();
   const state_id = searchParams.get("state_id") || "";
@@ -123,7 +123,7 @@ function Home() {
   );
 }
 
-export default function HomepageHero() {
+export default function Search() {
   return (
     <main>
       <Suspense
@@ -133,7 +133,7 @@ export default function HomepageHero() {
           </div>
         }
       >
-        <Home />
+        <SearchComponent />
       </Suspense>
     </main>
   );
