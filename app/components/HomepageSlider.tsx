@@ -13,7 +13,7 @@ function HomepageSlider() {
         arrows
         autoPlaySpeed={10000}
         centerMode={false}
-        className="h-fit min-h-[400px]  "
+        className="h-fit lg:min-h-[400px] min-h-[350px]  "
         containerClass="container-with-dots"
         dotListClass=""
         draggable
@@ -63,7 +63,7 @@ function HomepageSlider() {
         slidesToSlide={1}
         swipeable
       >
-        <div className="lg:h-full max-w-7xl mx-auto  flex flex-wrap pt-5 ">
+        <div className="lg:h-full max-w-7xl mx-auto  flex flex-wrap pt-5  p-3">
           <div className="lg:w-1/2 w-full flex-col justify-center flex h-full lg:order-0 order-1">
             <span className="text-sm  mb-2 bg-orange-100 w-fit rounded flex items-center justify-center text-orange-400 px-2 py-1 eounded-full">
               ✨ Lendora for business!
