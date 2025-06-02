@@ -1,9 +1,9 @@
 import React, { useEffect, useState, Suspense } from "react";
 import axios from "axios";
 import { RxCaretRight } from "react-icons/rx";
-import { useRouter, useSearchParams } from "next/navigation";
-import buildFilteredQueryString from "../utils/buildFilteredQueryString";
-// import { saveToLocalStorage } from "@/app/utility";
+// import { useRouter, useSearchParams } from "next/navigation";
+// import buildFilteredQueryString from "../utils/buildFilteredQueryString";
+import { saveToLocalStorage } from "@/app/utility";
 
 type LGA = {
   id: string;
@@ -56,18 +56,18 @@ function SelectModal({
   // step 1 is select state
   // step 2 is select lga
 
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   useEffect(() => {
     console.log("rerender");
   }, []);
 
   // const state_id = searchParams.get("state_id") || "";
   // const lga_id = searchParams.get("lga_id") || "";
-  const category_id = searchParams.get("category_id") || "";
-  const subcategory_id = searchParams.get("subcategory_id") || "";
-  const s = searchParams.get("s") || "";
+  // const category_id = searchParams.get("category_id") || "";
+  // const subcategory_id = searchParams.get("subcategory_id") || "";
+  // const s = searchParams.get("s") || "";
 
-  const router = useRouter();
+  // const router = useRouter();
 
   interface HandleLgaClickParams {
     id: string;
@@ -79,17 +79,25 @@ function SelectModal({
     setSelectedLGA(item);
     setIsShowSelectStateModal(false);
 
-    const rawQuery = {
-      s: s,
+    // const rawQuery = {
+    //   s: s,
 
-      category_id,
-      subcategory_id,
-      state_id: selectedState?.id,
-      lga_id: item.id,
+    //   category_id,
+    //   subcategory_id,
+    //   state_id: selectedState?.id,
+    //   lga_id: item.id,
+    // };
+
+    // const queryString = buildFilteredQueryString(rawQuery);
+    // router.push(`/search/?${queryString}`);
+
+    // console.log({ item });
+    // console.log({ selectedState });
+    const location = {
+      lga: item,
+      state: selectedState,
     };
-
-    const queryString = buildFilteredQueryString(rawQuery);
-    router.push(`/search/?${queryString}`);
+    saveToLocalStorage("location", location);
 
     // router.push(
     //   `/?s=${s}&category_id=${category_id}&subcategory_id=${subcategory_id}&state_id=${selectedState?.id}&lga_id=${item.id}`

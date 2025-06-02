@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // import axios from "axios";
 import { Category_TYPE, SubCategory_TYPE } from "../types";
@@ -33,19 +33,20 @@ function CategoryList() {
   // const s = searchParams.get("s") || "";
   const [isOpenAllcategoriesModal, setIsOpenAllcategoriesModal] =
     useState(false);
-  const [screenWidth, setScreenWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 0
-  );
-  function useScreenWidth() {
-    useEffect(() => {
-      const handleResize = () => setScreenWidth(window.innerWidth);
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, []);
 
-    return screenWidth;
-  }
-  useScreenWidth();
+  // function useScreenWidth() {
+  //   const [screenWidth, setScreenWidth] = useState(
+  //     typeof window !== "undefined" ? window.innerWidth : 0
+  //   );
+
+  //   useEffect(() => {
+  //     const handleResize = () => setScreenWidth(window.innerWidth);
+  //     window.addEventListener("resize", handleResize);
+  //     return () => window.removeEventListener("resize", handleResize);
+  //   }, []);
+
+  //   return screenWidth;
+  // }
   // console.log(useScreenWidth());
   const handleSubCategoryCLick = (
     sub_category: SubCategory_TYPE,
@@ -144,11 +145,6 @@ function CategoryList() {
   //     </div>
   //   </>
   // );
-  // if(useScreenWidth() <= 1024){
-  //   return<>
-
-  //   </>
-  // }
 
   return (
     <section className="lg:w-full text-sm rounded lg:bg-white   relative  category-list  ">
@@ -179,18 +175,16 @@ function CategoryList() {
           {/* all categories button */}
           <div
             className=" group/categories"
-            onMouseEnter={() =>
-              screenWidth >= 1024 && setIsOpenAllcategoriesModal(true)
-            }
-            onMouseLeave={() =>
-              screenWidth && setIsOpenAllcategoriesModal(false)
-            }
+            onMouseEnter={() => setIsOpenAllcategoriesModal(true)}
+            onMouseLeave={() => {
+              setIsOpenAllcategoriesModal(false);
+              // setHoveredCategory(null);
+            }}
           >
             <button
               className="flex items-center relative gap-3  cursor-pointer lg:py-2 lg:pr-2 "
-              onClick={() =>
-                screenWidth < 1024 && setIsOpenAllcategoriesModal(true)
-              }
+              // onClick={() => alert("e")}
+              // onClick={(e) => console.log(e)}
             >
               <span className="whitespace-nowrap flex items-center gap-2">
                 <IoMenu className="lg:text-xl text-3xl" />
@@ -203,27 +197,21 @@ function CategoryList() {
               <>
                 <div className="bg-white fixed h-screen w-screen bottom-0 top-0 left-0 right-0 z-40 lg:hidden flex "></div>
                 <></>
-                <div
-                  className={
-                    "lg:absolute fixed top-0 lg:top-full lg:bottom-px bottom-0  left-0 lg:right-px right-0 z-50 hidden lg:w-[300px] bg-white group-hover/categories:block shadow-md"
-                  }
-                >
+                <div className="lg:absolute fixed top-0 lg:top-full lg:bottom-px bottom-0  left-0 lg:right-px right-0 z-50 hidden lg:w-[300px] bg-white group-hover/categories:block shadow-md">
                   <h3 className="text-lg lg:hidden flex pt-2 justify-between items-center px-3 font-medium text-slate-900 mb-2">
                     All Categories
-                    <span
+                    <RiCloseLine
                       onClick={() => {
                         setIsOpenAllcategoriesModal(false);
+                        // setHoveredCategory(null);
                       }}
-                    >
-                      <RiCloseLine className="text-2xl" />
-                    </span>
+                    />
                   </h3>
                   {categories?.map((category) => (
                     <div
                       key={category.id}
                       className=" group/category "
                       onMouseEnter={() =>
-                        screenWidth >= 1024 &&
                         setSelectedCategoryForMobile(category)
                       }
                     >
@@ -231,13 +219,6 @@ function CategoryList() {
                         href={`/categories/${category.category_slug}`}
                         onNavigate={() => {
                           setIsOpenAllcategoriesModal(false);
-                        }}
-                        onClick={(e) => {
-                          if (screenWidth < 1024) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setSelectedCategoryForMobile(category);
-                          }
                         }}
                         className={`flex  items-center gap-3 border-t px-3 py-2 hover:bg-zinc-100 bg-white ${
                           pathname.includes(
@@ -263,7 +244,7 @@ function CategoryList() {
 
                       {/* Subcategories Panel */}
                       <div className="lg:absolute lg:inset-y-0 lg:left-full z-50 hidden lg:min-w-[200px] bg-white h-full group-hover/category:block lg:border-x  ">
-                        <div className="bg-zinc-50/50">
+                        <div className="">
                           {" "}
                           <>
                             {category.subcategories.map((sub_category) => (
@@ -272,7 +253,7 @@ function CategoryList() {
                                   handleSubCategoryCLick(sub_category, e)
                                 }
                                 key={sub_category.id}
-                                className={`flex border-t lg:pl-3 pl-12 last:mb-5 last:lg:mb-0 items-center gap-2 cursor-pointer hover:bg-gray-100 lg:bg-white px-3 py-2 `}
+                                className={`flex border-t  items-center gap-2 cursor-pointer hover:bg-gray-100 bg-white px-3 py-2 `}
                               >
                                 <span className="w-7 h-7 flex-shrink-0 flex items-center justify-center bg-zinc-100 rounded">
                                   <i

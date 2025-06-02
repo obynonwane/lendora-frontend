@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
 import * as yup from "yup";
 // import { getFromLocalStorage, saveToLocalStorage } from "./utility";
@@ -7,20 +7,26 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { FaCheckCircle } from "react-icons/fa";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 import logoIcon from "../../images/logo-icon.png";
+import { FaCheck } from "react-icons/fa6";
 
 type SignupState = "signup-form" | "signup-success";
-function Page() {
+function SignupPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-
+  const searchParams = useSearchParams();
+  // console.log(ib);
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState<SignupState>("signup-form");
-
+  const [isBusiness, setIsBusiness] = useState(
+    searchParams.get("business") == "true" ? true : false
+  );
+  const [isTCChecked, setIsTCChecked] = useState(false);
   const toastOptions = {
     autoClose: 5000,
     hideProgressBar: false,
@@ -43,6 +49,7 @@ function Page() {
       .string()
       .min(8, "Password must be at least 8 characters long")
       .required("Please Enter your password"),
+    isTCChecked: yup.boolean().required("Kindly accept terms and conditions!"),
   });
 
   const signup = async (e: { preventDefault: () => void }) => {
@@ -50,6 +57,7 @@ function Page() {
     if (isLoading) {
       return;
     }
+
     try {
       setIsLoading(true);
       const formData = {
@@ -61,7 +69,11 @@ function Page() {
       };
       // validateinput
       await signupSchema.validate(formData, { abortEarly: false });
+      // if (!isTCChecked) {
+      //   toast.error("Kindly accept terms and conditions!", toastOptions);
 
+      //   return;
+      // }
       await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/signup`,
         {
@@ -192,10 +204,43 @@ function Page() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <p className="mt-4 text-center text-slate-700 text-xs ">
-            By continuing you agree to Lendora&apos;s
+          <p
+            onClick={() => setIsBusiness(!isBusiness)}
+            className="mt-4 mb-2 text-center cursor-pointer text-slate-700 text-sm flex items-start"
+          >
+            <span
+              className={`w-5 h-5 flex-shrink-0 rounded flex items-center justify-center mr-2 ${
+                isBusiness
+                  ? "bg-orange-400 text-white"
+                  : "bg-zinc-200 text-zinc-600 "
+              }`}
+            >
+              {isBusiness && <FaCheck />}
+            </span>{" "}
+            <span className="text-left">
+              <span className="font-semibold block mb-1 ">
+                Signing up as a business?
+              </span>
+              Enjoy special tools and support designed to help you grow and
+              manage your rental business more effectively on Lendora.
+            </span>
+          </p>
+          <p
+            onClick={() => setIsTCChecked(!isTCChecked)}
+            className="mt-4 text-center cursor-pointer text-slate-700 text-sm flex items-center"
+          >
+            <span
+              className={`w-5 h-5 flex-shrink-0 rounded flex items-center justify-center mr-2 ${
+                isTCChecked
+                  ? "bg-orange-400 text-white"
+                  : "bg-zinc-200 text-zinc-600"
+              }`}
+            >
+              {isTCChecked && <FaCheck />}
+            </span>{" "}
+            I agree to the
             <Link
-              className="text-orange-400 underline"
+              className="text-orange-400 ml-1 underline"
               href="/terms-conditions"
             >
               {" "}
@@ -213,7 +258,7 @@ function Page() {
 
           <p className="mt-5 text-center text-sm  text-slate-700 ">
             Got an account?{" "}
-            <Link className="text-orange-400 underline" href="/login">
+            <Link className="text-orange-400 underline " href="/login">
               Login
             </Link>{" "}
           </p>
@@ -254,4 +299,10 @@ function Page() {
   );
 }
 
-export default Page;
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading ...</div>}>
+      <SignupPage />
+    </Suspense>
+  );
+}
