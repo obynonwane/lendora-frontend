@@ -1,15 +1,16 @@
 "use client";
-import CategoryList from "./components/CategoryList";
 
 import React, { useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import useSWRInfinite from "swr/infinite";
+import Footer from "./components/Footer";
 // import { FaFilter } from "react-icons/fa";
 
 // import CategoryList from "./CategoryList";
 // import HomepageHero from "./components/HomepageHero";
 import ProductCard from "./components/ProductCard";
 import HomepageSlider from "./components/HomepageSlider";
+import CategorySlider from "./components/CategorySlider";
 const PAGE_SIZE = 5;
 
 function Home() {
@@ -105,7 +106,8 @@ function Home() {
           <section className="bg-white w-full pt-10 max-w-7xl mx-auto">
             {/* <div className="lg:w-[20%] w-full lg:pl-3 lg:sticky z-30 lg:top-20 self-start">
             </div> */}
-            <CategoryList isMobileOnly={true} />
+            <CategorySlider />
+            {/* <CategoryList isMobileOnly={true} /> */}
             <div className="lgg:w-[80%] w-full  lg:pl-5 rounded px-3 grid grid-cols-12 gap-x-5 gap-y-7">
               {/* <div className="  flex z-10 col-span-12 sticky bg-white top-[57px] p-2 justify-end">
                 <span className="flex gap-2 text-slate-600 items-center justify-center">
@@ -145,6 +147,7 @@ function Home() {
             </div>
           </section>
         </main>
+        <Footer />
       </Suspense>
     </>
   );

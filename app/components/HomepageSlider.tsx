@@ -76,16 +76,19 @@ function HomepageSlider() {
               Asperiores perferendis quisquam dignissimos atque doloribus minus
               Asperiores perferendis quisquam dignissimos atque doloribus minus
             </p>
-            <button className="px-10 py-3 rounded bg-orange-400 w-fit text-white">
-              Learn More
-            </button>
+            <Link
+              href="/signup?business=true"
+              className="px-10 py-3 rounded bg-orange-400 w-fit text-white"
+            >
+              Get Started
+            </Link>
           </div>
-          <div className="lg:w-1/2 w-full bg-red-100 flex-col justify-center flex  lg:order-1 order-0 ">
+          <div className="lg:w-1/2 w-full  flex-col justify-center flex  lg:order-1 order-0 ">
             {/* <img src="../../images/hero1_img.jpg" alt="" />l */}
             <Image src={hero1_img} alt="" className="lg:h-full h-[300px]" />
           </div>
         </div>
-        <div className=" min-h-[450px] flex flex-col justify-center">
+        <div className=" min-h-[400px] lg:min-h-[450px] flex flex-col justify-center">
           <Image
             src={hero2_img}
             alt=""
