@@ -8,10 +8,16 @@ import Search from "./Search";
 import CategoryList from "./CategoryList";
 import { PiUserCircle } from "react-icons/pi";
 import { Popover } from "radix-ui";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const { isLoggedIn, isAuthChecked } = useAuth();
-
+  const router = useRouter();
+  const logout = () => {
+    localStorage.removeItem("lendora_ac_tk");
+    localStorage.removeItem("lendora_user");
+    router.push("/login");
+  };
   return (
     <header className="bg-white   text-slate-700  sticky top-0 z-50 drop-shadow-md lg:pb-0 pb-2">
       <div className="h-7 text-center bg-orange-500 text-sm text-white flex items-center justify-center gap-3 p-1">
@@ -84,7 +90,9 @@ export default function Header() {
                       className="w-full hover:bg-gray-100  text-left rounded"
                       aria-label="Close"
                     >
-                      <span className="  py-2 px-2 block">Logout</span>
+                      <span onClick={logout} className="  py-2 px-2 block">
+                        Logout
+                      </span>
                     </Popover.Close>
                   </div>
                   {/* <Popover.Close className="PopoverClose" aria-label="Close">

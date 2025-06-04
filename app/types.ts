@@ -93,3 +93,50 @@ export interface InventoryItem {
   offer_price: string;
   slug: string;
 }
+
+export type UserData_TYPE = {
+  access_token: string;
+  detail: {
+    kyc_detail: {
+      business_kyc: {
+        address: string;
+        business_registered: "yes" | "no";
+        cac_number: string;
+        created_at: string; // ISO timestamp
+        display_name: string;
+        id: string;
+        updated_at: string; // ISO timestamp
+        verified: boolean;
+      } | null;
+      renter_kyc: {
+        address: string;
+        image: string;
+        created_at: string; // ISO timestamp
+        display_name: string;
+        id: string;
+        updated_at: string; // ISO timestamp
+        verified: boolean;
+      } | null;
+    };
+    roles: string[];
+    user: {
+      accountType: {
+        created_at: string;
+        id: string;
+        name: string;
+        updated_at: string;
+      };
+      created_at: string;
+      email: string;
+      first_name: string;
+      first_time_login: string;
+      id: string;
+      kycs: null | unknown;
+      last_name: string;
+      phone: string;
+      updated_at: string;
+      user_types: null | unknown;
+      verified: boolean;
+    };
+  };
+};
