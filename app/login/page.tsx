@@ -74,45 +74,9 @@ function Page() {
         }
       );
 
-      // const user = await axios.get(
-      //   `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/get-me`,
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${data.data.data.access_token}`,
-      //     },
-      //   }
-      // );
-
       saveToLocalStorage("lendora_user", data.data.data);
       saveToLocalStorage("lendora_ac_tk", data.data.data.access_token);
-      //      {
-      //     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjY2ZmOTdiZS1lZDY1LTQ1NjItYTY0MC0wMjJlODU2MTU2MzciLCJpYXQiOjE3NDg5NjA1NjUsImV4cCI6MTc0ODk2NDE2NX0.i-dQHKYBy-r_hWluOeAfm_Vo2ODfvLt6uXCO1GwVnbA",
-      //     "detail": {
-      //         "kyc_detail": {},
-      //         "roles": [
-      //             "participant"
-      //         ],
-      //         "user": {
-      //             "accountType": {
-      //                 "created_at": "2025-06-02T16:35:15.947Z",
-      //                 "id": "44daa453-b138-4532-a798-10b31d0a39f2",
-      //                 "name": "business",
-      //                 "updated_at": "2025-06-02T16:35:15.947Z"
-      //             },
-      //             "created_at": "2025-06-03T14:08:36.562Z",
-      //             "email": "chibuikennaji306+22@gmail.com",
-      //             "first_name": "Nnaji",
-      //             "first_time_login": "yes",
-      //             "id": "ccff97be-ed65-4562-a640-022e85615637",
-      //             "kycs": null,
-      //             "last_name": "Chibuike",
-      //             "phone": "07080961583",
-      //             "updated_at": "2025-06-03T14:15:43.517Z",
-      //             "user_types": null,
-      //             "verified": true
-      //         }
-      //     }
-      // }
+
       setIsLoading(false);
       toast.success("sign-in successful!", toastOptions);
       refreshAuth();
