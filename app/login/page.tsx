@@ -17,7 +17,7 @@ type StepState =
   | "resend-verification-email";
 
 function Page() {
-  const [email, setEmail] = useState("chibuikennaji306@gmail.com");
+  const [email, setEmail] = useState("chibuikennaji306+22@gmail.com");
   const [password, setPassword] = useState("@Password2020");
 
   const { refreshAuth } = useAuth();
@@ -74,20 +74,12 @@ function Page() {
         }
       );
 
-      const user = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/get-me`,
-        {
-          headers: {
-            Authorization: `Bearer ${data.data.data.access_token}`,
-          },
-        }
-      );
-
-      saveToLocalStorage("lendora_user", user.data.data);
+      saveToLocalStorage("lendora_user", data.data.data);
       saveToLocalStorage("lendora_ac_tk", data.data.data.access_token);
+
       setIsLoading(false);
       toast.success("sign-in successful!", toastOptions);
-      refreshAuth(); // Call this before or after redirect
+      refreshAuth();
 
       router.push("/");
     } catch (errors: unknown) {

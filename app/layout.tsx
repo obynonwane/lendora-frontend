@@ -42,7 +42,12 @@ export default function RootLayout({
       >
         <AuthProvider>
           <Header />
-          <ToastContainer position="bottom-center" />
+          <ToastContainer
+            // position="bottom-center"
+            style={{
+              zIndex: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999,
+            }}
+          />
 
           {children}
         </AuthProvider>

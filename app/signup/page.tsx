@@ -24,8 +24,10 @@ function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState<SignupState>("signup-form");
   const [isBusiness, setIsBusiness] = useState(
-    searchParams.get("business") == "true" ? true : false
+    searchParams.get("business") === "true"
   );
+
+  // console.log(searchParams.get("business"));
   const [isTCChecked, setIsTCChecked] = useState(false);
   const toastOptions = {
     autoClose: 5000,
@@ -54,6 +56,7 @@ function SignupPage() {
 
   const signup = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
     if (isLoading) {
       return;
     }
@@ -66,14 +69,10 @@ function SignupPage() {
         phone,
         email,
         password,
+        isTCChecked,
       };
-      // validateinput
       await signupSchema.validate(formData, { abortEarly: false });
-      // if (!isTCChecked) {
-      //   toast.error("Kindly accept terms and conditions!", toastOptions);
 
-      //   return;
-      // }
       await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/authentication/signup`,
         {
@@ -82,9 +81,9 @@ function SignupPage() {
           phone,
           email,
           password,
+          is_business: isBusiness.toString(),
         }
       );
-      //   console.log(response.data);
       setIsLoading(false);
 
       setStep("signup-success");

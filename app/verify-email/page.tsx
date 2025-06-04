@@ -121,7 +121,7 @@ function Page({
         setIsLoading(false);
         toast.success("Email Verified Succesfully!", toastOptions);
 
-        // navigate("/dashboard");
+        router.push("/login");
       } catch (error: unknown) {
         console.log("there is n err");
         setIsLoading(false);
@@ -139,10 +139,11 @@ function Page({
       }
     };
     verifyEmail();
-  }, [router, toastOptions, token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <main className="flex justify-center flex-col md:h-screen items-center p-5 overflow-y-auto">
+    <main className="flex justify-center flex-col md:h-[90vh] items-center p-5 overflow-y-auto">
       {step === "loading" && (
         <div>
           <div className="relative text-center mt-12">
