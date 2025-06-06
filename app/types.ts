@@ -72,6 +72,7 @@ export interface User {
 }
 
 export interface InventoryItem {
+  primary_image: string;
   id: string;
   name: string;
   description: string;
