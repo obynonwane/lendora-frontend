@@ -4,6 +4,8 @@ import logoIcon from "../../images/logo-icon.png";
 import Image from "next/image";
 import { FaFacebook } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaYoutube } from "react-icons/fa";
 
 function Footer() {
   return (
@@ -85,25 +87,44 @@ function Footer() {
               </Link>
             </div>
 
-            <div className="lg:mt-0 mt-10 ">
-              <label className="text-base font-medium leading-5 text-gray-800 ">
-                Get updates
-              </label>
-
-              <div className="flex items-center gap-x-4 text-white mt-3">
-                <button
+            <div className="sm:ml-0 ml-8 flex flex-col">
+              <h2 className=" font-semibold text-base leading-4 text-gray-800 ">
+                Get Updates
+              </h2>
+              <div className="flex items-center gap-x-4 text-white mt-5">
+                <a
+                  href="https://www.instagram.com/lendora.ng/"
                   aria-label="instagram"
-                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 opacity-50 w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-orange-600 rounded-full flex items-center justify-center"
+                  target="_blank"
+                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-orange-400 rounded-full flex items-center justify-center"
                 >
                   <AiFillInstagram />
-                </button>
+                </a>
 
-                <button
-                  aria-label="twitter"
-                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 opacity-50 w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-orange-600 rounded-full flex items-center justify-center"
+                <a
+                  href="https://x.com/lendoraNG"
+                  aria-label="facebook"
+                  target="_blank"
+                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-orange-400 rounded-full flex items-center justify-center"
                 >
                   <FaFacebook />
-                </button>
+                </a>
+                <a
+                  href="https://www.youtube.com/@lendoraNG"
+                  aria-label="twitter"
+                  target="_blank"
+                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-orange-400 rounded-full flex items-center justify-center"
+                >
+                  <FaYoutube />
+                </a>
+                <a
+                  href="https://x.com/lendoraNG"
+                  aria-label="twitter"
+                  target="_blank"
+                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-orange-400 rounded-full flex items-center justify-center"
+                >
+                  <FaXTwitter />
+                </a>
               </div>
             </div>
           </div>

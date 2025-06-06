@@ -52,6 +52,7 @@ function ProductPage({ product }: { product: InventoryUserResponse }) {
   //     id: i + 100,
   //     title: `${p.title} ${i + 1}`,
   //   }));
+  console.log(product);
 
   const fetcher = async ([url, body]: [string, unknown]) => {
     const res = await fetch(url, {
