@@ -108,7 +108,7 @@ function Home() {
             </div> */}
             <CategorySlider />
             {/* <CategoryList isMobileOnly={true} /> */}
-            <div className="lgg:w-[80%] w-full  lg:pl-5 rounded px-3 grid grid-cols-12 gap-x-5 gap-y-7">
+            <div className="lgg:w-[80%] w-full   rounded px-3 grid grid-cols-12 gap-x-5 gap-y-7">
               {/* <div className="  flex z-10 col-span-12 sticky bg-white top-[57px] p-2 justify-end">
                 <span className="flex gap-2 text-slate-600 items-center justify-center">
                   <FaFilter />

@@ -37,7 +37,7 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
   return (
     <div>
       {/* Main Image Area */}
-      <div className="relative w-full h-[330px] md:h-[550px] bg-gray-100 overflow-hidden mb-4 rounded">
+      <div className="relative w-full aspect-video shadow bg-gray-100 overflow-hidden mb-4 rounded">
         {activeImage && (
           <img
             src={activeImage.live_url}
@@ -53,7 +53,7 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
           <button
             key={img.id} // Use a unique ID for the key if available, otherwise fall back to idx
             onClick={() => setActiveIndex(idx)}
-            className={`border rounded min-w-20 w-20 h-20 overflow-hidden ${
+            className={`border rounded  w-28 h-20 overflow-hidden ${
               activeIndex === idx
                 ? "border-orange-400"
                 : "border-transparent hover:border-gray-300"

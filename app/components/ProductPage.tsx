@@ -6,20 +6,11 @@ import ProductGallery from "./ProductGallery";
 import { RiUserSmileFill } from "react-icons/ri";
 import useSWRInfinite from "swr/infinite";
 import Link from "next/link";
+import { InventoryItem } from "@/app/types";
 const PAGE_SIZE = 5;
 
 export interface InventoryUserResponse {
-  inventory: {
-    id: string;
-    name: string;
-    description: string;
-    user_id: string;
-    offer_price: number;
-    category_id: string;
-    subcategory_id: string;
-    created_at_human: string;
-    updated_at_human: string;
-  };
+  inventory: InventoryItem;
   user: {
     id: string;
     email: string;
@@ -52,7 +43,22 @@ function ProductPage({ product }: { product: InventoryUserResponse }) {
   //     id: i + 100,
   //     title: `${p.title} ${i + 1}`,
   //   }));
-  console.log(product);
+  // console.log(product);
+
+  const restructureProductImages = () => {
+    const store = [
+      {
+        id: "1",
+        inventory_id: "s",
+        live_url: product.inventory.primary_image,
+        local_url: "",
+        created_at: { seconds: 1234 },
+        updated_at: { seconds: 134 },
+      },
+      ...product.images,
+    ];
+    return store;
+  };
 
   const fetcher = async ([url, body]: [string, unknown]) => {
     const res = await fetch(url, {
@@ -135,19 +141,27 @@ function ProductPage({ product }: { product: InventoryUserResponse }) {
             className="w-full h-[400px] bg-gray-50 rounded"
           /> */}
 
-          <ProductGallery images={product.images} />
+          <ProductGallery images={restructureProductImages()} />
           <h1 className="text-2xl font-bold mt-4">{product.inventory.name}</h1>
-          <p className="text-gray-700 mt-2">{product.inventory.description}</p>
+          <p className="text-gray-700 mt-2 whitespace-pre-wrap break-words">
+            {product.inventory.description}
+          </p>
+          {/* <textarea
+            name=""
+            value={product.inventory.description}
+            id=""
+            className="w-full disabled h-fit"
+          ></textarea> */}
           {/* <p className="text-gray-700 mt-4">{product.description}</p> */}
         </div>
 
         {/* Right: Sticky Actions */}
         <div className="lg:col-span-1 ">
-          <div className="sticky top-20  rounded  ">
+          <div className="sticky top-36 mt-3  rounded  ">
             <div className="bg-white p-3 rounded border ">
               <p className=" flex justify-between items-center mt-3">
                 <span className="text-3xl  font-bold text-black">
-                  ₦{product.inventory.offer_price.toLocaleString("en-US")}
+                  ₦{product.inventory.offer_price.toLocaleString()}
                 </span>
                 <span className="flex items-center text-slate-500">
                   <IoLocation /> <span className="text-xs ">Lagos, Ikeja</span>
