@@ -3,6 +3,7 @@
 import ProductPage from "@/app/components/ProductPage";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { InventoryItem } from "@/app/types";
 
 // --- Helper Function for Slug Extraction ---
 function extractSlugId(productId: string): string {
@@ -24,18 +25,6 @@ interface ProductImage {
   updated_at: { seconds: number };
 }
 
-interface Inventory {
-  id: string;
-  name: string;
-  description: string;
-  offer_price: number;
-  user_id: string;
-  category_id: string;
-  subcategory_id: string;
-  created_at_human: string;
-  updated_at_human: string;
-}
-
 interface User {
   id: string;
   email: string;
@@ -48,7 +37,7 @@ interface User {
 }
 
 interface ProductDetailData {
-  inventory: Inventory;
+  inventory: InventoryItem;
   user: User;
   images: ProductImage[];
 }

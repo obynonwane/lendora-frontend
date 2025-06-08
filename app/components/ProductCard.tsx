@@ -9,11 +9,13 @@ function ProductCard({ product }: { product: InventoryItem }) {
       href={`/product/${product.slug}`}
       className="rounded col-span-6 md:col-span-3 overflow-hidden  bg-white"
     >
-      <img
-        src={product?.primary_image}
-        alt="Product"
-        className="w-full h-52 object-cover border border-0.5 border-zinc-100 rounded-md "
-      />
+      <div className="aspect-video shadow">
+        <img
+          src={product?.primary_image}
+          alt="Product"
+          className="w-full h-full object-cover  border-zinc-100 rounded-md "
+        />
+      </div>
       <div className="px-0 pb-1 mt-2">
         <h3 className="text-sm font-medium text-slate-800 whitespace-nowrap overflow-hidden text-ellipsis">
           {product.name}{" "}

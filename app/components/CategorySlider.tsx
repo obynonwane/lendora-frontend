@@ -41,7 +41,7 @@ function CategorySlider() {
   //   };
 
   return (
-    <aside className="w-full text-sm rounded bg-white mb-10  relative  ">
+    <section className="w-full text-sm rounded bg-white mb-10  relative px-3 ">
       <h3 className="text-xl text-slate-900 mb-3 lg:pl-0 pl-3">Categories</h3>
       {/* modal to select sub category for mobile */}
       {/* <> {isShowMobleCategorySelectModal && mobileCategoryModal()}</> */}
@@ -131,7 +131,7 @@ function CategorySlider() {
           ))}
         </Carousel>
       </div>
-    </aside>
+    </section>
   );
 }
 
