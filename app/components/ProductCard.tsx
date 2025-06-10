@@ -4,19 +4,42 @@ import { IoLocation } from "react-icons/io5";
 import { InventoryItem } from "../types";
 
 function ProductCard({ product }: { product: InventoryItem }) {
+  // console.log(product.category_slug.split("-").concat());
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="rounded col-span-6 md:col-span-3 overflow-hidden  bg-white"
+      className="rounded col-span-6 md:col-span-3 overflow-hidden   bg-white"
     >
-      <div className="aspect-video shadow">
+      {/* <div className="aspect-square relative w-full overflow-hidden shadow"> */}
+      <div className="aspect-square relative lg:max-h-[250px] w-full overflow-hidden shadow">
         <img
           src={product?.primary_image}
           alt="Product"
-          className="w-full h-full object-cover  border-zinc-100 rounded-md "
+          className="object-cover  h-full w-full bg-zinc-100 rounded-md "
+          // className="w-full h-full max-w-full absolute object-cover  border-zinc-100 rounded-md "
         />
+        <div className="text-xs  absolute bottom-0 left-0 right-0 overflow-hidden flex flex-wrap items-center gap-2 p-2">
+          <span className="lg:py-1 px-2 rounded-full border-orange-400 border shadow bg-white">
+            {product.product_purpose}
+          </span>{" "}
+          {product.negotiable === "yes" && (
+            <span className="lg:py-1 px-2 rounded-full border-orange-400 border shadow bg-white">
+              Negotiable
+            </span>
+          )}
+        </div>
       </div>
       <div className="px-0 pb-1 mt-2">
+        <p>
+          <span className=" font-semibold text-sm text-orange-400">
+            {" "}
+            {/* {product.category_slug.split("-").map((cs)=>{
+              <span>
+              
+              </span>
+            })} */}
+          </span>
+        </p>
         <h3 className="text-sm font-medium text-slate-800 whitespace-nowrap overflow-hidden text-ellipsis">
           {product.name}{" "}
         </h3>

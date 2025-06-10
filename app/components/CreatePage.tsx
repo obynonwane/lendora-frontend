@@ -48,7 +48,7 @@ function CreatePage() {
     setTags(tags.filter((_, index) => index !== indexToRemove));
   };
 
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState<number>(4);
   const [loading, setLoading] = useState<boolean>(false);
   const [categories, setCategories] = useState<Category_TYPE[] | null>([]);
   const [subCategories, setSubCategories] = useState<SubCategory_TYPE[]>([]);
@@ -639,8 +639,9 @@ function CreatePage() {
 
   if (!categories) {
     return (
-      <div className=" text-center  pt-20 flex justify-center">
+      <div className=" text-center h-[80vh]  pt-20 flex justify-center">
         {" "}
+        fefereer
         <svg
           aria-hidden="true"
           className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-400 fill-orange-400"
@@ -929,7 +930,7 @@ function CreatePage() {
           </button>
           <button
             onClick={() => setStep(1)}
-            className={`flex mt-4 w-full justify-center rounded py-4 col-span-12  border border-orange-400   hover:bg-zinc-100 hover:shadow-lg shadow  font-semibold`}
+            className={`lg:hidden flex mt-0w-full justify-center rounded py-4 col-span-12  border border-orange-400   hover:bg-zinc-100 hover:shadow-lg shadow  font-semibold`}
           >
             Back
           </button>
@@ -941,10 +942,30 @@ function CreatePage() {
             onSubmit={handleStep4}
             className="flex-1 h-fit rounded mx-auto bg-white p-5"
           >
-            <h4 className="mb-2">Categories</h4>
+            {/* <h4 className="mb-2">Categories</h4> */}
 
             {categories && (
               <section className="grid grid-cols-12 gap-3">
+                <div className=" w-full col-span-12  p-3 mb-2 rounded-lg shadow text-white bg-slate-950  ">
+                  <div className="flex-grow text-center sm:text-left">
+                    <h3 className="text-xl font-bold mb-2">📸 Image Tip!</h3>
+                    <p className="text-sm leading-relaxed">
+                      For the best appearance of your listings, we recommend
+                      uploading{" "}
+                      <span className="font-semibold">
+                        square images (1:1 aspect ratio)
+                      </span>
+                      . This ensures your photos look great on all devices!{" "}
+                      <a
+                        target="_blank"
+                        href="https://www.aandmedu.in/wp-content/uploads/2021/11/1-1-Aspect-Ratio-1024x1024.jpg"
+                        className="inline font-semibold text-orange-400 rounded-full underline shadow-md"
+                      >
+                        View Sample
+                      </a>
+                    </p>
+                  </div>
+                </div>
                 {/* primary image */}
                 <div className="relative col-span-12 overflow-hidden flex flex-col gap-2">
                   <h4>Upload Primary Image</h4>
@@ -963,7 +984,7 @@ function CreatePage() {
                 </div>
 
                 {/* secondary image */}
-                <div className="relative col-span-12 overflow-hidden flex flex-col gap-2">
+                <div className="relative col-span-12 overflow-hidden flex flex-col gap-2 mt-2">
                   <h4>Upload Gallery Images</h4>
                   <div>
                     {/* <ImageUpload
@@ -995,7 +1016,7 @@ function CreatePage() {
 
                 <button
                   onClick={() => setStep(3)}
-                  className={`flex mt-4 w-full justify-center rounded py-4 col-span-12  border border-orange-400   hover:bg-zinc-100 hover:shadow-lg shadow  font-semibold`}
+                  className={`lg:hidden flex mt-0w-full justify-center rounded py-4 col-span-12  border border-orange-400   hover:bg-zinc-100 hover:shadow-lg shadow  font-semibold`}
                 >
                   Back
                 </button>
@@ -1146,7 +1167,7 @@ function CreatePage() {
 
                 <button
                   onClick={() => setStep(2)}
-                  className={`flex mt-4 w-full justify-center rounded py-4 col-span-12  border border-orange-400   hover:bg-zinc-100 hover:shadow-lg shadow  font-semibold`}
+                  className={`lg:hidden flex mt-0w-full justify-center rounded py-4 col-span-12  border border-orange-400   hover:bg-zinc-100 hover:shadow-lg shadow  font-semibold`}
                 >
                   Back
                 </button>

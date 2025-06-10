@@ -280,3 +280,13 @@
 /* .react-multi-carousel-track {
   gap: 20px !important;
 } */
+
+.homepage-hero-slider {
+  background: url('/loadinggif3.gif'), rgb(241, 241, 241);
+  background-repeat: no-repeat;
+  background-size: 50px;
+  background-position: center;
+
+}
+
+/* app/global.css */

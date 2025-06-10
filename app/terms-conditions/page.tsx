@@ -1,4 +1,4 @@
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 
 function Page() {
   return (
@@ -157,7 +157,7 @@ function Page() {
           </p>
         </section>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

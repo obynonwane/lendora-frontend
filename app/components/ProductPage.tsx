@@ -127,7 +127,7 @@ function ProductPage({ product }: { product: InventoryUserResponse }) {
     };
   }, [isReachingEnd, isLoadingMore, setSize]);
 
-  // console.log(product.data);
+  // console.log(product);
   return (
     <div className="max-w-7xl mx-auto p-3">
       {/* Two Column Layout */}
@@ -170,13 +170,13 @@ function ProductPage({ product }: { product: InventoryUserResponse }) {
               <button
                 className={`flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white mt-5 py-3 `}
               >
-                ACTION
+                Book Now!
               </button>
-              <button
+              {/* <button
                 className={`flex w-full justify-center rounded font-semibold border border-orange-400 hover:bg-[#FFAB4E20]  hover:shadow-lg shadow text-orange-400 mt-3 py-3 `}
               >
                 ACTION
-              </button>
+              </button> */}
 
               <div className="flex mt-6 border-t pt-3 gap-2">
                 <RiUserSmileFill className="text-slate-400 text-5xl" />

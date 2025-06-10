@@ -52,8 +52,8 @@ function CategorySlider() {
           arrows={false}
           autoPlaySpeed={3000}
           centerMode={false}
-          className="flex gap-10"
-          containerClass="container-with-dots min-h-[156px]  "
+          className="flex gap-10 min-h-[176px] bg-slate-100"
+          containerClass="container-with-dots min-h-[176px] bg-white "
           dotListClass=""
           draggable
           focusOnSelect={false}

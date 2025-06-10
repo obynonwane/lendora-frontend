@@ -73,6 +73,7 @@ export interface User {
 
 export interface InventoryItem {
   primary_image: string;
+  category_slug: string;
   id: string;
   name: string;
   description: string;
@@ -87,6 +88,8 @@ export interface InventoryItem {
   country: Country;
   state: State;
   lga: LGA;
+  negotiable: "yes" | "no";
+  product_purpose: "sale" | "rental";
   images: InventoryImage[];
   user: User;
   created_at_human: string;
