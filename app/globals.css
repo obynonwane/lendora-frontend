@@ -289,4 +289,12 @@
 
 }
 
+.product-card-image {
+  background: url('/card-bg.jpg'), #E8E8E8;
+  background-repeat: no-repeat;
+  background-size: 230px;
+  background-position: center;
+
+}
+
 /* app/global.css */

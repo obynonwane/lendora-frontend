@@ -11,14 +11,14 @@ function ProductCard({ product }: { product: InventoryItem }) {
       className="rounded col-span-6 md:col-span-3 overflow-hidden   bg-white"
     >
       {/* <div className="aspect-square relative w-full overflow-hidden shadow"> */}
-      <div className="aspect-square relative lg:max-h-[250px] w-full overflow-hidden shadow">
+      <div className="aspect-square relative lg:max-h-[250px] product-card-image-container w-full overflow-hidden shadow">
         <img
           src={product?.primary_image}
           alt="Product"
-          className="object-cover  h-full w-full bg-zinc-100 rounded-md "
+          className="object-cover  h-full w-full rounded-md product-card-image"
           // className="w-full h-full max-w-full absolute object-cover  border-zinc-100 rounded-md "
         />
-        <div className="text-xs  absolute bottom-0 left-0 right-0 overflow-hidden flex flex-wrap items-center gap-2 p-2">
+        <div className="text-xs  capitalize absolute bottom-0 left-0 right-0 overflow-hidden flex flex-wrap items-center gap-1  p-2">
           <span className="lg:py-1 px-2 rounded-full border-orange-400 border shadow bg-white">
             {product.product_purpose}
           </span>{" "}

@@ -83,11 +83,15 @@ export interface InventoryItem {
   created_at: Timestamp;
   updated_at: Timestamp;
   country_id: string;
+  rental_duration: string;
   state_id: string;
   lga_id: string;
   country: Country;
+  quantity: number;
+  security_deposit: number;
   state: State;
   lga: LGA;
+  is_available: "yes" | "no";
   negotiable: "yes" | "no";
   product_purpose: "sale" | "rental";
   images: InventoryImage[];
@@ -144,3 +148,11 @@ export type UserData_TYPE = {
     };
   };
 };
+
+export interface ProductPageProduct {
+  inventory: InventoryItem;
+  user: User;
+  category: Category_TYPE;
+  subcategory: SubCategory_TYPE;
+  images: InventoryImage[];
+}

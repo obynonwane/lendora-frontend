@@ -48,7 +48,7 @@ function CreatePage() {
     setTags(tags.filter((_, index) => index !== indexToRemove));
   };
 
-  const [step, setStep] = useState<number>(4);
+  const [step, setStep] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
   const [categories, setCategories] = useState<Category_TYPE[] | null>([]);
   const [subCategories, setSubCategories] = useState<SubCategory_TYPE[]>([]);
@@ -70,6 +70,8 @@ function CreatePage() {
   const [isNegotiable, setIsNegotiable] = useState<null | boolean>(null);
   const [isAvailable, setIsAvailable] = useState<null | boolean>(null);
   const [rentalDuration, setRentalDuration] = useState("");
+  const [minimumNegotiatableAmount, setMinimumNegotiatableAmount] =
+    useState("");
   const [securityDeposit, setSecurityDeposit] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -228,6 +230,25 @@ function CreatePage() {
           return !isNaN(Number(numericValue)) && Number(numericValue) > 0;
         }),
       isNegotiable: yup.boolean().required("Is the price negotiable?"),
+      minimumNegotiatableAmount: yup.string().when("isNegotiable", {
+        is: true,
+        then: (schema) =>
+          schema
+            .required("Minimum Negotiatable Amount is required")
+            .test(
+              "is-valid-minimumNegotiatableAmount",
+              "Minimum Negotiatable Amount must be less than price!",
+              (value) => {
+                if (!value) return false;
+                const numericValue = value.replace(/,/g, "");
+                return (
+                  !isNaN(Number(numericValue)) &&
+                  Number(numericValue) < Number(price.replace(/,/g, ""))
+                );
+              }
+            ),
+        otherwise: (schema) => schema.notRequired(),
+      }),
       quantity: yup
         .string()
         .required("Quantity is required")
@@ -271,6 +292,7 @@ function CreatePage() {
     const data = {
       price,
       isNegotiable,
+      minimumNegotiatableAmount,
       quantity,
       isAvailable,
       productPurpose,
@@ -441,6 +463,10 @@ function CreatePage() {
       formData.append("name", title);
       formData.append("rental_duration", rentalDuration);
       formData.append("offer_price", price.replace(/,/g, ""));
+      formData.append(
+        "minimum_price",
+        minimumNegotiatableAmount.replace(/,/g, "")
+      );
       formData.append("quantity", quantity.replace(/,/g, ""));
       formData.append("security_deposit", securityDeposit.replace(/,/g, ""));
       formData.append("country_id", "e69646c4-a076-45bf-841c-c8e81eb3e03e");
@@ -626,6 +652,7 @@ function CreatePage() {
     setProductPurpose("");
     setQuantity("");
     setIsNegotiable(null);
+    setMinimumNegotiatableAmount("");
     setIsAvailable(null);
     setRentalDuration("");
     setSecurityDeposit("");
@@ -784,6 +811,24 @@ function CreatePage() {
               </p>
             </div>
           </div>
+          {isNegotiable && (
+            <div>
+              <label
+                htmlFor="title"
+                className="mb-2 mt-2 flex w-full justify-between items-center"
+              >
+                <span>Minimum Negotiatable Amount (₦)</span>
+              </label>
+              <input
+                type="text"
+                value={minimumNegotiatableAmount}
+                className="border border-slate-300 px-2 py-3 rounded w-full"
+                // className="currency-input appearance-none border-r border-y rounded-r-md  w-full py-3 px-3 bg-white text-gray-500 leading-tight focus:outline-none"
+                placeholder="Minimum Negotiatable Amount"
+                onInput={handleAmountChange(setMinimumNegotiatableAmount)}
+              />
+            </div>
+          )}
 
           <div className="my-2">
             <label htmlFor="title" className="mb-2 mt-2 block">
@@ -946,7 +991,7 @@ function CreatePage() {
 
             {categories && (
               <section className="grid grid-cols-12 gap-3">
-                <div className=" w-full col-span-12  p-3 mb-2 rounded-lg shadow text-white bg-slate-950  ">
+                <div className=" w-full col-span-12  p-3 mb-2 rounded-lg shadow text-white  bg-slate-950  ">
                   <div className="flex-grow text-center sm:text-left">
                     <h3 className="text-xl font-bold mb-2">📸 Image Tip!</h3>
                     <p className="text-sm leading-relaxed">

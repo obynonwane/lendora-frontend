@@ -1,50 +1,53 @@
 "use client";
 import React, { useRef, useEffect } from "react";
 import ProductCard from "./ProductCard";
-import { IoLocation } from "react-icons/io5";
 import ProductGallery from "./ProductGallery";
-import { RiUserSmileFill } from "react-icons/ri";
 import useSWRInfinite from "swr/infinite";
 import Link from "next/link";
-import { InventoryItem } from "@/app/types";
+import { ProductPageProduct } from "@/app/types";
 const PAGE_SIZE = 5;
+import ProductPageSidebar from "@/app/components/ProductPageSidebar";
+// export interface ProductPageProduct {
+//   inventory: InventoryItem;
+//   user: {
+//     id: string;
+//     email: string;
+//     first_name: string;
+//     last_name: string;
+//     phone: string;
+//     verified: boolean;
+//     created_at_human: string;
+//     updated_at_human: string;
+//   };
+//   category: {
+//     id: string;
+//     name: string;
+//     description: string;
+//     icon_class: string;
+//     category_slug: string;
+//   };
+//   subcategory: {
+//     id: string;
+//     name: string;
+//     description: string;
+//     icon_class: string;
+//     subcategory_slug: string;
+//   };
+//   images: {
+//     id: string;
+//     live_url: string;
+//     local_url: string;
+//     inventory_id: string;
+//     created_at: {
+//       seconds: number;
+//     };
+//     updated_at: {
+//       seconds: number;
+//     };
+//   }[];
+// }
 
-export interface InventoryUserResponse {
-  inventory: InventoryItem;
-  user: {
-    id: string;
-    email: string;
-    first_name: string;
-    last_name: string;
-    phone: string;
-    verified: boolean;
-    created_at_human: string;
-    updated_at_human: string;
-  };
-  images: {
-    id: string;
-    live_url: string;
-    local_url: string;
-    inventory_id: string;
-    created_at: {
-      seconds: number;
-    };
-    updated_at: {
-      seconds: number;
-    };
-  }[];
-}
-
-function ProductPage({ product }: { product: InventoryUserResponse }) {
-  // const similarProducts: Product[] = Array(12)
-  //   .fill(product)
-  //   .map((p, i) => ({
-  //     ...p,
-  //     id: i + 100,
-  //     title: `${p.title} ${i + 1}`,
-  //   }));
-  // console.log(product);
-
+function ProductPage({ product }: { product: ProductPageProduct }) {
   const restructureProductImages = () => {
     const store = [
       {
@@ -142,7 +145,23 @@ function ProductPage({ product }: { product: InventoryUserResponse }) {
           /> */}
 
           <ProductGallery images={restructureProductImages()} />
-          <h1 className="text-2xl font-bold mt-4">{product.inventory.name}</h1>
+          <p className="flex text-sm text-orange-400 mt-6 gap-x-1">
+            <Link
+              className="hover:text-orange-600"
+              href={`/categories/${product.category.category_slug}`}
+            >
+              {" "}
+              {product.category.name}
+            </Link>{" "}
+            &gt;
+            <Link
+              className="hover:text-orange-600"
+              href={`/categories/${product.category.category_slug}?subcategory_id=${product.subcategory.subcategory_slug}`}
+            >
+              {product.subcategory.name}
+            </Link>
+          </p>
+          <h1 className="text-2xl font-bold mt-2">{product.inventory.name}</h1>
           <p className="text-gray-700 mt-2 whitespace-pre-wrap break-words">
             {product.inventory.description}
           </p>
@@ -156,49 +175,7 @@ function ProductPage({ product }: { product: InventoryUserResponse }) {
         </div>
 
         {/* Right: Sticky Actions */}
-        <div className="lg:col-span-1 ">
-          <div className="sticky top-36 mt-3  rounded  ">
-            <div className="bg-white p-3 rounded border ">
-              <p className=" flex justify-between items-center mt-3">
-                <span className="text-3xl  font-bold text-black">
-                  ₦{product.inventory.offer_price.toLocaleString()}
-                </span>
-                <span className="flex items-center text-slate-500">
-                  <IoLocation /> <span className="text-xs ">Lagos, Ikeja</span>
-                </span>
-              </p>
-              <button
-                className={`flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white mt-5 py-3 `}
-              >
-                Book Now!
-              </button>
-              {/* <button
-                className={`flex w-full justify-center rounded font-semibold border border-orange-400 hover:bg-[#FFAB4E20]  hover:shadow-lg shadow text-orange-400 mt-3 py-3 `}
-              >
-                ACTION
-              </button> */}
-
-              <div className="flex mt-6 border-t pt-3 gap-2">
-                <RiUserSmileFill className="text-slate-400 text-5xl" />
-                <p className="text-slate-500 ">
-                  <span className="font-semibold block text-slate-700 ">
-                    {product.user.first_name + " " + product.user.last_name}
-                  </span>
-                  <span className="text-sm block">1y 1m on Lendora</span>
-                </p>
-              </div>
-            </div>
-
-            <div className=" bg-white p-3 rounded  mt-5 border">
-              <Link
-                href={`/create`}
-                className={`flex w-full justify-center rounded font-semibold border border-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg hover:text-white text-sm shadow text-orange-400  py-2 `}
-              >
-                Post an Ad like this!
-              </Link>
-            </div>
-          </div>
-        </div>
+        <ProductPageSidebar product={product} />
       </div>
 
       {/* Similar Products */}
