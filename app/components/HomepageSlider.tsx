@@ -1,8 +1,9 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import hero1_img from "../../images/hero1_img.jpg";
+// import hero1_img from "../../images/hero1_img.jpg";
 import hero2_img from "../../images/hero2_img.jpg";
+import hero12_img from "../../images/1343.jpg";
 import Image from "next/image";
 import Link from "next/link";
 function HomepageSlider() {
@@ -13,8 +14,8 @@ function HomepageSlider() {
         arrows
         autoPlaySpeed={10000}
         centerMode={false}
-        className="h-fit lg:min-h-[400px] min-h-[350px]  "
-        containerClass="container-with-dots"
+        className="h-[70vh] min-h-[550px] bg-slate-100 homepage-hero-slider"
+        containerClass="container-with-dots h-[70vh] min-h-[550px] bg-slate-100"
         dotListClass=""
         draggable
         focusOnSelect={false}
@@ -63,7 +64,7 @@ function HomepageSlider() {
         slidesToSlide={1}
         swipeable
       >
-        <div className="lg:h-full max-w-7xl mx-auto  flex flex-wrap pt-5  p-3">
+        {/* <div className="lg:h-full max-w-7xl mx-auto  flex flex-wrap pt-5  p-3">
           <div className="lg:w-1/2 w-full flex-col justify-center flex h-full lg:order-0 order-1">
             <span className="text-sm  mb-2 bg-orange-100 w-fit rounded flex items-center justify-center text-orange-400 px-2 py-1 eounded-full">
               ✨ Lendora for business!
@@ -72,9 +73,9 @@ function HomepageSlider() {
               Lendora for business!
             </h3>
             <p className="text-base mb-5 ">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Asperiores perferendis quisquam dignissimos atque doloribus minus
-              Asperiores perferendis quisquam dignissimos atque doloribus minus
+              Boost your business with Lendora! Get featured placement, your own
+              branded storefront, powerful analytics, and dedicated support.
+              Elevate your brand and streamline operations for ultimate growth.
             </p>
             <Link
               href="/signup?business=true"
@@ -84,15 +85,45 @@ function HomepageSlider() {
             </Link>
           </div>
           <div className="lg:w-1/2 w-full  flex-col justify-center flex  lg:order-1 order-0 ">
-            {/* <img src="../../images/hero1_img.jpg" alt="" />l */}
             <Image src={hero1_img} alt="" className="lg:h-full h-[300px]" />
           </div>
+        </div> */}
+        <div className="h-[70vh] min-h-[550px] flex flex-col justify-center">
+          <Image
+            src={hero12_img}
+            alt=""
+            className="absolute inset-0 w-full h-full z-10 object-cover lg:object-right object-top"
+          />
+          <span className="absolute inset-0 w-full h-full z-20 object-cover bg-black/40"></span>
+
+          <div className="z-30 relative max-w-7xl w-full mx-auto flex items-center h-full">
+            <div className=" text-white  p-3 rounded w-fit">
+              {/* <span className="text-sm  mb-2 bg-orange-100 w-fit rounded flex items-center justify-center text-orange-400 px-2 py-1 eounded-full">
+                ✨ Lendora for business!
+              </span> */}
+              <h3 className="text-5xl mb-2 font-semibold">
+                Lendora for business!
+              </h3>
+              <p className="text-base mb-5 max-w-lg">
+                Boost your business with Lendora! Get featured placement, your
+                own branded storefront, powerful analytics, and dedicated
+                support. Elevate your brand and streamline operations for
+                ultimate growth.
+              </p>
+              <Link
+                href="/signup?business=true"
+                className="px-10 py-4 block  font-semibold hover:shadow-lg rounded bg-orange-400 w-fit text-white"
+              >
+                Get Started!
+              </Link>
+            </div>
+          </div>
         </div>
-        <div className=" min-h-[400px] lg:min-h-[450px] flex flex-col justify-center">
+        <div className="h-[70vh] min-h-[550px] flex flex-col justify-center">
           <Image
             src={hero2_img}
             alt=""
-            className="absolute inset-0 w-full h-full z-10 object-cover"
+            className="absolute inset-0 w-full h-full z-10 object-cover object-left"
           />
           <span className="absolute inset-0 w-full h-full z-20 object-cover bg-black/40"></span>
 
@@ -105,8 +136,8 @@ function HomepageSlider() {
                 Rent your items fast—millions of people are waiting.
               </p>
               <Link
-                href="/login"
-                className="px-10 py-4 block hover:shadow-lg rounded bg-orange-400 w-fit text-white"
+                href="/create"
+                className="px-10 py-4 font-semibold  block hover:shadow-lg rounded bg-orange-400 w-fit text-white"
               >
                 List for free
               </Link>

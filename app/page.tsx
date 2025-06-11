@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import useSWRInfinite from "swr/infinite";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 // import { FaFilter } from "react-icons/fa";
 
 // import CategoryList from "./CategoryList";
@@ -115,6 +115,7 @@ function Home() {
                   Filter
                 </span>
               </div> */}
+
               <>
                 {error && (
                   <p className="text-red-500 col-span-12">
@@ -147,7 +148,7 @@ function Home() {
             </div>
           </section>
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </Suspense>
     </>
   );

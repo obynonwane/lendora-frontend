@@ -49,7 +49,7 @@ export default function ProtectedLayout({
   if (!isAuthChecked) {
     // Optional loading state while checking auth
     return (
-      <div className=" text-center  pt-20 flex justify-center">
+      <div className=" text-center h-[80vh] pt-20 flex justify-center">
         {" "}
         <svg
           aria-hidden="true"

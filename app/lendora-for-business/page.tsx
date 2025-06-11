@@ -1,6 +1,6 @@
 import Link from "next/link";
 // import Link from "next/link";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 // import Image from "next/image";
 
 function Page() {
@@ -172,7 +172,7 @@ function Page() {
           </section>
         </section>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

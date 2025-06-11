@@ -87,11 +87,11 @@ function Footer() {
               </Link>
             </div>
 
-            <div className="sm:ml-0 ml-8 flex flex-col">
+            <div className="sm:ml-0 ml-8 flex flex-col lg:mt-0 mt-10">
               <h2 className=" font-semibold text-base leading-4 text-gray-800 ">
                 Get Updates
               </h2>
-              <div className="flex items-center gap-x-4 text-white mt-5">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-white mt-5">
                 <a
                   href="https://www.instagram.com/lendora.ng/"
                   aria-label="instagram"

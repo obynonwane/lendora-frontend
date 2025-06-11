@@ -1,6 +1,6 @@
 import Link from "next/link";
 // import Link from "next/link";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 import Image from "next/image";
 import img1 from "@/images/8983.jpg";
 import img2 from "@/images/41620.jpg";
@@ -178,7 +178,7 @@ function Page() {
           </section>
         </div>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

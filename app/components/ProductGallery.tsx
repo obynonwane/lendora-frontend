@@ -35,9 +35,13 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
   }
 
   return (
-    <div>
+    <div className="lg:flex flex-row-reverse gap-3">
       {/* Main Image Area */}
-      <div className="relative w-full aspect-video shadow bg-gray-100 overflow-hidden mb-4 rounded">
+      <a
+        href={activeImage.live_url}
+        target="_blank"
+        className="relative flex-1 aspect-square cursor-zoom-in shadow bg-gray-100 overflow-hidden mb-4 rounded"
+      >
         {activeImage && (
           <img
             src={activeImage.live_url}
@@ -45,15 +49,15 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
             className="h-full w-full object-cover transition-opacity duration-300 ease-in-out"
           />
         )}
-      </div>
+      </a>
 
       {/* Thumbnails */}
-      <div className="flex gap-3 overflow-x-auto flex-nowrap">
+      <div className="flex lg:flex-col relative flex-nowrap lg:mt-0 mt-3  gap-3 lg:overflow-y-auto lg:overflow-x-hidden overflow-x-auto ">
         {images.map((img, idx) => (
           <button
             key={img.id} // Use a unique ID for the key if available, otherwise fall back to idx
             onClick={() => setActiveIndex(idx)}
-            className={`border rounded  w-28 h-20 overflow-hidden ${
+            className={`border rounded  lg:w-full w-20 h-20 overflow-hidden shrink-0 ${
               activeIndex === idx
                 ? "border-orange-400"
                 : "border-transparent hover:border-gray-300"

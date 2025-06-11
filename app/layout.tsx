@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 
 import { AuthProvider } from "./auth-context"; // path to context
+import Footer from "./components/Footer";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -51,6 +52,7 @@ export default function RootLayout({
 
           {children}
         </AuthProvider>
+        <Footer />
       </body>
     </html>
   );
