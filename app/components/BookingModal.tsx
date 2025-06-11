@@ -109,7 +109,7 @@ export default function BookingModal({
       ></div> */}
 
       <div className="flex z-[300999999999900] fixed lendora-modal inset-0 items-center pt-10 bg-black/50">
-        <div className="bg-white  flex flex-col  overflow-x-hidden rounded-md m-auto md:w-[500px]  w-[90%]  h-[90vh]  md:h-fit">
+        <div className="bg-white  flex flex-col  overflow-x-hidden rounded-md m-auto md:w-[500px]  w-[90%]  h-fit">
           {step !== 3 && (
             <h3 className="text-base flex px-5 pt-4 justify-between items-center font-medium text-slate-900 mb-2">
               Complete Booking
