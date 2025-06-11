@@ -31,7 +31,7 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
     return (
       <div
         onClick={() => setIsShowActionRequiredModal(false)}
-        className="flex z-[300999999999900] fixed lendora-modal inset-0 items-center pt-10 bg-black/50"
+        className="flex z-[300999999999900] fixed lendora-modal inset-0 items-center p-5 bg-black/50"
       >
         <div className="bg-white  flex flex-col  p-5 overflow-x-hidden rounded-md m-auto md:w-[500px]">
           You need to book the item before you can chat or contact the renter.
