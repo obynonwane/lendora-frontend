@@ -2,9 +2,12 @@ import React, { useState } from "react";
 // import axios from "axios";
 import { RiCloseLine } from "react-icons/ri";
 import { ProductPageProduct } from "@/app/types";
-import { IoIosInformationCircleOutline } from "react-icons/io";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { FaPhoneVolume } from "react-icons/fa";
+import * as yup from "yup";
+import { toast } from "react-toastify";
+import { structureRentalDuration } from "@/app/utils/structureRentalDuration";
 
 // type LGA = {
 //   id: string;
@@ -61,7 +64,15 @@ export default function BookingModal({
     const num = value.replace(/\D/g, ""); // Remove non-numeric characters
     return num.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Add commas
   };
-
+  const toastOptions = {
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: false,
+    progress: undefined,
+    theme: "colored",
+  };
   const handleAmountChange =
     (setter: React.Dispatch<React.SetStateAction<string>>) =>
     (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -76,7 +87,8 @@ export default function BookingModal({
 
   const [rentalDuration, setRentalDuration] = useState("");
   const [offerAmount, setOfferAmount] = useState("");
-  const [pickupDate, setPickupDate] = useState(getTodayDate());
+  const [pickupDate, setPickupDate] = useState("");
+  // const [pickupDate, setPickupDate] = useState(getTodayDate());
   const [isNegotiate, setIsNegotiate] = useState(false);
 
   //   useEffect(() => {
@@ -100,6 +112,87 @@ export default function BookingModal({
 
   //     fetchStates();
   //   }, []);
+
+  const handleStep1 = async () => {
+    const validationSchema = yup.object().shape({
+      rentalDuration: yup
+        .string()
+        .required("Rental Duration is required")
+        .test(
+          "is-valid-rentalDuration",
+          "Rental Duration must be a valid number",
+          (value) => {
+            if (!value) return false;
+            const numericValue = value.replace(/,/g, "");
+            return !isNaN(Number(numericValue)) && Number(numericValue) > 0;
+          }
+        ),
+      pickupDate: yup
+        .string()
+        .required("Date is required")
+        .test("is-valid-date", "Date cannot be in the past", function (value) {
+          if (!value) return false;
+          const selected = new Date(value);
+          const today = new Date();
+          // Clear time for accurate date-only comparison
+          selected.setHours(0, 0, 0, 0);
+          today.setHours(0, 0, 0, 0);
+          return selected >= today;
+        }),
+      isNegotiate: yup.boolean(),
+
+      offerAmount: yup.string().when("isNegotiate", {
+        is: true,
+        then: (schema) =>
+          schema
+            .required("Offer Amount is required")
+            .test(
+              "is-valid-minimumNegotiatableAmount",
+              "Offer Amount must be above ₦" +
+                product.inventory.minimum_price.toLocaleString(),
+              (value) => {
+                if (!value) return false;
+                const numericValue = value.replace(/,/g, "");
+                return (
+                  !isNaN(Number(numericValue)) &&
+                  Number(numericValue) > Number(product.inventory.minimum_price)
+                );
+              }
+            ),
+        otherwise: (schema) => schema.notRequired(),
+      }),
+    });
+
+    const data = {
+      rentalDuration,
+      pickupDate,
+      isNegotiate,
+      offerAmount,
+    };
+
+    try {
+      await validationSchema.validate(data, {
+        abortEarly: false,
+      });
+      setStep(2);
+      // console.log("good to go");
+    } catch (errors: unknown) {
+      if (errors instanceof yup.ValidationError) {
+        const validationErrors: Record<string, string> = {};
+        const error = errors.inner[0];
+
+        if (error?.path && error?.message) {
+          validationErrors[error.path] = error.message;
+          toast.error(error.message, toastOptions);
+        }
+
+        // setIsLoading(false);
+      } else {
+        console.error(errors);
+        // setIsLoading(false);
+      }
+    }
+  };
 
   return (
     <>
@@ -148,10 +241,11 @@ export default function BookingModal({
                     htmlFor="title"
                     className="mb-2 mt-2 flex w-full justify-between items-center"
                   >
-                    <span>Pick-up Date</span>
+                    <span>Start Date</span>
                   </label>
                   <input
                     type="date"
+                    min={getTodayDate()}
                     value={pickupDate}
                     className="border border-slate-300 px-2 py-3 rounded w-full"
                     // className="currency-input appearance-none border-r border-y rounded-r-md  w-full py-3 px-3 bg-white text-gray-500 leading-tight focus:outline-none"
@@ -214,7 +308,7 @@ export default function BookingModal({
                   </span>
                 </div>
                 <button
-                  onClick={() => setStep(2)}
+                  onClick={handleStep1}
                   className={`flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white  py-3 `}
                 >
                   Checkout{" "}
@@ -239,7 +333,7 @@ export default function BookingModal({
                     </span>
                   </div>
                   <div className="flex justify-between items-center text-gray-700">
-                    <span>Security Fee</span>
+                    <span>Security Deposit</span>
                     <span>
                       {product.inventory.security_deposit.toLocaleString()}
                     </span>
@@ -272,14 +366,20 @@ export default function BookingModal({
                                 quantity *
                                 Number(product.inventory.offer_price) +
                               product.inventory.security_deposit
-                            ).toLocaleString()}
+                            ).toLocaleString()}{" "}
                       </span>
                     </div>
                   </div>
                 </div>
+
+                <div className="mt-3 px-4 py-2 font-medium  flex items-start gap-2  border-green-400 bg-green-50 border text-sm rounded ">
+                  The above subtotal covers your rent for{" "}
+                  {rentalDuration.toLocaleString()}{" "}
+                  {structureRentalDuration(product.inventory.rental_duration)}s
+                </div>
                 {isNegotiate && (
-                  <div className="mt-6 p-4 font-medium shadow-md flex items-start gap-2  shadow-green-300 text-white text-sm rounded-md bg-green-500">
-                    <IoIosInformationCircleOutline className="shrink-0 text-lg" />
+                  <div className="mt-4 p-4 font-medium shadow-md flex items-start gap-2  shadow-green-300 text-white text-sm rounded bg-green-500">
+                    <IoMdInformationCircleOutline className="shrink-0 text-lg" />
                     The above subtotal is based on your stated negotiation
                     amount
                   </div>

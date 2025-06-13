@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { IoLocation } from "react-icons/io5";
 import { InventoryItem } from "../types";
+import { structureRentalDuration } from "@/app/utils/structureRentalDuration";
 
 function ProductCard({ product }: { product: InventoryItem }) {
   // console.log(product.category_slug.split("-").concat());
@@ -43,12 +44,15 @@ function ProductCard({ product }: { product: InventoryItem }) {
         <h3 className="text-sm font-medium text-slate-800 whitespace-nowrap overflow-hidden text-ellipsis">
           {product.name}{" "}
         </h3>
-        <p className=" flex justify-between items-center">
+        <p className=" flex flex-wrap items-center">
           <span className=" font-semibold text-sm text-orange-400">
             {" "}
             ₦{product.offer_price.toLocaleString()}
           </span>
-          <span className="flex items-center text-slate-500">
+          <span className=" text-xs mr-5">
+            /{structureRentalDuration(product.rental_duration)}
+          </span>
+          <span className="flex md:ml-auto items-center text-slate-500">
             <IoLocation className="text-xs" />{" "}
             <span className="text-xs text-nowrap">
               {product.state.name}, {product.lga.name}

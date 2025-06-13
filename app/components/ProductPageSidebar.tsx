@@ -6,6 +6,9 @@ import { ProductPageProduct } from "@/app/types";
 import BookingModal from "./BookingModal";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { FaPhoneVolume } from "react-icons/fa";
+import { structureRentalDuration } from "@/app/utils/structureRentalDuration";
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import { Popover } from "radix-ui";
 function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
   const [isShowBookingModal, setIsShowBookingModal] = useState(false);
   const [isShowActionRequiredModal, setIsShowActionRequiredModal] =
@@ -69,12 +72,56 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
               <span className="text-3xl  font-bold text-black">
                 ₦{product.inventory.offer_price.toLocaleString()}
               </span>
-              <span className="flex items-center  text-orange-400 -mt-2 font-semibold">
+              <span className="flex items-center   ">
+                <span className="text-sm ">
+                  /per{" "}
+                  {structureRentalDuration(product.inventory.rental_duration)}
+                </span>
+              </span>
+            </p>
+            <p className=" flex gap-2 items-end mt-1">
+              <span className="flex items-center  text-orange-400  font-semibold">
                 <span className="md:text-xl text-lg mr-1">+</span>
                 <span className="md:text-base text-sm ">
                   {product.inventory.security_deposit.toLocaleString()}
-                  (Security Fee)
+                  (Security Deposit)
                 </span>
+
+                <Popover.Root>
+                  <Popover.Trigger asChild>
+                    <button
+                      className="IconButton text-slate-500 ml-2 "
+                      aria-label="Update dimensions"
+                    >
+                      <IoMdInformationCircleOutline />
+                    </button>
+                  </Popover.Trigger>
+                  <Popover.Portal>
+                    <Popover.Content
+                      className="PopoverContent text-slate-700 text-sm z-[9999999999999999999] shadow-xl border bg-white"
+                      sideOffset={5}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          // gap: 1,
+                        }}
+                      >
+                        <div
+                          className="w-full   text-left rounded"
+                          aria-label="Close"
+                        >
+                          This is refundable!
+                        </div>
+                      </div>
+                      {/* <Popover.Close className="PopoverClose" aria-label="Close">
+                    x
+                  </Popover.Close> */}
+                      <Popover.Arrow className="PopoverArrow" />
+                    </Popover.Content>
+                  </Popover.Portal>
+                </Popover.Root>
               </span>
             </p>
             {product.inventory.is_available === "no" ? (
@@ -137,7 +184,7 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
                  Levittown, New York, Brooklyn, New York, Bronx, New York
               </span>
             </div>
-            <div className="flex mt-6 border-t pt-3 gap-2">
+            <div className="flex mt-3 border-t pt-3 gap-2">
               <RiUserSmileFill className="text-orange-400 text-5xl" />
               <p className="text-slate-500 ">
                 <span className="font-semibold block text-slate-700 ">
