@@ -83,11 +83,12 @@ export interface InventoryItem {
   created_at: Timestamp;
   updated_at: Timestamp;
   country_id: string;
-  rental_duration: string;
+  rental_duration: "hourly" | "daily" | "monthly" | "annually";
   state_id: string;
   lga_id: string;
   country: Country;
   quantity: number;
+  minimum_price: number;
   security_deposit: number;
   state: State;
   lga: LGA;
