@@ -23,7 +23,7 @@ function Footer() {
                 Copyright © 2025 Lendora.ng
               </p>
               <p className=" leading-none text-gray-800 mt-4 ">
-                All rights reserved
+                All rights reserved.
               </p>
             </div>
 
