@@ -49,9 +49,12 @@ function ProductCard({ product }: { product: InventoryItem }) {
             {" "}
             ₦{product.offer_price.toLocaleString()}
           </span>
-          <span className=" text-xs mr-5">
-            /{structureRentalDuration(product.rental_duration)}
-          </span>
+          {product.product_purpose === "rental" && (
+            <span className=" text-xs mr-5">
+              /{structureRentalDuration(product.rental_duration)}
+            </span>
+          )}
+
           <span className="flex md:ml-auto items-center text-slate-500">
             <IoLocation className="text-xs" />{" "}
             <span className="text-xs text-nowrap">

@@ -14,6 +14,3 @@ export function structureRentalDuration(duration: Duration): string {
       return "";
   }
 }
-
-// Usage example
-// const unit = getSingularUnit("daily"); // returns "day"

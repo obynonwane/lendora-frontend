@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { RiCloseLine } from "react-icons/ri";
 import { ProductPageProduct } from "@/app/types";
-import { IoMdInformationCircleOutline } from "react-icons/io";
+// import { IoMdInformationCircleOutline } from "react-icons/io";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { FaPhoneVolume } from "react-icons/fa";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { structureRentalDuration } from "@/app/utils/structureRentalDuration";
-import { calculateReturnDate } from "@/app/utils/calculateReturnDate";
+// import { structureRentalDuration } from "@/app/utils/structureRentalDuration";
+// import { calculateReturnDate } from "@/app/utils/calculateReturnDate";
 import { useRouter } from "next/navigation";
 import { UserData_TYPE } from "@/app/types";
 import { getFromLocalStorage } from "../utility";
@@ -47,14 +47,14 @@ type Props = {
   handleIncrementQuantity: () => void;
   handleDecrementQuantity: () => void;
 
-  setIsShowBookingModal: (value: boolean) => void;
+  setIsShowPurchaseModal: (value: boolean) => void;
 };
 
-export default function BookingModal({
+export default function PurchaseModal({
   handleIncrementQuantity,
   handleDecrementQuantity,
   quantity,
-  setIsShowBookingModal,
+  setIsShowPurchaseModal,
   product,
 }: Props) {
   const [step, setStep] = useState<number>(1);
@@ -120,12 +120,9 @@ export default function BookingModal({
   //     fetchStates();
   //   }, []);
 
-  const duration = Number(rentalDuration.replace(/,/g, ""));
-  const pricePerUnit = isNegotiate
-    ? Number(offerAmount.replace(/,/g, ""))
-    : Number(product.inventory.offer_price);
-  const total =
-    duration * quantity * pricePerUnit + product.inventory.security_deposit;
+  // const duration = Number(rentalDuration.replace(/,/g, ""));
+  const pricePerUnit = Number(product.inventory.offer_price);
+  const total = quantity * pricePerUnit;
 
   const handleStep1 = async () => {
     const validationSchema = yup.object().shape({
@@ -208,25 +205,12 @@ export default function BookingModal({
     }
   };
   const handleStep2 = async () => {
-    const now = new Date();
-    const end_time = now.toTimeString().slice(0, 5);
-
     const data = {
       inventory_id: product.inventory.id,
-      rental_type: product.inventory.rental_duration,
-      rental_duration: Number(rentalDuration.replace(/,/g, "")),
-      security_deposit: product.inventory.security_deposit,
-      offer_price_per_unit: isNegotiate
-        ? Number(offerAmount.replace(/,/g, ""))
-        : product.inventory.offer_price,
+
+      offer_price_per_unit: product.inventory.offer_price,
       quantity: quantity,
-      start_date: pickupDate,
-      end_date: calculateReturnDate(
-        pickupDate,
-        product.inventory.rental_duration,
-        Number(rentalDuration.replace(/,/g, ""))
-      ),
-      end_time: end_time,
+
       total_amount: total,
     };
     // console.log(data);
@@ -234,7 +218,7 @@ export default function BookingModal({
       setIsLoading(true);
 
       await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/booking/create-booking`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/purchase/create-order`,
         data,
         {
           headers: {
@@ -244,7 +228,7 @@ export default function BookingModal({
       );
       setIsLoading(false);
       // await refetchUser();
-      setStep(3);
+      setStep(2);
       setIsLoading(false);
       toast.success(" successful!", toastOptions);
       // refreshAuth();
@@ -292,19 +276,19 @@ export default function BookingModal({
     <>
       <div className="flex z-[300999999999900] fixed lendora-modal inset-0 items-center pt-10 bg-black/50">
         <div className="bg-white  flex flex-col  overflow-x-hidden rounded-md m-auto md:w-[500px]  w-[90%]  h-fit">
-          {step !== 3 && (
+          {step !== 2 && (
             <h3 className="text-base flex px-5 pt-4 justify-between items-center font-medium text-slate-900 mb-2">
-              Complete Booking
+              Complete Purchase
               <span
                 onClick={() => {
-                  setIsShowBookingModal(false);
+                  setIsShowPurchaseModal(false);
                 }}
               >
                 <RiCloseLine className="text-xl cursor-pointer" />
               </span>
             </h3>
           )}
-          {step === 1 && (
+          {step === 11 && (
             <>
               <div className="grid grid-cols-12 gap-3 p-5 overflow-y-auto h-full">
                 <div className="col-span-12 lg:col-span-6">
@@ -405,34 +389,29 @@ export default function BookingModal({
               </div>
             </>
           )}
-          {step === 2 && (
+          {step === 1 && (
             <div className="p-5">
               <div className="bg-zinc-100 p-4 rounded   col-span-12">
                 <div className="space-y-4">
                   <div className="flex justify-between items-center text-gray-700">
                     <span>Item (x{quantity})</span>
                     <span>
-                      {isNegotiate
-                        ? (
-                            quantity * Number(offerAmount.replace(/,/g, ""))
-                          ).toLocaleString()
-                        : (
-                            quantity * Number(product.inventory.offer_price)
-                          ).toLocaleString()}
+                      {(
+                        quantity * Number(product.inventory.offer_price)
+                      ).toLocaleString()}
                     </span>
                   </div>
-                  <div className="flex justify-between items-center text-gray-700">
+                  {/* <div className="flex justify-between items-center text-gray-700">
                     <span>Security Deposit</span>
                     <span>
-                      ₦{product.inventory.security_deposit.toLocaleString()}
+                      {product.inventory.security_deposit.toLocaleString()}
                     </span>
-                  </div>
+                  </div> */}
                   <div className="border-t border-gray-200 pt-4"></div>
                   <div className="flex justify-between items-center text-gray-900 font-bold text-lg">
                     <span>Subtotal=</span>
                     <div className="flex items-baseline space-x-3">
-                      ₦
-                      {isNegotiate && (
+                      {/* {isNegotiate && (
                         <span className="line-through text-gray-400 text-base">
                           {(
                             Number(rentalDuration) *
@@ -441,7 +420,7 @@ export default function BookingModal({
                             product.inventory.security_deposit
                           ).toLocaleString()}
                         </span>
-                      )}
+                      )} */}
                       <span className="text-orange-500">
                         {" "}
                         ₦{total.toLocaleString()}{" "}
@@ -450,18 +429,18 @@ export default function BookingModal({
                   </div>
                 </div>
 
-                <div className="mt-3 px-4 py-2 font-medium  flex items-start gap-2  border-green-400 bg-green-50 border text-sm rounded ">
+                {/* <div className="mt-3 px-4 py-2 font-medium  flex items-start gap-2  border-green-400 bg-green-50 border text-sm rounded ">
                   The above subtotal covers your rent for{" "}
                   {rentalDuration.toLocaleString()}{" "}
                   {structureRentalDuration(product.inventory.rental_duration)}s
-                </div>
-                {isNegotiate && (
+                </div> */}
+                {/* {isNegotiate && (
                   <div className="mt-4 p-4 font-medium shadow-md flex items-start gap-2  shadow-green-300 text-white text-sm rounded bg-green-500">
                     <IoMdInformationCircleOutline className="shrink-0 text-lg" />
                     The above subtotal is based on your stated negotiation
                     amount
                   </div>
-                )}
+                )} */}
               </div>
 
               <button
@@ -473,18 +452,18 @@ export default function BookingModal({
                 Checkout{" "}
               </button>
 
-              <button
+              {/* <button
                 onClick={() => setStep(1)}
                 className={`flex w-full mt-3 justify-center rounded font-semibold border border-orange-400 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-3 `}
               >
                 Back{" "}
-              </button>
+              </button> */}
             </div>
           )}
-          {step === 3 && (
+          {step === 2 && (
             <div className="p-5">
               <h3 className="text-lg text-left font-medium mb-2">
-                Booking Successful!
+                Purchase Successful!
               </h3>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
@@ -507,7 +486,7 @@ export default function BookingModal({
                   Contact{" "}
                 </button>
                 <button
-                  onClick={() => setIsShowBookingModal(false)}
+                  onClick={() => setIsShowPurchaseModal(false)}
                   className={`col-span-12 flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white  py-3 `}
                 >
                   Close{" "}
