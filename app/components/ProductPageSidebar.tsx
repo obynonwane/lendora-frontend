@@ -9,16 +9,26 @@ import { FaPhoneVolume } from "react-icons/fa";
 import { structureRentalDuration } from "@/app/utils/structureRentalDuration";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { Popover } from "radix-ui";
+import PurchaseModal from "./PurchaseModal";
 function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
+  console.log(product);
   const [isShowBookingModal, setIsShowBookingModal] = useState(false);
+  const [isShowPurchaseModal, setIsShowPurchaseModal] = useState(false);
   const [isShowActionRequiredModal, setIsShowActionRequiredModal] =
     useState(false);
 
+  const isRental = product.inventory.product_purpose === "rental";
+  const primaryActionButtonClassName = `flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white  py-3`;
   const maxQuantity = product.inventory.quantity;
 
   const [quantity, setQuantity] = useState<number>(1);
 
   const handleIncrementQuantity = () => {
+    if (quantity === product.inventory.quantity) {
+      // alert(quantity);
+
+      return;
+    }
     if (quantity < maxQuantity) {
       setQuantity(quantity + 1);
     }
@@ -28,6 +38,26 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
+  };
+
+  const incrementDecrementControl = () => {
+    return (
+      <div className="bg-slate-100 flex rounded flex-1  px-2 items-center gap-3 justify-between  ">
+        <span
+          className="cursor-pointer text-lg"
+          onClick={handleDecrementQuantity}
+        >
+          -
+        </span>
+        <span className="mx-1">{quantity}</span>
+        <span
+          className="cursor-pointer text-lg"
+          onClick={handleIncrementQuantity}
+        >
+          +
+        </span>
+      </div>
+    );
   };
 
   const actionRequiredModal = () => {
@@ -54,6 +84,15 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
           product={product}
         />
       )}
+      {isShowPurchaseModal && (
+        <PurchaseModal
+          handleIncrementQuantity={handleIncrementQuantity}
+          handleDecrementQuantity={handleDecrementQuantity}
+          quantity={quantity}
+          setIsShowPurchaseModal={setIsShowPurchaseModal}
+          product={product}
+        />
+      )}
 
       <div className="lg:col-span-1 ">
         <div className="sticky top-36 mt-3  rounded  ">
@@ -62,7 +101,7 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
               <span className="lg:py-1 px-2 rounded-full border-orange-400 border  bg-white">
                 {product.inventory.product_purpose}
               </span>{" "}
-              {product.inventory.negotiable === "yes" && (
+              {isRental && product.inventory.negotiable === "yes" && (
                 <span className="lg:py-1 px-2 rounded-full border-orange-400 border  bg-white">
                   Negotiable
                 </span>
@@ -72,59 +111,63 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
               <span className="text-3xl  font-bold text-black">
                 ₦{product.inventory.offer_price.toLocaleString()}
               </span>
-              <span className="flex items-center   ">
-                <span className="text-sm ">
-                  /per{" "}
-                  {structureRentalDuration(product.inventory.rental_duration)}
+              {isRental && (
+                <span className="flex items-center   ">
+                  <span className="text-sm ">
+                    /per{" "}
+                    {structureRentalDuration(product.inventory.rental_duration)}
+                  </span>
                 </span>
-              </span>
+              )}
             </p>
-            <p className=" flex gap-2 items-end mt-1">
-              <span className="flex items-center  text-orange-400  font-semibold">
-                <span className="md:text-xl text-lg mr-1">+</span>
-                <span className="md:text-base text-sm ">
-                  {product.inventory.security_deposit.toLocaleString()}
-                  (Security Deposit)
-                </span>
+            {isRental && (
+              <p className=" flex gap-2 items-end mt-1">
+                <span className="flex items-center  text-orange-400  font-semibold">
+                  <span className="md:text-xl text-lg mr-1">+</span>
+                  <span className="md:text-base text-sm ">
+                    {product.inventory.security_deposit.toLocaleString()}
+                    (Security Deposit)
+                  </span>
 
-                <Popover.Root>
-                  <Popover.Trigger asChild>
-                    <button
-                      className="IconButton text-slate-500 ml-2 "
-                      aria-label="Update dimensions"
-                    >
-                      <IoMdInformationCircleOutline />
-                    </button>
-                  </Popover.Trigger>
-                  <Popover.Portal>
-                    <Popover.Content
-                      className="PopoverContent text-slate-700 text-sm z-[9999999999999999999] shadow-xl border bg-white"
-                      sideOffset={5}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          // gap: 1,
-                        }}
+                  <Popover.Root>
+                    <Popover.Trigger asChild>
+                      <button
+                        className="IconButton text-slate-500 ml-2 "
+                        aria-label="Update dimensions"
+                      >
+                        <IoMdInformationCircleOutline />
+                      </button>
+                    </Popover.Trigger>
+                    <Popover.Portal>
+                      <Popover.Content
+                        className="PopoverContent text-slate-700 text-sm z-[9999999999999999999] shadow-xl border bg-white"
+                        sideOffset={5}
                       >
                         <div
-                          className="w-full   text-left rounded"
-                          aria-label="Close"
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            // gap: 1,
+                          }}
                         >
-                          This is refundable!
+                          <div
+                            className="w-full   text-left rounded"
+                            aria-label="Close"
+                          >
+                            This is refundable!
+                          </div>
                         </div>
-                      </div>
-                      {/* <Popover.Close className="PopoverClose" aria-label="Close">
+                        {/* <Popover.Close className="PopoverClose" aria-label="Close">
                     x
                   </Popover.Close> */}
-                      <Popover.Arrow className="PopoverArrow" />
-                    </Popover.Content>
-                  </Popover.Portal>
-                </Popover.Root>
-              </span>
-            </p>
-            {product.inventory.is_available === "no" ? (
+                        <Popover.Arrow className="PopoverArrow" />
+                      </Popover.Content>
+                    </Popover.Portal>
+                  </Popover.Root>
+                </span>
+              </p>
+            )}
+            {/* {product.inventory.is_available === "no" ? (
               <>
                 <span className="text-center block mt-5 text-red-500 font-bold">
                   THIS ITEM IS CURRENTLY UNAVAILABLE
@@ -159,6 +202,44 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
                   Book Now!
                 </button>
               </div>
+            )} */}
+            {product.inventory.is_available === "no" && (
+              <>
+                <span className="text-center block mt-5 text-red-500 font-bold">
+                  THIS ITEM IS CURRENTLY UNAVAILABLE
+                </span>
+                <span
+                  className={` block w-full justify-center rounded font-semibold bg-zinc-500 text-center cursor-not-allowed text-white mt-2 py-3 `}
+                >
+                  UNAVAILABLE
+                </span>
+              </>
+            )}
+            {product.inventory.is_available === "yes" && isRental && (
+              <>
+                <div className="flex gap-2 items-stretch  mt-5">
+                  {incrementDecrementControl()}
+                  <button
+                    onClick={() => setIsShowBookingModal(true)}
+                    className={primaryActionButtonClassName}
+                  >
+                    Book Now!
+                  </button>
+                </div>
+              </>
+            )}
+            {product.inventory.is_available === "yes" && !isRental && (
+              <>
+                <div className="flex gap-2 items-stretch  mt-5">
+                  {incrementDecrementControl()}
+                  <button
+                    onClick={() => setIsShowPurchaseModal(true)}
+                    className={primaryActionButtonClassName}
+                  >
+                    Buy Now!
+                  </button>
+                </div>
+              </>
             )}
 
             <div className="grid grid-cols-12 gap-3 mt-3">
