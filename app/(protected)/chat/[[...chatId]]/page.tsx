@@ -85,7 +85,8 @@ function Page() {
   const [chatHistory, setChatHistory] = useState([]);
   const [isLoadingChatHistory, setIsLoadingChatHistory] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const logout = useUserStore((s) => s.logout);
+  // const logout = useUserStore((s) => s.logout);
+  console.log(error, isLoadingChatHistory, chatHistory, messages, useUserStore);
 
   // console.log("userid", userData?.detail.user);
   useEffect(() => {
