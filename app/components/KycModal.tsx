@@ -9,7 +9,7 @@ import { FaCheck } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import ImageUpload from "./ImageUpload";
 import { useRouter } from "next/navigation";
-import { saveToLocalStorage } from "@/app/utility";
+import { saveToLocalStorage } from "@/app/utils/utility";
 
 // import { useAuth } from "../auth-context";
 function KycModal({

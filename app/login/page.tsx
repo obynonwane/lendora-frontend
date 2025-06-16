@@ -6,11 +6,12 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { FaEnvelope } from "react-icons/fa";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useAuth } from "../auth-context";
+import { useRouter, useSearchParams } from "next/navigation";
+// import { useAuth } from "../auth-context";
+import { useUserStore } from "../store/useUserStore";
 
 import logoIcon from "../../images/logo-icon.png";
-import { saveToLocalStorage } from "@/app/utility";
+import { saveToLocalStorage } from "@/app/utils/utility";
 type StepState =
   | "login-form"
   | "unverified-email"
@@ -20,9 +21,12 @@ function Page() {
   const [email, setEmail] = useState("chibuikennaji306+22@gmail.com");
   const [password, setPassword] = useState("@Password2020");
 
-  const { refreshAuth } = useAuth();
+  // const { refreshAuth } = useAuth();
 
   const router = useRouter();
+  const params = useSearchParams();
+  const redirectUrl = params.get("redirect");
+  // console.log("redirectUrl", redirectUrl);
 
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState<StepState>("login-form");
@@ -76,12 +80,19 @@ function Page() {
 
       saveToLocalStorage("lendora_user", data.data.data);
       saveToLocalStorage("lendora_ac_tk", data.data.data.access_token);
-
+      useUserStore.setState({
+        user: data.data.data,
+        isAuthenticated: true,
+      });
       setIsLoading(false);
       toast.success("sign-in successful!", toastOptions);
-      refreshAuth();
-
-      router.push("/");
+      // refreshAuth();
+      // console.log(redirectUrl);
+      if (redirectUrl) {
+        router.push(redirectUrl);
+      } else {
+        router.push("/");
+      }
     } catch (errors: unknown) {
       if (errors instanceof yup.ValidationError) {
         console.log(errors);

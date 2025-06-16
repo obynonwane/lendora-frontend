@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
-import { getFromLocalStorage } from "@/app/utility";
+import { getFromLocalStorage } from "@/app/utils/utility";
 
 type AuthContextType = {
   isLoggedIn: boolean;

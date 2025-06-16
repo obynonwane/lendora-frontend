@@ -9,9 +9,10 @@ import * as yup from "yup";
 import { toast } from "react-toastify";
 // import { structureRentalDuration } from "@/app/utils/structureRentalDuration";
 // import { calculateReturnDate } from "@/app/utils/calculateReturnDate";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { UserData_TYPE } from "@/app/types";
-import { getFromLocalStorage } from "../utility";
+import { getFromLocalStorage } from "../utils/utility";
+import { useUserStore } from "../store/useUserStore";
 
 // type LGA = {
 //   id: string;
@@ -59,6 +60,8 @@ export default function PurchaseModal({
 }: Props) {
   const [step, setStep] = useState<number>(1);
   const router = useRouter();
+  const pathname = usePathname();
+  // console.log(pathname);
   const userData: UserData_TYPE | null = getFromLocalStorage("lendora_user");
 
   const formatNumber = (value: string): string => {
@@ -76,6 +79,8 @@ export default function PurchaseModal({
   };
 
   const [isLoading, setIsLoading] = useState(false);
+  const isAuthenticated = useUserStore((s) => s.isAuthenticated);
+  const authStateLoaded = useUserStore((s) => s.authStateLoaded);
 
   // const calculateSubtotal = ()=>{
 
@@ -271,6 +276,41 @@ export default function PurchaseModal({
 
     // console.log(data);
   };
+
+  if (!authStateLoaded || !isAuthenticated) {
+    return (
+      <div className="flex z-[300999999999900] fixed lendora-modal inset-0 items-center pt-10 bg-black/50">
+        <div className="bg-white relative   overflow-x-hidden rounded-md m-auto md:w-[400px]  w-[90%]  h-fit">
+          <h3 className="text-xl  px-5 pt-4 text-center font-medium text-slate-900 ">
+            Login to Purchase!
+          </h3>
+
+          <RiCloseLine
+            onClick={() => {
+              setIsShowPurchaseModal(false);
+            }}
+            className="text-xl cursor-pointer absolute top-2 right-2"
+          />
+
+          <div className="px-5 pb-5">
+            <p className="text-center text-gray-700">
+              Please log in to complete your booking.
+            </p>
+            <div className="flex justify-center mt-4">
+              <button
+                onClick={() => {
+                  router.push(`/login?redirect=${pathname}`); // Redirect to login page
+                }}
+                className="bg-orange-400 hover:bg-[#FFAB4E] text-white font-semibold py-2 px-4 rounded"
+              >
+                Go to Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

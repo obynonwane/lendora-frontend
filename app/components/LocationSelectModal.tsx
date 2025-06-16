@@ -3,7 +3,7 @@ import axios from "axios";
 import { RxCaretRight } from "react-icons/rx";
 // import { useRouter, useSearchParams } from "next/navigation";
 // import buildFilteredQueryString from "../utils/buildFilteredQueryString";
-import { saveToLocalStorage } from "@/app/utility";
+import { saveToLocalStorage } from "@/app/utils/utility";
 
 type LGA = {
   id: string;

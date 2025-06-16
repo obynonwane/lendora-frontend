@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, ChangeEvent, KeyboardEvent } from "react";
 import axios from "axios";
-import { getFromLocalStorage } from "../utility";
+import { getFromLocalStorage } from "../utils/utility";
 import { Select } from "radix-ui";
 import { Popover } from "radix-ui";
 import { useAuth } from "../auth-context";
@@ -20,6 +20,7 @@ import { FaCheck } from "react-icons/fa6";
 
 import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
 import ImageUpload from "./ImageUpload";
+
 // import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 function CreatePage() {
   const router = useRouter();
