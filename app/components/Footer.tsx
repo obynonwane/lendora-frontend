@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import logoIcon from "../../images/logo-icon.png";
@@ -6,8 +7,13 @@ import { FaFacebook } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa";
-
+import { usePathname } from "next/navigation";
 function Footer() {
+  const pathname = usePathname();
+  const isChatPage = pathname.includes("/chat");
+  if (isChatPage) {
+    return <></>;
+  }
   return (
     <>
       <footer className=" border-t bg-white text-sm">

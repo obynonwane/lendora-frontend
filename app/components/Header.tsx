@@ -1,5 +1,5 @@
 "use client";
-import { useAuth } from "../auth-context";
+// import { useAuth } from "../auth-context";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,13 +9,24 @@ import CategoryList from "./CategoryList";
 import { PiUserCircle } from "react-icons/pi";
 import { Popover } from "radix-ui";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "../store/useUserStore";
+import { BsChatLeftDots } from "react-icons/bs";
 
 export default function Header() {
-  const { isLoggedIn, isAuthChecked } = useAuth();
+  // const { isLoggedIn, isAuthChecked } = useAuth();
+
+  // const user = useUserStore((s) => s.user);
+  const isAuthenticated = useUserStore((s) => s.isAuthenticated);
   const router = useRouter();
-  const logout = () => {
+  const logout = useUserStore((s) => s.logout);
+
+  const authStateLoaded = useUserStore((s) => s.authStateLoaded);
+  const logoutUser = () => {
     localStorage.removeItem("lendora_ac_tk");
     localStorage.removeItem("lendora_user");
+
+    logout();
+
     router.push("/login");
   };
   return (
@@ -38,9 +49,10 @@ export default function Header() {
         <div className="lg:flex-1 lg:order-1 order-4  header-search-container relative lg:pt-0 pt-2 mt-2 lg:mt-0 w-full">
           <Search />
         </div>
-        {!isAuthChecked ? (
+
+        {!authStateLoaded ? (
           <span className="w-32 py-5 rounded bg-zinc-100 animate-pulse order-2 lg:order-3"></span>
-        ) : !isLoggedIn ? (
+        ) : !isAuthenticated ? (
           <div className="flex items-center gap-5 order-2 lg:order-3">
             <Link className="hover:text-orange-400" href="/login">
               Login
@@ -51,12 +63,13 @@ export default function Header() {
           </div>
         ) : (
           <div className="flex items-center gap-5 order-2 lg:order-3">
-            {/* <Link className="hover:text-orange-400" href="/">
-              Explore
-            </Link> */}
-            {/* <Link className="hover:text-orange-400 text-2xl" href="/login">
-              <FaRegUserCircle />
-            </Link> */}
+            <Link
+              href="/chat"
+              className="IconButton hover:text-orange-400 text-2xl"
+              aria-label="Update dimensions"
+            >
+              <BsChatLeftDots className="text-slate-500 text-xl" />{" "}
+            </Link>
             <Popover.Root>
               <Popover.Trigger asChild>
                 <button
@@ -90,14 +103,12 @@ export default function Header() {
                       className="w-full hover:bg-gray-100  text-left rounded"
                       aria-label="Close"
                     >
-                      <span onClick={logout} className="  py-2 px-2 block">
+                      <span onClick={logoutUser} className="  py-2 px-2 block">
                         Logout
                       </span>
                     </Popover.Close>
                   </div>
-                  {/* <Popover.Close className="PopoverClose" aria-label="Close">
-                    x
-                  </Popover.Close> */}
+
                   <Popover.Arrow className="PopoverArrow" />
                 </Popover.Content>
               </Popover.Portal>

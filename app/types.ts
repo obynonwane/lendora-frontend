@@ -157,3 +157,19 @@ export interface ProductPageProduct {
   subcategory: SubCategory_TYPE;
   images: InventoryImage[];
 }
+
+export type ChatHistoryItem = {
+  content_type: string;
+  created_at: string;
+  email: string;
+  first_name: string;
+  id: string;
+  last_message: string;
+  last_name: string;
+  partner_id: string;
+  receiver_id: string;
+  sender_id: string;
+  sent_at: number;
+  type: string;
+  updated_at: string;
+};

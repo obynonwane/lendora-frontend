@@ -1,52 +1,37 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/app/auth-context";
+import { useRouter, usePathname } from "next/navigation";
+// import { useAuth } from "@/app/auth-context";
 import { useEffect, useState } from "react";
 import KycModal from "../components/KycModal";
-import { getFromLocalStorage } from "@/app/utility";
+import { getFromLocalStorage } from "@/app/utils/utility";
 import { UserData_TYPE } from "@/app/types";
+import { useUserStore } from "../store/useUserStore";
+
 export default function ProtectedLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { isLoggedIn, isAuthChecked } = useAuth();
+  // const user = useUserStore((s) => s.user);
+  const isAuthenticated = useUserStore((s) => s.isAuthenticated);
+  const authStateLoaded = useUserStore((s) => s.authStateLoaded);
+  // const { isLoggedIn, isAuthChecked } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
   const userData: UserData_TYPE | null = getFromLocalStorage("lendora_user");
   const [isShowKycModal, setIsShowKycModal] = useState<boolean>(
     !!userData?.detail.kyc_detail?.business_kyc?.id ||
       !!userData?.detail.kyc_detail?.renter_kyc?.id
   );
-  console.log(userData);
-  // const [isShowKycModal, setIsShowKycModal] = useState<boolean>(
-  //   !!userData?.detail.user?.kycs
-  // );
-  // console.log(!!userData?.user?.kycs);
-  //   {
-  //     "kyc_detail": {},
-  //     "roles": [
-  //         "participant"
-  //     ],
-  //     "user": {
-  //         "created_at": "2025-06-02T14:45:21.099Z",
-  //         "email": "chibuikennaji306+101@gmail.com",
-  //         "first_name": "Nnaji",
-  //         "id": "c76dad56-67be-4ad5-89bb-30f34d19499e",
-  //         "kycs": null,
-  //         "last_name": "Chibuike",
-  //         "phone": "07080961583",
-  //         "updated_at": "2025-06-02T14:46:38.450Z",
-  //         "user_types": null,
-  //         "verified": true
-  //     }
-  // }
-  useEffect(() => {
-    if (isAuthChecked && !isLoggedIn) {
-      router.replace("/login");
-    }
-  }, [isAuthChecked, isLoggedIn, router]);
 
-  if (!isAuthChecked) {
+  useEffect(() => {
+    // console.log({ pathname });
+    if (authStateLoaded && !isAuthenticated) {
+      router.replace(`/login?redirect=${pathname}`);
+    }
+  }, [authStateLoaded, isAuthenticated, router]);
+
+  if (!isAuthenticated) {
     // Optional loading state while checking auth
     return (
       <div className=" text-center h-[80vh] pt-20 flex justify-center">
@@ -71,10 +56,10 @@ export default function ProtectedLayout({
     );
   }
 
-  if (!isLoggedIn) {
-    // Prevent flicker before redirect
-    return null;
-  }
+  // if (!isLoggedIn) {
+  //   // Prevent flicker before redirect
+  //   return null;
+  // }
 
   return (
     <>

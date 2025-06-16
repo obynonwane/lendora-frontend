@@ -11,7 +11,7 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import { Popover } from "radix-ui";
 import PurchaseModal from "./PurchaseModal";
 function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
-  console.log(product);
+  // console.log(product);
   const [isShowBookingModal, setIsShowBookingModal] = useState(false);
   const [isShowPurchaseModal, setIsShowPurchaseModal] = useState(false);
   const [isShowActionRequiredModal, setIsShowActionRequiredModal] =
