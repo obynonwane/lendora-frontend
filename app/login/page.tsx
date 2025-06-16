@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
 import * as yup from "yup";
 import { toast } from "react-toastify";
@@ -17,7 +17,7 @@ type StepState =
   | "unverified-email"
   | "resend-verification-email";
 
-function Page() {
+function LoginPage() {
   const [email, setEmail] = useState("chibuikennaji306+22@gmail.com");
   const [password, setPassword] = useState("@Password2020");
 
@@ -343,4 +343,18 @@ function Page() {
   );
 }
 
-export default Page;
+export default function Page() {
+  return (
+    <main>
+      <Suspense
+        fallback={
+          <div className="w-full h-screen flex items-center justify-center">
+            Loading...
+          </div>
+        }
+      >
+        <LoginPage />
+      </Suspense>
+    </main>
+  );
+}
