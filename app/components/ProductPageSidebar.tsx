@@ -10,13 +10,15 @@ import { structureRentalDuration } from "@/app/utils/structureRentalDuration";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { Popover } from "radix-ui";
 import PurchaseModal from "./PurchaseModal";
+import { useRouter } from "next/navigation";
+
 function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
   // console.log(product);
   const [isShowBookingModal, setIsShowBookingModal] = useState(false);
   const [isShowPurchaseModal, setIsShowPurchaseModal] = useState(false);
   const [isShowActionRequiredModal, setIsShowActionRequiredModal] =
     useState(false);
-
+  const router = useRouter();
   const isRental = product.inventory.product_purpose === "rental";
   const primaryActionButtonClassName = `flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white  py-3`;
   const maxQuantity = product.inventory.quantity;
@@ -125,7 +127,7 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
                 <span className="flex items-center  text-orange-400  font-semibold">
                   <span className="md:text-xl text-lg mr-1">+</span>
                   <span className="md:text-base text-sm ">
-                    {product.inventory.security_deposit.toLocaleString()}
+                    {product?.inventory?.security_deposit?.toLocaleString()}
                     (Security Deposit)
                   </span>
 
@@ -244,7 +246,7 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
 
             <div className="grid grid-cols-12 gap-3 mt-3">
               <button
-                onClick={() => setIsShowActionRequiredModal(true)}
+                onClick={() => router.push(`/chat/${product.user.id}`)}
                 className={`flex w-full col-span-6  items-center gap-2 justify-center rounded font-medium text-sm border border-orange-400 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-2 `}
               >
                 <IoChatbubbleEllipsesOutline />

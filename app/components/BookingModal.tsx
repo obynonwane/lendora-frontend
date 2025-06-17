@@ -507,14 +507,16 @@ export default function BookingModal({
 
               <div className="grid grid-cols-12 gap-3 mt-4">
                 <button
-                  onClick={() => setStep(1)}
+                  onClick={() => {
+                    router.push(`/chat/${product.user.id}`); // Redirect to login page
+                  }}
                   className={`flex w-full col-span-6  items-center gap-2 justify-center rounded font-semibold border border-orange-400 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-3 `}
                 >
                   <IoChatbubbleEllipsesOutline />
                   Chat{" "}
                 </button>{" "}
                 <button
-                  onClick={() => setStep(1)}
+                  // onClick={() => setStep(1)}
                   className={`flex w-full col-span-6  items-center gap-2 justify-center rounded font-semibold border border-orange-400 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-3 `}
                 >
                   <FaPhoneVolume />
