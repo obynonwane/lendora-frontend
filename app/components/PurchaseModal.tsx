@@ -61,7 +61,7 @@ export default function PurchaseModal({
   const [step, setStep] = useState<number>(1);
   const router = useRouter();
   const pathname = usePathname();
-  // console.log(pathname);
+  console.log(product);
   const userData: UserData_TYPE | null = getFromLocalStorage("lendora_user");
 
   const formatNumber = (value: string): string => {
@@ -512,14 +512,16 @@ export default function PurchaseModal({
 
               <div className="grid grid-cols-12 gap-3 mt-4">
                 <button
-                  onClick={() => setStep(1)}
+                  onClick={() => {
+                    router.push(`/chat/${product.user.id}`); // Redirect to login page
+                  }}
                   className={`flex w-full col-span-6  items-center gap-2 justify-center rounded font-semibold border border-orange-400 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-3 `}
                 >
                   <IoChatbubbleEllipsesOutline />
                   Chat{" "}
                 </button>{" "}
                 <button
-                  onClick={() => setStep(1)}
+                  // onClick={() => setStep(1)}
                   className={`flex w-full col-span-6  items-center gap-2 justify-center rounded font-semibold border border-orange-400 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-3 `}
                 >
                   <FaPhoneVolume />

@@ -42,13 +42,15 @@ function Page() {
   const chatId = params.chatId;
 
   const userData: UserData_TYPE | null = getFromLocalStorage("lendora_user");
-
-  // console.log(chatId);
-  const [isShowChatList, setIsShowChatList] = useState(false);
-  // const [messages, setMessages] = useState<ChatMessage[] |[]>([]);
-  const [socket, setSocket] = useState<WebSocket | null>(null);
   const userID = userData?.detail.user.id;
   const receiverID = chatId ? chatId[0] : null;
+  // console.log(chatId);
+  const [isShowChatList, setIsShowChatList] = useState(
+    receiverID ? false : true
+  );
+  // const [messages, setMessages] = useState<ChatMessage[] |[]>([]);
+  const [socket, setSocket] = useState<WebSocket | null>(null);
+
   // const [userID, setUserID] = useState(userData?.detail.user.id);
   // const [receiverID, setReceiverID] = useState<string | null>(null);
   const [msg, setMsg] = useState("");
@@ -137,7 +139,7 @@ function Page() {
         }
       );
       setChatHistory(response.data.data);
-      console.log(response.data);
+      // console.log(response.data);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       // console.log(err.response.data.status_code);
@@ -206,14 +208,14 @@ function Page() {
               <>
                 {chatListData.data.map((chat: ChatHistoryItem) => (
                   <Link
-                    href={`/chat/${chat.sender_id}`}
+                    href={`/chat/${chat.partner_id}`}
                     onClick={() => {
                       setIsShowChatList(false);
                       // setReceiverID(chat.receiver_id);
                     }}
                     key={chat.id}
                     className={` ${
-                      receiverID === chat.sender_id
+                      receiverID === chat.partner_id
                         ? "bg-slate-100"
                         : "hover:bg-zinc-100 cursor-pointer"
                     }  p-3 items-center gap-2 flex border-b  `}
@@ -222,6 +224,7 @@ function Page() {
                       {chat.first_name[0]}
                     </span>
                     <p>{chat.first_name + " " + chat.last_name} </p>
+                    {/* {chat.receiver_id} */}
                   </Link>
                 ))}
               </>
@@ -272,7 +275,7 @@ function Page() {
                 >
                   <IoChevronBackOutline /> Back
                 </span>
-                {/* Your id = {userData?.detail.user.id} */}
+                {userData?.detail.user.id}
               </div>
 
               <div
@@ -295,7 +298,7 @@ function Page() {
                     <div key={message.id} className="flex flex-col gap-1">
                       {/* Date separator */}
                       {showDateSeparator && (
-                        <div className="text-center text-xs text-gray-500 my-2">
+                        <div className="text-center text-xs text-gray-500 my-2 sticky top-0">
                           {format(
                             getNewDate(message.sent_at),
                             "EEEE, MMM d, yyyy"
@@ -376,8 +379,8 @@ function Page() {
         ) : (
           <>
             <div className="text-center pt-5 px-3 mt-3 w-full text-sm">
-              <h4 className="font-medium mb-1">No Conversations!</h4>
-              <p>Book/Purchase an item to view conversations!</p>
+              {/* <h4 className="font-medium mb-1">No Conversations!</h4> */}
+              <p>Select chat to view conversations</p>
             </div>
           </>
         )}{" "}

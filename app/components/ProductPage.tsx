@@ -63,6 +63,8 @@ function ProductPage({ product }: { product: ProductPageProduct }) {
     return store;
   };
 
+  console.log(product);
+
   const fetcher = async ([url, body]: [string, unknown]) => {
     const res = await fetch(url, {
       method: "POST",
