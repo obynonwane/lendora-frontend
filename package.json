@@ -13,6 +13,7 @@
     "@radix-ui/react-icons": "^1.3.2",
     "axios": "^1.7.9",
     "crypto-js": "^4.2.0",
+    "date-fns": "^4.1.0",
     "next": "^15.3.2",
     "radix-ui": "^1.4.2",
     "react": "^19.0.0",

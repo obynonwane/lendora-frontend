@@ -123,7 +123,7 @@ function SignupPage() {
     }
   };
   return (
-    <main className="flex justify-center  items-center p-5 overflow-y-auto md:mt-0 mt-5">
+    <main className="flex justify-center  items-center p-5  md:mt-0 mt-5">
       {step === "signup-form" && (
         <form className=" w-full md:w-[400px] md:mt-0" onSubmit={signup}>
           <Link className=" " href="/">

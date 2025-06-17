@@ -20,9 +20,11 @@ const fetchSearchList = async (
   }
 
   try {
+    const token = getFromLocalStorage("lendora_ac_tk");
+
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${userData.access_token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -34,8 +36,8 @@ const fetchSearchList = async (
       const status = error.response?.data?.status_code;
 
       if (status === 401) {
-        localStorage.removeItem("lendora_ac_tk");
-        localStorage.removeItem("lendora_user");
+        // localStorage.removeItem("lendora_ac_tk");
+        // localStorage.removeItem("lendora_user");
         logout();
 
         return;

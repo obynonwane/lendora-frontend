@@ -118,7 +118,7 @@ function Page({
   }, [token, router]);
 
   return (
-    <main className="flex justify-center flex-col md:h-screen items-center px-5 overflow-y-auto">
+    <main className="flex justify-center flex-col items-center px-5 ">
       {step === "password-reset-successfully" && (
         <div className="w-full md:w-[400px] pt-10 text-center">
           <p className="text-center  mb-2">

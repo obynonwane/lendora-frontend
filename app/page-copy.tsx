@@ -98,7 +98,7 @@ function Home() {
           </div>
         }
       >
-        <main className="">
+        <main className="flex-1">
           <HomepageSlider />
           <section className="bg-white w-full pt-10 max-w-7xl mx-auto ">
             <CategorySlider />

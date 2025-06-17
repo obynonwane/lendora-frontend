@@ -130,7 +130,7 @@ function ProductPage({ product }: { product: ProductPageProduct }) {
     };
   }, [isReachingEnd, isLoadingMore, setSize]);
 
-  // console.log(product);
+  console.log(product);
   return (
     <div className="max-w-7xl mx-auto p-3">
       {/* Two Column Layout */}

@@ -20,6 +20,7 @@ type StepState =
 function LoginPage() {
   const [email, setEmail] = useState("chibuikennaji306+22@gmail.com");
   const [password, setPassword] = useState("@Password2020");
+  const logout = useUserStore((s) => s.logout);
 
   // const { refreshAuth } = useAuth();
 
@@ -78,8 +79,11 @@ function LoginPage() {
         }
       );
 
+      logout();
+
       saveToLocalStorage("lendora_user", data.data.data);
       saveToLocalStorage("lendora_ac_tk", data.data.data.access_token);
+      console.log({ token: data.data.data.access_token });
       useUserStore.setState({
         user: data.data.data,
         isAuthenticated: true,
@@ -196,7 +200,7 @@ function LoginPage() {
   };
 
   return (
-    <main className="flex justify-center  items-center p-5 mt-10  overflow-y-auto">
+    <main className="flex justify-center  items-center p-5 mt-10  ">
       {step === "login-form" && (
         <form className=" w-full md:w-[400px]" onSubmit={login}>
           <Link className=" " href="/">

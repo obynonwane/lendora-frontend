@@ -23,11 +23,15 @@ export const useUserStore = create<UserState>()(
       isAuthenticated: false,
       authStateLoaded: false,
 
-      logout: () =>
+      logout: () => {
         set({
           user: null,
           isAuthenticated: false,
-        }),
+        });
+        localStorage.removeItem("auth");
+        localStorage.removeItem("lendora_ac_tk");
+        localStorage.removeItem("lendora_user");
+      },
 
       updateUser: (partial) =>
         set((state) => ({
