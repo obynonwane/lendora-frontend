@@ -143,7 +143,7 @@ function Page({
   }, []);
 
   return (
-    <main className="flex justify-center flex-col md:h-[90vh] items-center p-5 overflow-y-auto">
+    <main className="flex justify-center flex-col  items-center p-5 ">
       {step === "loading" && (
         <div>
           <div className="relative text-center mt-12">

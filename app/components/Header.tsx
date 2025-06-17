@@ -1,6 +1,6 @@
 "use client";
 // import { useAuth } from "../auth-context";
-import React from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import logoIcon from "../../images/logo-icon.png";
@@ -29,8 +29,33 @@ export default function Header() {
 
     router.push("/login");
   };
+
+  const [isFixed, setIsFixed] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const halfViewport = window.innerHeight / 2;
+
+      if (scrollY >= halfViewport && !isFixed) {
+        console.log("midpoint reached");
+        setIsFixed(true);
+      } else if (scrollY < halfViewport && isFixed) {
+        console.log("okay");
+        setIsFixed(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isFixed]);
+
   return (
-    <header className="bg-white   text-slate-700  sticky top-0 z-50 drop-shadow-md lg:pb-0 pb-2">
+    <header
+      className={`bg-white   text-slate-700  ${
+        isFixed ? "fixed inset-x-0" : "sticky"
+      } top-0 z-50 drop-shadow-md lg:pb-0 pb-2`}
+    >
       <div className="h-7 text-center bg-orange-500 text-sm text-white flex items-center justify-center gap-3 p-1">
         Lendora for business{" "}
         <span className="block h-full bg-white w-[1px]"></span>{" "}

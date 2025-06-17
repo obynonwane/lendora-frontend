@@ -41,11 +41,14 @@ export default function RootLayout({
           referrerPolicy="no-referrer"
         />
       </head>
-
+      {/* Body tag configured as a flex column for overall layout.
+          min-h-screen ensures it's at least screen height, but allows it to grow.
+          No h-screen, no overflow-hidden here. The body itself can scroll.
+      */}
       <body
-        className={`${dmSans.variable} ${geistMono.variable} ${dmSans.className} antialiased   text-slate-700 h-full flex flex-col`}
+        className={`${dmSans.variable} ${geistMono.variable} ${dmSans.className} antialiased bg-white text-slate-700 flex flex-col min-h-screen`}
       >
-        {/* Your application's Header component, has position=sticky */}
+        {/* Your application's Header component */}
         <Header />
 
         {/* React-Toastify container for notifications */}
@@ -55,8 +58,16 @@ export default function RootLayout({
           }}
         />
 
-        {children}
+        {/* Main content area.
+            - flex-1: Allows it to grow and take all available vertical space between Header and Footer.
+                      This ensures the footer is pushed to the bottom if content is short.
+            - No overflow-hidden here. The body will scroll if content is long.
+        */}
+        <div className="flex-1">
+          {children} {/* This is where your page components will be rendered */}
+        </div>
 
+        {/* Your application's Footer component */}
         <Footer />
       </body>
     </html>
