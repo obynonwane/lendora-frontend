@@ -173,3 +173,33 @@ export type ChatHistoryItem = {
   type: string;
   updated_at: string;
 };
+
+export type ChatListUser_TYPE = {
+  content_type: string;
+  created_at: string;
+  email: string;
+  first_name: string;
+  id: string;
+  last_message: string;
+  last_name: string;
+  partner_id: string;
+  receiver_id: string;
+  sender_id: string;
+  sent_at: number;
+  type: string;
+  updated_at: string;
+};
+
+export type FileBase64_TYPE = { base64: string; name: string; type: string };
+
+export type ChatMessage_TYPE = {
+  id?: string;
+  content: string;
+  content_type: string; // e.g. "text/plain"
+  type?: string; // e.g. "text"
+  sender: string;
+  receiver: string;
+  sent_at?: number; // timestamp (e.g. in ms)
+  created_at?: string; // ISO date string
+  updated_at?: string; // ISO date string
+};

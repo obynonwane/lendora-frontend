@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     // HTML tag with language and full height
-    <html lang="en" className="h-full">
+    <html lang="en" className="h-full relative">
       <head>
         {/* Font Awesome CSS link for icons */}
         <link
