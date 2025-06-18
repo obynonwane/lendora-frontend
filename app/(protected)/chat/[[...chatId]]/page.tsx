@@ -13,6 +13,7 @@ import { ChatHistoryItem } from "@/app/types";
 // import { useUserStore } from "@/app/store/useUserStore";
 import { format } from "date-fns";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { FaFileDownload } from "react-icons/fa";
 
 import axios from "axios";
 function Page() {
@@ -56,13 +57,31 @@ function Page() {
       message.content_type?.includes("image") ||
       message.content?.includes("data:image/")
     ) {
-      return <img className="max-h-[40vh]" src={message.content} alt="" />;
+      return (
+        <img className="max-h-[40vh]" src={message.content} alt="chatimg" />
+      );
+    }
+    if (
+      message.content_type?.includes("video") ||
+      message.content?.includes("data:video/")
+    ) {
+      return <video controls className="max-h-[40vh]" src={message.content} />;
     }
     if (message.content_type === "text/plain") {
       return <span className="block">{message.content}</span>;
     }
 
-    return <span className="block">{message.content}</span>;
+    return (
+      <a
+        href={message.content}
+        className=" text-sm pr-2 justify-between bg-white/50  flex items-center g border"
+      >
+        <span className="w-7 p-2 border rounded">
+          <FaFileDownload />
+        </span>
+        Download File
+      </a>
+    );
   };
 
   const [fileBase64List, setFileBase64List] = useState<
