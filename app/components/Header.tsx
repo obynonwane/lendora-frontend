@@ -9,8 +9,9 @@ import CategoryList from "./CategoryList";
 import { PiUserCircle } from "react-icons/pi";
 import { Popover } from "radix-ui";
 import { useRouter } from "next/navigation";
-import { useUserStore } from "../store/useUserStore";
+import { useUserStore } from "../utils/useUserStore";
 import { BsChatLeftDots } from "react-icons/bs";
+import { IoStorefrontOutline } from "react-icons/io5";
 
 export default function Header() {
   // const { isLoggedIn, isAuthChecked } = useAuth();
@@ -85,15 +86,24 @@ export default function Header() {
             <Link className="hover:text-orange-400" href="/signup">
               Signup
             </Link>
+            <Link className="hover:text-orange-400 text-xl" href="/businesses">
+              <IoStorefrontOutline />
+            </Link>
           </div>
         ) : (
           <div className="flex items-center gap-5 order-2 lg:order-3">
             <Link
+              className="hover:text-orange-400 text-[22px]"
+              href="/businesses"
+            >
+              <IoStorefrontOutline />
+            </Link>
+            <Link
               href="/chat"
-              className="IconButton hover:text-orange-400 text-2xl"
+              className="IconButton hover:text-orange-400  text-2xl"
               aria-label="Update dimensions"
             >
-              <BsChatLeftDots className="text-slate-500 text-xl" />{" "}
+              <BsChatLeftDots className=" text-xl" />{" "}
             </Link>
             <Popover.Root>
               <Popover.Trigger asChild>
@@ -101,7 +111,7 @@ export default function Header() {
                   className="IconButton hover:text-orange-400 text-2xl"
                   aria-label="Update dimensions"
                 >
-                  <PiUserCircle className="text-slate-500" />{" "}
+                  <PiUserCircle className="" />{" "}
                 </button>
               </Popover.Trigger>
               <Popover.Portal>

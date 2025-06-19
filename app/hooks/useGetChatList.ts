@@ -5,7 +5,7 @@ import axios from "axios";
 import { useRouter, usePathname } from "next/navigation";
 import { UserData_TYPE } from "@/app/types";
 import { getFromLocalStorage } from "@/app/utils/utility";
-import { useUserStore } from "../store/useUserStore";
+import { useUserStore } from "../utils/useUserStore";
 
 const userData: UserData_TYPE | null = getFromLocalStorage("lendora_user");
 

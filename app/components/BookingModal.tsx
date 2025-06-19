@@ -12,7 +12,7 @@ import { calculateReturnDate } from "@/app/utils/calculateReturnDate";
 import { useRouter, usePathname } from "next/navigation";
 import { UserData_TYPE } from "@/app/types";
 import { getFromLocalStorage } from "../utils/utility";
-import { useUserStore } from "../store/useUserStore";
+import { useUserStore } from "../utils/useUserStore";
 
 type Props = {
   //   selectedState: State | null;

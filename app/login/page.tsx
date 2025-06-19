@@ -8,7 +8,7 @@ import { FaEnvelope } from "react-icons/fa";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 // import { useAuth } from "../auth-context";
-import { useUserStore } from "../store/useUserStore";
+import { useUserStore } from "../utils/useUserStore";
 
 import logoIcon from "../../images/logo-icon.png";
 import { saveToLocalStorage } from "@/app/utils/utility";

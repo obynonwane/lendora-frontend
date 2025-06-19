@@ -12,33 +12,7 @@ import { toast } from "react-toastify";
 import { useRouter, usePathname } from "next/navigation";
 import { UserData_TYPE } from "@/app/types";
 import { getFromLocalStorage } from "../utils/utility";
-import { useUserStore } from "../store/useUserStore";
-
-// type LGA = {
-//   id: string;
-//   name: string;
-//   lga_slug: string;
-// };
-// type State = {
-//   id: string;
-//   name: string;
-//   lgas: LGA[];
-//   state_slug: string;
-// };
-
-// type Country = {
-//   code: string;
-//   id: string;
-//   name: string;
-//   states: State[];
-// };
-
-// type ApiResponse<T> = {
-//   error: boolean;
-//   message: string;
-//   status_code: number;
-//   data: T[];
-// };
+import { useUserStore } from "../utils/useUserStore";
 
 type Props = {
   //   selectedState: State | null;
