@@ -72,6 +72,9 @@ function Page() {
                 className="z-20 overflow-hidden rounded group flex flex-col justify-end absolute inset-0 bg-gradient-to-t from-black to-transparent
  p-2 text-white"
               >
+                <span className="font-light w-fit px-2 text-sm absolute top-2 right-2 bg-black/60  border rounded-full group-hover:border group-hover:border-orange-400   shadow text-white">
+                  Fashion
+                </span>
                 <h3 className="text-lg font-medium group-hover:text-orange-400 transition-all ease-in-out ">
                   Cool Store
                 </h3>
