@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useUserStore } from "../utils/useUserStore";
 import { BsChatLeftDots } from "react-icons/bs";
 import { IoStorefrontOutline } from "react-icons/io5";
+import { RxCaretDown } from "react-icons/rx";
 
 export default function Header() {
   // const { isLoggedIn, isAuthChecked } = useAuth();
@@ -78,40 +79,35 @@ export default function Header() {
 
         {!authStateLoaded ? (
           <span className="w-32 py-5 rounded bg-zinc-100 animate-pulse order-2 lg:order-3"></span>
-        ) : !isAuthenticated ? (
-          <div className="flex items-center gap-5 order-2 lg:order-3">
-            <Link className="hover:text-orange-400" href="/login">
-              Login
-            </Link>
-            <Link className="hover:text-orange-400" href="/signup">
-              Signup
-            </Link>
-            <Link className="hover:text-orange-400 text-xl" href="/businesses">
-              <IoStorefrontOutline />
-            </Link>
-          </div>
         ) : (
           <div className="flex items-center gap-5 order-2 lg:order-3">
             <Link
-              className="hover:text-orange-400 text-[22px]"
+              className=" text-[22px]  flex items-center gap-1  hover:text-orange-400 "
               href="/businesses"
             >
-              <IoStorefrontOutline />
+              <IoStorefrontOutline />{" "}
+              <span className="hidden lg:block text-sm"> All Stores</span>
             </Link>
-            <Link
-              href="/chat"
-              className="IconButton hover:text-orange-400  text-2xl"
-              aria-label="Update dimensions"
-            >
-              <BsChatLeftDots className=" text-xl" />{" "}
-            </Link>
+            {isAuthenticated && (
+              <Link
+                href="/chat"
+                className="IconButton  text-2xl flex items-center gap-[6px]  hover:text-orange-400"
+                aria-label="Update dimensions"
+              >
+                <BsChatLeftDots className=" text-xl" />{" "}
+                <span className="hidden lg:block text-sm"> Chat</span>
+              </Link>
+            )}
+
             <Popover.Root>
               <Popover.Trigger asChild>
                 <button
-                  className="IconButton hover:text-orange-400 text-2xl"
+                  className="IconButton  text-2xl flex items-center gap-1  hover:text-orange-400 "
                   aria-label="Update dimensions"
                 >
                   <PiUserCircle className="" />{" "}
+                  <span className="text-sm lg:block hidden">Account</span>
+                  <RxCaretDown className="text-base -ml-1" />
                 </button>
               </Popover.Trigger>
               <Popover.Portal>
@@ -126,34 +122,63 @@ export default function Header() {
                       // gap: 1,
                     }}
                   >
-                    <Popover.Close
-                      className="w-full hover:bg-gray-100 py-2 px-2 text-left rounded"
-                      aria-label="Close"
-                    >
-                      <Link className=" block" href="/profile">
-                        Profile
-                      </Link>
-                    </Popover.Close>
-                    <Popover.Close
-                      className="w-full hover:bg-gray-100  text-left rounded"
-                      aria-label="Close"
-                    >
-                      <span onClick={logoutUser} className="  py-2 px-2 block">
-                        Logout
-                      </span>
-                    </Popover.Close>
+                    {!isAuthenticated && (
+                      <>
+                        <Popover.Close
+                          className="w-full hover:bg-gray-100 py-2 px-2 text-left rounded"
+                          aria-label="Close"
+                        >
+                          <Link className="block" href="/login">
+                            Login
+                          </Link>
+                        </Popover.Close>
+                        <Popover.Close
+                          className="w-full hover:bg-gray-100 py-2 px-2 text-left rounded"
+                          aria-label="Close"
+                        >
+                          <Link className="block" href="/signup">
+                            Signup
+                          </Link>
+                        </Popover.Close>
+                      </>
+                    )}
+                    {isAuthenticated && (
+                      <>
+                        <Popover.Close
+                          className="w-full hover:bg-gray-100 py-2 px-2 text-left rounded"
+                          aria-label="Close"
+                        >
+                          <Link className=" block" href="/profile">
+                            Profile
+                          </Link>
+                        </Popover.Close>
+                        <Popover.Close
+                          className="w-full hover:bg-gray-100  text-left rounded"
+                          aria-label="Close"
+                        >
+                          <span
+                            onClick={logoutUser}
+                            className="  py-2 px-2 block"
+                          >
+                            Logout
+                          </span>
+                        </Popover.Close>
+                      </>
+                    )}
                   </div>
 
                   <Popover.Arrow className="PopoverArrow" />
                 </Popover.Content>
               </Popover.Portal>
             </Popover.Root>
-            <Link
-              className="bg-orange-400 text-white px-4 hover:bg-orange-500 py-2 rounded"
-              href="/create"
-            >
-              Create
-            </Link>
+            {isAuthenticated && (
+              <Link
+                className="bg-orange-400 text-white px-4 hover:bg-orange-500 py-2 rounded"
+                href="/create"
+              >
+                Create
+              </Link>
+            )}
           </div>
         )}
 
