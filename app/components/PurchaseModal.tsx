@@ -12,33 +12,7 @@ import { toast } from "react-toastify";
 import { useRouter, usePathname } from "next/navigation";
 import { UserData_TYPE } from "@/app/types";
 import { getFromLocalStorage } from "../utils/utility";
-import { useUserStore } from "../store/useUserStore";
-
-// type LGA = {
-//   id: string;
-//   name: string;
-//   lga_slug: string;
-// };
-// type State = {
-//   id: string;
-//   name: string;
-//   lgas: LGA[];
-//   state_slug: string;
-// };
-
-// type Country = {
-//   code: string;
-//   id: string;
-//   name: string;
-//   states: State[];
-// };
-
-// type ApiResponse<T> = {
-//   error: boolean;
-//   message: string;
-//   status_code: number;
-//   data: T[];
-// };
+import { useUserStore } from "../utils/useUserStore";
 
 type Props = {
   //   selectedState: State | null;
@@ -279,7 +253,7 @@ export default function PurchaseModal({
 
   if (!authStateLoaded || !isAuthenticated) {
     return (
-      <div className="flex z-[300999999999900] fixed lendora-modal inset-0 items-center pt-10 bg-black/50">
+      <div className="flex z-50 fixed lendora-modal inset-0 items-center pt-10 bg-black/50">
         <div className="bg-white relative   overflow-x-hidden rounded-md m-auto md:w-[400px]  w-[90%]  h-fit">
           <h3 className="text-xl  px-5 pt-4 text-center font-medium text-slate-900 ">
             Login to Purchase!
@@ -314,7 +288,7 @@ export default function PurchaseModal({
 
   return (
     <>
-      <div className="flex z-[300999999999900] fixed lendora-modal inset-0 items-center pt-10 bg-black/50">
+      <div className="flex z-50 fixed lendora-modal inset-0 items-center pt-10 bg-black/50">
         <div className="bg-white  flex flex-col  overflow-x-hidden rounded-md m-auto md:w-[500px]  w-[90%]  h-fit">
           {step !== 2 && (
             <h3 className="text-base flex px-5 pt-4 justify-between items-center font-medium text-slate-900 mb-2">

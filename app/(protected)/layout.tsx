@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import KycModal from "../components/KycModal";
 import { getFromLocalStorage } from "@/app/utils/utility";
 import { UserData_TYPE } from "@/app/types";
-import { useUserStore } from "../store/useUserStore";
+import { useUserStore } from "../utils/useUserStore";
 
 export default function ProtectedLayout({
   children,

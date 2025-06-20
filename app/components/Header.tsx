@@ -9,8 +9,10 @@ import CategoryList from "./CategoryList";
 import { PiUserCircle } from "react-icons/pi";
 import { Popover } from "radix-ui";
 import { useRouter } from "next/navigation";
-import { useUserStore } from "../store/useUserStore";
+import { useUserStore } from "../utils/useUserStore";
 import { BsChatLeftDots } from "react-icons/bs";
+import { IoStorefrontOutline } from "react-icons/io5";
+import { RxCaretDown } from "react-icons/rx";
 
 export default function Header() {
   // const { isLoggedIn, isAuthChecked } = useAuth();
@@ -54,7 +56,7 @@ export default function Header() {
     <header
       className={`bg-white   text-slate-700  ${
         isFixed ? "fixed inset-x-0" : "sticky"
-      } top-0 z-50 drop-shadow-md lg:pb-0 pb-2`}
+      } top-0 z-40 drop-shadow-md lg:pb-0 pb-2`}
     >
       <div className="h-7 text-center bg-orange-500 text-sm text-white flex items-center justify-center gap-3 p-1">
         Lendora for business{" "}
@@ -77,36 +79,40 @@ export default function Header() {
 
         {!authStateLoaded ? (
           <span className="w-32 py-5 rounded bg-zinc-100 animate-pulse order-2 lg:order-3"></span>
-        ) : !isAuthenticated ? (
-          <div className="flex items-center gap-5 order-2 lg:order-3">
-            <Link className="hover:text-orange-400" href="/login">
-              Login
-            </Link>
-            <Link className="hover:text-orange-400" href="/signup">
-              Signup
-            </Link>
-          </div>
         ) : (
           <div className="flex items-center gap-5 order-2 lg:order-3">
             <Link
-              href="/chat"
-              className="IconButton hover:text-orange-400 text-2xl"
-              aria-label="Update dimensions"
+              className=" text-[22px]  flex items-center gap-1  hover:text-orange-400 "
+              href="/businesses"
             >
-              <BsChatLeftDots className="text-slate-500 text-xl" />{" "}
+              <IoStorefrontOutline />{" "}
+              <span className="hidden lg:block text-sm"> All Stores</span>
             </Link>
+            {isAuthenticated && (
+              <Link
+                href="/chat"
+                className="IconButton  text-2xl flex items-center gap-[6px]  hover:text-orange-400"
+                aria-label="Update dimensions"
+              >
+                <BsChatLeftDots className=" text-xl" />{" "}
+                <span className="hidden lg:block text-sm"> Chat</span>
+              </Link>
+            )}
+
             <Popover.Root>
               <Popover.Trigger asChild>
                 <button
-                  className="IconButton hover:text-orange-400 text-2xl"
+                  className="IconButton  text-2xl flex items-center gap-1  hover:text-orange-400 "
                   aria-label="Update dimensions"
                 >
-                  <PiUserCircle className="text-slate-500" />{" "}
+                  <PiUserCircle className="" />{" "}
+                  <span className="text-sm lg:block hidden">Account</span>
+                  <RxCaretDown className="text-base -ml-1" />
                 </button>
               </Popover.Trigger>
               <Popover.Portal>
                 <Popover.Content
-                  className="PopoverContent text-slate-700 text-sm z-[9999999999999999999] bg-white"
+                  className="PopoverContent text-slate-700 text-sm z-[999999] bg-white"
                   sideOffset={5}
                 >
                   <div
@@ -116,39 +122,68 @@ export default function Header() {
                       // gap: 1,
                     }}
                   >
-                    <Popover.Close
-                      className="w-full hover:bg-gray-100 py-2 px-2 text-left rounded"
-                      aria-label="Close"
-                    >
-                      <Link className=" block" href="/profile">
-                        Profile
-                      </Link>
-                    </Popover.Close>
-                    <Popover.Close
-                      className="w-full hover:bg-gray-100  text-left rounded"
-                      aria-label="Close"
-                    >
-                      <span onClick={logoutUser} className="  py-2 px-2 block">
-                        Logout
-                      </span>
-                    </Popover.Close>
+                    {!isAuthenticated && (
+                      <>
+                        <Popover.Close
+                          className="w-full hover:bg-gray-100 py-2 px-2 text-left rounded"
+                          aria-label="Close"
+                        >
+                          <Link className="block" href="/login">
+                            Login
+                          </Link>
+                        </Popover.Close>
+                        <Popover.Close
+                          className="w-full hover:bg-gray-100 py-2 px-2 text-left rounded"
+                          aria-label="Close"
+                        >
+                          <Link className="block" href="/signup">
+                            Signup
+                          </Link>
+                        </Popover.Close>
+                      </>
+                    )}
+                    {isAuthenticated && (
+                      <>
+                        <Popover.Close
+                          className="w-full hover:bg-gray-100 py-2 px-2 text-left rounded"
+                          aria-label="Close"
+                        >
+                          <Link className=" block" href="/profile">
+                            Profile
+                          </Link>
+                        </Popover.Close>
+                        <Popover.Close
+                          className="w-full hover:bg-gray-100  text-left rounded"
+                          aria-label="Close"
+                        >
+                          <span
+                            onClick={logoutUser}
+                            className="  py-2 px-2 block"
+                          >
+                            Logout
+                          </span>
+                        </Popover.Close>
+                      </>
+                    )}
                   </div>
 
                   <Popover.Arrow className="PopoverArrow" />
                 </Popover.Content>
               </Popover.Portal>
             </Popover.Root>
-            <Link
-              className="bg-orange-400 text-white px-4 hover:bg-orange-500 py-2 rounded"
-              href="/create"
-            >
-              Create
-            </Link>
+            {isAuthenticated && (
+              <Link
+                className="bg-orange-400 text-white px-4 hover:bg-orange-500 py-2 rounded"
+                href="/create"
+              >
+                Create
+              </Link>
+            )}
           </div>
         )}
 
-        <div className="lg:w-full relative order-0 lg:-ml-0 -ml-3 lg:order-4 lg:bg-white bg-transparent  z-[99999]  ">
-          <div className="lg:max-w-7xl lg:mx-auto w-fit lg:w-full relative lg:px-0 px-3 z-[99999] ">
+        <div className="lg:w-full relative order-0 lg:-ml-0 -ml-3 lg:order-4 lg:bg-white bg-transparent  z-[40]  ">
+          <div className="lg:max-w-7xl lg:mx-auto w-fit lg:w-full relative lg:px-0 px-3 z-[40] ">
             <CategoryList />
           </div>
         </div>

@@ -9,10 +9,12 @@ function ChatPageConversationContainer({
   isLoadingChatHistory,
   chatHistory,
   userID,
-}: {
+}: //   isPopup,
+{
   isLoadingChatHistory: boolean;
   chatHistory: ChatMessage_TYPE[];
   userID: string | undefined;
+  //   isPopup?: boolean;
 }) {
   const [selectedMedia, setSelectedMedia] = useState<{
     type: "image" | "video";

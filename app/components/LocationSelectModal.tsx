@@ -153,10 +153,10 @@ function SelectModal({
     <>
       <div
         onClick={() => setIsShowSelectStateModal(false)}
-        className="fixed z-[2999999999999] h-screen cursor-pointer inset-0 bg-black/50"
+        className="fixed z-[60] h-screen cursor-pointer inset-0 bg-black/50"
       ></div>
 
-      <div className="flex z-[300999999999900] fixed lendora-modal inset-0 items-center pt-10">
+      <div className="flex z-[60] fixed lendora-modal inset-0 items-center pt-10">
         <div className="bg-[#EBF2F7]  overflow-x-hidden rounded-md m-auto md:w-[400px]  w-[90%]  h-[90vh]  md:h-[80vh]">
           {/* <div className="bg-[#EBF2F7] z-[300] fixed lendora-modal top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[80%] h-[90%] md:h-[80%] overflow-x-hidden rounded-md"> */}
 

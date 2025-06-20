@@ -8,7 +8,7 @@ import { FaEnvelope } from "react-icons/fa";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 // import { useAuth } from "../auth-context";
-import { useUserStore } from "../store/useUserStore";
+import { useUserStore } from "../utils/useUserStore";
 
 import logoIcon from "../../images/logo-icon.png";
 import { saveToLocalStorage } from "@/app/utils/utility";
@@ -200,7 +200,7 @@ function LoginPage() {
   };
 
   return (
-    <main className="flex justify-center  items-center p-5 mt-10  ">
+    <main className="flex justify-center  items-center p-5 my-10  ">
       {step === "login-form" && (
         <form className=" w-full md:w-[400px]" onSubmit={login}>
           <Link className=" " href="/">
