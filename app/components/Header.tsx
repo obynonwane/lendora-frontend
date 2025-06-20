@@ -55,7 +55,7 @@ export default function Header() {
     <header
       className={`bg-white   text-slate-700  ${
         isFixed ? "fixed inset-x-0" : "sticky"
-      } top-0 z-50 drop-shadow-md lg:pb-0 pb-2`}
+      } top-0 z-40 drop-shadow-md lg:pb-0 pb-2`}
     >
       <div className="h-7 text-center bg-orange-500 text-sm text-white flex items-center justify-center gap-3 p-1">
         Lendora for business{" "}
@@ -116,7 +116,7 @@ export default function Header() {
               </Popover.Trigger>
               <Popover.Portal>
                 <Popover.Content
-                  className="PopoverContent text-slate-700 text-sm z-[9999999999999999999] bg-white"
+                  className="PopoverContent text-slate-700 text-sm z-[999999] bg-white"
                   sideOffset={5}
                 >
                   <div
@@ -157,8 +157,8 @@ export default function Header() {
           </div>
         )}
 
-        <div className="lg:w-full relative order-0 lg:-ml-0 -ml-3 lg:order-4 lg:bg-white bg-transparent  z-[99999]  ">
-          <div className="lg:max-w-7xl lg:mx-auto w-fit lg:w-full relative lg:px-0 px-3 z-[99999] ">
+        <div className="lg:w-full relative order-0 lg:-ml-0 -ml-3 lg:order-4 lg:bg-white bg-transparent  z-[40]  ">
+          <div className="lg:max-w-7xl lg:mx-auto w-fit lg:w-full relative lg:px-0 px-3 z-[40] ">
             <CategoryList />
           </div>
         </div>

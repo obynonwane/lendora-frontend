@@ -405,7 +405,7 @@ function KycModal({
                 <Select.Portal>
                   <Select.Content
                     position="popper"
-                    className="SelectContent bg-white border rounded shadow-md max-h-40 w-full z-[9999999999999999999999999999999999999999999999999999999999999999999999999999999]"
+                    className="SelectContent bg-white border rounded shadow-md max-h-40 w-full [9999999999999999999999999999999999999999999999999999999999999999999999999999999]"
                   >
                     <Select.ScrollUpButton className="flex items-center justify-center  bg-white">
                       <ChevronUpIcon />
@@ -468,7 +468,7 @@ function KycModal({
                 <Select.Portal>
                   <Select.Content
                     position="popper"
-                    className="SelectContent bg-white border rounded shadow-md max-h-40 w-full z-[9999999999999999999999999999999999999999999999999999999999999999999999999999999]"
+                    className="SelectContent bg-white border rounded shadow-md max-h-40 w-full [9999999999999999999999999999999999999999999999999999999999999999999999999999999]"
                   >
                     <Select.ScrollUpButton className="flex items-center justify-center  bg-white">
                       <ChevronUpIcon />
@@ -526,14 +526,15 @@ function KycModal({
           // onClick={() => {
           //   console.log("clocked");
           // }}
-          className="fixed z-[29999999999999999999] h-screen cursor-pointer inset-0 bg-black/50"
+          className="fixed z-[50] h-screen cursor-pointer inset-0 bg-black/50"
         ></div>
 
-        <div className="flex z-[300999999999900] fixed lendora-modal inset-0 items-center pt-10">
+        <div className="flex z-[60] fixed lendora-modal inset-0 items-center pt-10">
           <div className="bg-white overflow-y-auto  rounded-md m-auto md:w-[500px]  w-[90%]  max-h-[90vh]  md:max-h-[80vh]">
             <h3 className="text-center text-base mt-3 flex items-center justify-between px-5">
               <span className="font-semibold"> KYC VERIFICATION</span>{" "}
               <IoMdClose
+                className="cursor-pointer"
                 onClick={() => {
                   setIsShowKycModal(true);
                 }}
@@ -575,7 +576,7 @@ function KycModal({
                     <Select.Portal>
                       <Select.Content
                         position="popper"
-                        className="SelectContent capitalize bg-white border rounded shadow-md max-h-40 w-full z-[9999999999999999999999999999999999999999999999999999999999999999999999999999999]"
+                        className="SelectContent capitalize bg-white border rounded shadow-md max-h-40 w-full [9999999999999999999999999999999999999999999999999999999999999999999999999999999]"
                       >
                         <Select.ScrollUpButton className="flex items-center justify-center  bg-white">
                           <ChevronUpIcon />
@@ -689,10 +690,10 @@ function KycModal({
           onClick={() => {
             console.log("clocked");
           }}
-          className="fixed z-[29999999999999999999] h-screen cursor-pointer inset-0 bg-black/50"
+          className="fixed z-[50]  h-screen cursor-pointer inset-0 bg-black/50"
         ></div>
 
-        <div className="flex z-[300999999999900] fixed lendora-modal inset-0 items-center pt-10">
+        <div className="flex z-[60] fixed lendora-modal inset-0 items-center pt-10">
           <div className="bg-white overflow-y-auto  rounded-md m-auto md:w-[500px]  w-[90%]  max-h-[90vh]  md:max-h-[80vh]">
             <h3 className="text-center text-base mt-3 flex items-center justify-between px-5">
               <span className="font-semibold"> KYC VERIFICATION</span>{" "}
@@ -700,6 +701,7 @@ function KycModal({
                 onClick={() => {
                   setIsShowKycModal(true);
                 }}
+                className="cursor-pointer"
               />
             </h3>
 

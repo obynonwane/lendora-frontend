@@ -17,7 +17,7 @@ function PopupChatModal() {
   return (
     <>
       <div
-        className={`fixed lg:bottom-28 bottom-0 right-0 w-full lg:right-10 z-[99999999999999999999999999999999] lg:w-80 lg:h-[60vh] h-full p-0 shadow-xl border bg-white rounded flex flex-col transform transition-transform ease-in-out duration-300 ${
+        className={`fixed lg:bottom-28 bottom-0 right-0 w-full lg:right-10 z-[50] lg:w-80 lg:h-[60vh] h-full p-0 shadow-xl border bg-white rounded flex flex-col transform transition-transform ease-in-out duration-300 ${
           isShowChatModal ? "translate-x-0" : "translate-x-[120%]"
         }`}
       >

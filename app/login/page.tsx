@@ -200,7 +200,7 @@ function LoginPage() {
   };
 
   return (
-    <main className="flex justify-center  items-center p-5 mt-10  ">
+    <main className="flex justify-center  items-center p-5 my-10  ">
       {step === "login-form" && (
         <form className=" w-full md:w-[400px]" onSubmit={login}>
           <Link className=" " href="/">

@@ -14,37 +14,12 @@ import { localCategories } from "../categories";
 function CategorySlider() {
   const router = useRouter();
 
-  // const [categories, setCategories] = useState<Category_TYPE[] | null>([]);
   const categories: Category_TYPE[] = localCategories;
-  // const [isShowMobleCategorySelectModal, setIsShowMobleCategorySelectModal] =
-  //   useState(false);
-  // const [subCategories, setSubCategories] = useState<SubCategory_TYPE[]>([]);
-  // const [isGetingSubCategories, setIsGetingSubCategories] = useState(false);
-  //   const [selectedCategoryForMobile, setSelectedCategoryForMobile] =
-  //     useState<Category_TYPE | null>(null);
-
-  //   const [isOpenAllcategoriesModal, setIsOpenAllcategoriesModal] =
-  //     useState(false);
-
-  //   const handleSubCategoryCLick = (
-  //     sub_category: SubCategory_TYPE,
-  //     e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  //   ) => {
-  //     // setIsShowMobleCategorySelectModal(false);
-  //     e.stopPropagation(); // prevent bubbling
-  //     e.preventDefault(); // prevent link navigation
-
-  //     router.push(
-  //       `/categories/${selectedCategoryForMobile?.category_slug}?subcategory_id=${sub_category.subcategory_slug}`
-  //     );
-  //     setIsOpenAllcategoriesModal(false);
-  //   };
 
   return (
     <section className="w-full text-sm rounded bg-white mb-10  relative px-3 ">
       <h3 className="text-xl text-slate-900 mb-3 lg:pl-0 pl-3">Categories</h3>
       {/* modal to select sub category for mobile */}
-      {/* <> {isShowMobleCategorySelectModal && mobileCategoryModal()}</> */}
 
       <div>
         <Carousel
