@@ -12,8 +12,8 @@ function Page() {
         "Inclusion in Paid Ads (social media, Google Ads, influencer campaigns).",
         "Priority Listings that appear higher in search results for better visibility.",
       ],
-      bg: "bg-orange-50",
-      border: "border-orange-200",
+      bg: "bg-lendora-50",
+      border: "border-lendora-200",
     },
     {
       title: "Branded Storefronts (Micro-Shops)",
@@ -156,7 +156,7 @@ function Page() {
             ))}
           </div>
 
-          <section className="text-center py-10 px-4 lg:mt-10 mt-8 bg-gradient-to-br from-orange-400 to-red-400  max-w-7xl mx-auto rounded-lg border border-gray-200">
+          <section className="text-center py-10 px-4 lg:mt-10 mt-8 bg-gradient-to-br from-lendora-500 to-red-400  max-w-7xl mx-auto rounded-lg border border-gray-200">
             <h2 className="md:text-4xl text-3xl font-semibold mb-2 text-white">
               Ready to get started?
             </h2>
@@ -165,7 +165,7 @@ function Page() {
             </p>
             <Link
               href="/signup?business=true"
-              className="inline-block font-medium hover:bg-white/90  text-orange-400 bg-white px-10 py-3 rounded transition"
+              className="inline-block font-medium hover:bg-white/90  text-lendora-500 bg-white px-10 py-3 rounded transition"
             >
               Signup Now!
             </Link>

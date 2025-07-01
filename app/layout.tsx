@@ -33,6 +33,8 @@ export default function RootLayout({
     <html lang="en" className="h-full relative">
       <head>
         {/* Font Awesome CSS link for icons */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"

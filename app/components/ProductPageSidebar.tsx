@@ -20,7 +20,7 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
     useState(false);
   const router = useRouter();
   const isRental = product.inventory.product_purpose === "rental";
-  const primaryActionButtonClassName = `flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white  py-3`;
+  const primaryActionButtonClassName = `flex w-full justify-center rounded font-semibold bg-lendora-500 hover:bg-lendora-600  hover:shadow-lg shadow text-white  py-3`;
   const maxQuantity = product.inventory.quantity;
 
   const [quantity, setQuantity] = useState<number>(1);
@@ -100,11 +100,11 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
         <div className="sticky top-36 mt-3  rounded  ">
           <div className="bg-white p-3 rounded border ">
             <div className="text-xs  capitalize overflow-hidden flex flex-wrap items-center gap-3  py-2">
-              <span className="lg:py-1 px-2 rounded-full border-orange-400 border  bg-white">
+              <span className="lg:py-1 px-2 rounded-full border-lendora-500 border  bg-white">
                 {product.inventory.product_purpose}
               </span>{" "}
               {isRental && product.inventory.negotiable === "yes" && (
-                <span className="lg:py-1 px-2 rounded-full border-orange-400 border  bg-white">
+                <span className="lg:py-1 px-2 rounded-full border-lendora-500 border  bg-white">
                   Negotiable
                 </span>
               )}
@@ -124,7 +124,7 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
             </p>
             {isRental && (
               <p className=" flex gap-2 items-end mt-1">
-                <span className="flex items-center  text-orange-400  font-semibold">
+                <span className="flex items-center  text-lendora-500  font-semibold">
                   <span className="md:text-xl text-lg mr-1">+</span>
                   <span className="md:text-base text-sm ">
                     {product?.inventory?.security_deposit?.toLocaleString()}
@@ -199,7 +199,7 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
                 </div>
                 <button
                   onClick={() => setIsShowBookingModal(true)}
-                  className={`flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white  py-3 `}
+                  className={`flex w-full justify-center rounded font-semibold bg-lendora-500 hover:bg-lendora-600  hover:shadow-lg shadow text-white  py-3 `}
                 >
                   Book Now!
                 </button>
@@ -247,14 +247,14 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
             <div className="grid grid-cols-12 gap-3 mt-3">
               <button
                 onClick={() => router.push(`/chat/${product.user.id}`)}
-                className={`flex w-full col-span-6  items-center gap-2 justify-center rounded font-medium text-sm border border-orange-400 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-2 `}
+                className={`flex w-full col-span-6  items-center gap-2 justify-center rounded font-medium text-sm border border-lendora-500 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-2 `}
               >
                 <IoChatbubbleEllipsesOutline />
                 Chat{" "}
               </button>{" "}
               <button
                 onClick={() => setIsShowActionRequiredModal(true)}
-                className={`flex w-full col-span-6  items-center gap-2 justify-center rounded font-medium text-sm border border-orange-400 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-2 `}
+                className={`flex w-full col-span-6  items-center gap-2 justify-center rounded font-medium text-sm border border-lendora-500 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-2 `}
               >
                 <FaPhoneVolume />
                 Contact{" "}
@@ -268,7 +268,7 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
               </span>
             </div>
             <div className="flex mt-3 border-t pt-3 gap-2">
-              <RiUserSmileFill className="text-orange-400 text-5xl" />
+              <RiUserSmileFill className="text-lendora-500 text-5xl" />
               <p className="text-slate-500 ">
                 <span className="font-semibold block text-slate-700 ">
                   {product.user.first_name + " " + product.user.last_name}
@@ -281,7 +281,7 @@ function ProductPageSidebar({ product }: { product: ProductPageProduct }) {
           <div className=" bg-white p-3 rounded  mt-5 border">
             <Link
               href={`/create`}
-              className={`flex w-full justify-center rounded font-semibold border border-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg hover:text-white text-sm shadow text-orange-400  py-2 `}
+              className={`flex w-full justify-center rounded font-semibold border border-lendora-500 hover:bg-lendora-600  hover:shadow-lg hover:text-white text-sm shadow text-lendora-500  py-2 `}
             >
               Post an Ad like this!
             </Link>

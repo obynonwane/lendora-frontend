@@ -11,6 +11,7 @@ import useSWRInfinite from "swr/infinite";
 import ProductCard from "./components/ProductCard";
 import HomepageSlider from "./components/HomepageSlider";
 import CategorySlider from "./components/CategorySlider";
+import ProductGridLoader from "./components/loaders/ProductGridLoader";
 const PAGE_SIZE = 5;
 
 function Home() {
@@ -100,9 +101,10 @@ function Home() {
       >
         <main className="">
           <HomepageSlider />
+          <CategorySlider />
           <section className="bg-white w-full pt-10 max-w-7xl mx-auto ">
-            <CategorySlider />
             <div className=" w-full   rounded px-3 grid grid-cols-12 gap-x-5 gap-y-7">
+              {isLoading && <ProductGridLoader />}
               <>
                 {error && (
                   <p className="text-red-500 col-span-12">

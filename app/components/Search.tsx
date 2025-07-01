@@ -104,7 +104,7 @@ function SearchComponent() {
 
           <button
             onClick={handleSearch}
-            className=" items-center px-3 block    h-full bg-orange-400 text-white "
+            className=" items-center px-3 block    h-full bg-lendora-500 text-white "
           >
             <IoSearch />{" "}
           </button>

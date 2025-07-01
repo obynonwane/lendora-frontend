@@ -16,7 +16,7 @@ function Page() {
           <h1 className="text-white lg:text-3xl text-2xl font-semibold">
             ABC STORE
           </h1>
-          <div className="size-32 bg-gradient-to-r from-orange-500 rounded-full absolute left-3 -bottom-10 bg-red-100 "></div>
+          <div className="size-32 bg-gradient-to-r from-lendora-500 rounded-full absolute left-3 -bottom-10 bg-red-100 "></div>
 
           <Link
             href={"/lendora-for-business"}
@@ -43,7 +43,7 @@ function Page() {
 
           <button
             // onClick={handleSearch}
-            className=" items-center px-3 block    h-full bg-orange-400 text-white "
+            className=" items-center px-3 block    h-full bg-lendora-500 text-white "
           >
             <IoSearch />{" "}
           </button>
@@ -72,10 +72,10 @@ function Page() {
                 className="z-20 overflow-hidden rounded group flex flex-col justify-end absolute inset-0 bg-gradient-to-t from-black to-transparent
  p-2 text-white"
               >
-                <span className="font-light w-fit px-2 text-sm absolute top-2 right-2 bg-black/60  border rounded-full group-hover:border group-hover:border-orange-400   shadow text-white">
+                <span className="font-light w-fit px-2 text-sm absolute top-2 right-2 bg-black/60  border rounded-full group-hover:border group-hover:border-lendora-500   shadow text-white">
                   Fashion
                 </span>
-                <h3 className="text-lg font-medium group-hover:text-orange-400 transition-all ease-in-out ">
+                <h3 className="text-lg font-medium group-hover:text-lendora-500 transition-all ease-in-out ">
                   Cool Store
                 </h3>
                 <p className="text-white/90 font-light">

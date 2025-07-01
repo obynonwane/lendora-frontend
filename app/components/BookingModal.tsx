@@ -269,7 +269,7 @@ export default function BookingModal({
                 onClick={() => {
                   router.push(`/login?redirect=${pathname}`); // Redirect to login page
                 }}
-                className="bg-orange-400 hover:bg-[#FFAB4E] text-white font-semibold py-2 px-4 rounded"
+                className="bg-lendora-500 hover:bg-lendora-600 text-white font-semibold py-2 px-4 rounded"
               >
                 Go to Login
               </button>
@@ -346,7 +346,7 @@ export default function BookingModal({
                   </div>
                   <button
                     onClick={() => setIsNegotiate(!isNegotiate)}
-                    className="transition duration-200 ease-in-out hover:bg-orange-500 rounded bg-orange-400 px-4 py-2 font-semibold text-white"
+                    className="transition duration-200 ease-in-out hover:bg-lendora-500 rounded bg-lendora-500 px-4 py-2 font-semibold text-white"
                   >
                     Make an offer!
                   </button>
@@ -390,7 +390,7 @@ export default function BookingModal({
                 </div>
                 <button
                   onClick={handleStep1}
-                  className={`flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white  py-3 `}
+                  className={`flex w-full justify-center rounded font-semibold bg-lendora-500 hover:bg-lendora-600  hover:shadow-lg shadow text-white  py-3 `}
                 >
                   Checkout{" "}
                 </button>
@@ -434,7 +434,7 @@ export default function BookingModal({
                           ).toLocaleString()}
                         </span>
                       )}
-                      <span className="text-orange-500">
+                      <span className="text-lendora-500">
                         {" "}
                         ₦{total.toLocaleString()}{" "}
                       </span>
@@ -460,14 +460,14 @@ export default function BookingModal({
                 onClick={handleStep2}
                 className={` ${
                   isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
-                } flex w-full justify-center mt-4 rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white  py-3 `}
+                } flex w-full justify-center mt-4 rounded font-semibold bg-lendora-500 hover:bg-lendora-600  hover:shadow-lg shadow text-white  py-3 `}
               >
                 Checkout{" "}
               </button>
 
               <button
                 onClick={() => setStep(1)}
-                className={`flex w-full mt-3 justify-center rounded font-semibold border border-orange-400 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-3 `}
+                className={`flex w-full mt-3 justify-center rounded font-semibold border border-lendora-500 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-3 `}
               >
                 Back{" "}
               </button>
@@ -488,21 +488,21 @@ export default function BookingModal({
                   onClick={() => {
                     router.push(`/chat/${product.user.id}`); // Redirect to login page
                   }}
-                  className={`flex w-full col-span-6  items-center gap-2 justify-center rounded font-semibold border border-orange-400 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-3 `}
+                  className={`flex w-full col-span-6  items-center gap-2 justify-center rounded font-semibold border border-lendora-500 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-3 `}
                 >
                   <IoChatbubbleEllipsesOutline />
                   Chat{" "}
                 </button>{" "}
                 <button
                   // onClick={() => setStep(1)}
-                  className={`flex w-full col-span-6  items-center gap-2 justify-center rounded font-semibold border border-orange-400 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-3 `}
+                  className={`flex w-full col-span-6  items-center gap-2 justify-center rounded font-semibold border border-lendora-500 hover:bg-[#fff8ef]  hover:shadow-lg shadow   py-3 `}
                 >
                   <FaPhoneVolume />
                   Contact{" "}
                 </button>
                 <button
                   onClick={() => setIsShowBookingModal(false)}
-                  className={`col-span-12 flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white  py-3 `}
+                  className={`col-span-12 flex w-full justify-center rounded font-semibold bg-lendora-500 hover:bg-lendora-600  hover:shadow-lg shadow text-white  py-3 `}
                 >
                   Close{" "}
                 </button>

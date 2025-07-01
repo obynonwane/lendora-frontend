@@ -99,7 +99,7 @@ function ChatPageInputs({
         className="bg-white px-3 relat py-2 border-t flex gap-3 items-center"
       >
         {/* <span>upload</span> */}
-        <div className=" relative hover:cursor-pointer hover:text-orange-400">
+        <div className=" relative hover:cursor-pointer hover:text-lendora-500">
           <input
             onChange={handleFileChange}
             type="file"
@@ -124,7 +124,7 @@ function ChatPageInputs({
           // onClick={sendMessage}
           type="submit"
           disabled={msg.length === 0 && fileBase64List.length === 0}
-          className="  bg-orange-400 text-2xl   px-4 py-2 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-orange-500 transition-colors duration-300 flex items-center justify-center"
+          className="  bg-lendora-500 text-2xl   px-4 py-2 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-lendora-500 transition-colors duration-300 flex items-center justify-center"
         >
           {isSendingMessage ? (
             <svg

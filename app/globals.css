@@ -7,6 +7,30 @@
   outline: none !important;
 }
 
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff;
+  /* background-color: red; */
+  /* Replace with your lendora-500 color */
+  border-radius: 9999px;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 50;
+  transition: background-color 0.2s;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: #2563eb;
+  /* Replace with your lendora-600 color */
+}
+
 /* custom style for react toast component */
 .Toastify__toast {
   min-height: 25px !important;

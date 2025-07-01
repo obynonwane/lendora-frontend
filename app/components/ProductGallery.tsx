@@ -59,7 +59,7 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
             onClick={() => setActiveIndex(idx)}
             className={`border rounded  lg:w-full w-20 h-20 overflow-hidden shrink-0 ${
               activeIndex === idx
-                ? "border-orange-400"
+                ? "border-lendora-500"
                 : "border-transparent hover:border-gray-300"
             }`}
             aria-label={`View image ${idx + 1}`} // Added for accessibility

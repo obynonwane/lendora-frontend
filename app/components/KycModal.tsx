@@ -417,7 +417,7 @@ function KycModal({
                           value={state?.name}
                           className={`relative flex items-center px-2 py-2 text-sm cursor-pointer  select-none ${
                             selectedState?.id === state?.id
-                              ? "bg-orange-100 text-orange-400 font-medium"
+                              ? "bg-lendora-100 text-lendora-500 font-medium"
                               : "hover:bg-gray-100"
                           }`}
                         >
@@ -480,7 +480,7 @@ function KycModal({
                           value={lga?.name}
                           className={`relative flex items-center px-2 py-2 text-sm cursor-pointer  select-none ${
                             selectedLGA?.id === lga?.id
-                              ? "bg-orange-100 text-orange-400 font-medium"
+                              ? "bg-lendora-100 text-lendora-500 font-medium"
                               : "hover:bg-gray-100"
                           }`}
                         >
@@ -588,7 +588,7 @@ function KycModal({
                               value={id?.name}
                               className={`relative flex items-center px-2 py-2 text-sm cursor-pointer  select-none ${
                                 selectedIdType?.id === id?.id
-                                  ? "bg-orange-100 text-orange-400 font-medium"
+                                  ? "bg-lendora-100 text-lendora-500 font-medium"
                                   : "hover:bg-gray-100"
                               }`}
                             >
@@ -648,7 +648,7 @@ function KycModal({
 
                 <button
                   type="submit"
-                  className={`flex w-full justify-center col-span-12 rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white mt-5 py-4 ${
+                  className={`flex w-full justify-center col-span-12 rounded font-semibold bg-lendora-500 hover:bg-lendora-600  hover:shadow-lg shadow text-white mt-5 py-4 ${
                     isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
                   }`}
                 >
@@ -659,7 +659,7 @@ function KycModal({
 
             {step === 2 && (
               <div className="text-center max-w-lg w-full mb-3 rounded mx-auto bg-white p-5">
-                <div className="w-32 h-32 rounded-full bg-orange-400 text-white flex items-center mb-3 justify-center mx-auto">
+                <div className="w-32 h-32 rounded-full bg-lendora-500 text-white flex items-center mb-3 justify-center mx-auto">
                   <FaCheck className="text-3xl" />
                 </div>
                 <h3 className="text-lg text-center">Kyc Completed!</h3>
@@ -672,7 +672,7 @@ function KycModal({
                   onClick={() => {
                     setIsShowKycModal(true);
                   }}
-                  className={`flex mt-3 w-full justify-center rounded py-4 col-span-12  bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow  font-semibold `}
+                  className={`flex mt-3 w-full justify-center rounded py-4 col-span-12  bg-lendora-500  text-white hover:bg-lendora-600 hover:shadow-lg shadow  font-semibold `}
                 >
                   Close
                 </button>
@@ -744,7 +744,7 @@ function KycModal({
                     <span
                       className={`w-5 h-5 flex-shrink-0 rounded flex items-center justify-center mr-2 ${
                         businessRegistered === true
-                          ? "bg-orange-400 text-white"
+                          ? "bg-lendora-500 text-white"
                           : "bg-zinc-200 text-zinc-600 "
                       }`}
                     >
@@ -759,7 +759,7 @@ function KycModal({
                     <span
                       className={`w-5 h-5 flex-shrink-0 rounded flex items-center justify-center mr-2 ${
                         businessRegistered === false
-                          ? "bg-orange-400 text-white"
+                          ? "bg-lendora-500 text-white"
                           : "bg-zinc-200 text-zinc-600 "
                       }`}
                     >
@@ -788,7 +788,7 @@ function KycModal({
 
                 <button
                   type="submit"
-                  className={`flex w-full justify-center col-span-12 rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white mt-5 py-4 ${
+                  className={`flex w-full justify-center col-span-12 rounded font-semibold bg-lendora-500 hover:bg-lendora-600  hover:shadow-lg shadow text-white mt-5 py-4 ${
                     isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
                   }`}
                 >
@@ -799,7 +799,7 @@ function KycModal({
 
             {step === 2 && (
               <div className="text-center max-w-lg w-full mb-3 rounded mx-auto bg-white p-5">
-                <div className="w-32 h-32 rounded-full bg-orange-400 text-white flex items-center mb-3 justify-center mx-auto">
+                <div className="w-32 h-32 rounded-full bg-lendora-500 text-white flex items-center mb-3 justify-center mx-auto">
                   <FaCheck className="text-3xl" />
                 </div>
                 <h3 className="text-lg text-center">Kyc Completed!</h3>
@@ -812,7 +812,7 @@ function KycModal({
                   onClick={() => {
                     setIsShowKycModal(true);
                   }}
-                  className={`flex mt-3 w-full justify-center rounded py-4 col-span-12  bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow  font-semibold `}
+                  className={`flex mt-3 w-full justify-center rounded py-4 col-span-12  bg-lendora-500  text-white hover:bg-lendora-600 hover:shadow-lg shadow  font-semibold `}
                 >
                   Close
                 </button>

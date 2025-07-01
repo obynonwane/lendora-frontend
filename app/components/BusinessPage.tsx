@@ -17,7 +17,7 @@ function BusinessPage() {
           <h1 className="text-white lg:text-3xl text-2xl font-semibold">
             ABC STORE
           </h1>
-          <div className="size-32 bg-gradient-to-r from-orange-500 rounded-full absolute left-3 -bottom-10 bg-red-100 "></div>
+          <div className="size-32 bg-gradient-to-r from-lendora-500 rounded-full absolute left-3 -bottom-10 bg-red-100 "></div>
 
           <Link
             href={"/lendora-for-business"}
@@ -41,7 +41,7 @@ function BusinessPage() {
 
           <button
             // onClick={handleSearch}
-            className=" items-center px-3 block    h-full bg-orange-400 text-white "
+            className=" items-center px-3 block    h-full bg-lendora-500 text-white "
           >
             <IoSearch />{" "}
           </button>
