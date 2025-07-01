@@ -672,7 +672,7 @@ function CreatePage() {
         fefereer
         <svg
           aria-hidden="true"
-          className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-400 fill-orange-400"
+          className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-400 fill-lendora-500"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -704,7 +704,7 @@ function CreatePage() {
                 key={index}
                 className={`step-item flex items-center gap-3 p-3  rounded cursor-pointer ${
                   step === index + 1
-                    ? "bg-orange-50 font-semibold text-orange-400 "
+                    ? "bg-lendora-50 font-semibold text-lendora-500 "
                     : " hover:bg-zinc-100"
                 }`}
                 // onClick={() => setStep(index + 1)}
@@ -732,7 +732,7 @@ function CreatePage() {
 
       {step === 5 && (
         <div className="text-center flex-1 mb-3 rounded mx-auto bg-white p-5 h-fit max-w-lg">
-          <div className="w-32 h-32 rounded-full bg-orange-400 text-white flex items-center mb-3 justify-center mx-auto">
+          <div className="w-32 h-32 rounded-full bg-lendora-500 text-white flex items-center mb-3 justify-center mx-auto">
             <FaCheck className="text-3xl" />
           </div>
           <h3 className="text-lg text-center">Listing Created!</h3>
@@ -743,7 +743,7 @@ function CreatePage() {
 
           <button
             onClick={reset}
-            className={`flex mt-3 w-full justify-center rounded py-4 col-span-12  bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow  font-semibold `}
+            className={`flex mt-3 w-full justify-center rounded py-4 col-span-12  bg-lendora-500  text-white hover:bg-lendora-600 hover:shadow-lg shadow  font-semibold `}
           >
             Create New Listing
           </button>
@@ -787,7 +787,7 @@ function CreatePage() {
                 <span
                   className={`w-5 h-5 flex-shrink-0 rounded flex items-center justify-center mr-2 ${
                     isNegotiable === true
-                      ? "bg-orange-400 text-white"
+                      ? "bg-lendora-500 text-white"
                       : "bg-zinc-200 text-zinc-600 "
                   }`}
                 >
@@ -802,7 +802,7 @@ function CreatePage() {
                 <span
                   className={`w-5 h-5 flex-shrink-0 rounded flex items-center justify-center mr-2 ${
                     isNegotiable === false
-                      ? "bg-orange-400 text-white"
+                      ? "bg-lendora-500 text-white"
                       : "bg-zinc-200 text-zinc-600 "
                   }`}
                 >
@@ -861,7 +861,7 @@ function CreatePage() {
                 <span
                   className={`w-5 h-5 flex-shrink-0 rounded flex items-center justify-center mr-2 ${
                     isAvailable === true
-                      ? "bg-orange-400 text-white"
+                      ? "bg-lendora-500 text-white"
                       : "bg-zinc-200 text-zinc-600 "
                   }`}
                 >
@@ -876,7 +876,7 @@ function CreatePage() {
                 <span
                   className={`w-5 h-5 flex-shrink-0 rounded flex items-center justify-center mr-2 ${
                     isAvailable === false
-                      ? "bg-orange-400 text-white"
+                      ? "bg-lendora-500 text-white"
                       : "bg-zinc-200 text-zinc-600 "
                   }`}
                 >
@@ -946,7 +946,7 @@ function CreatePage() {
                             value={p}
                             className={`relative capitalize flex items-center px-2 py-2 text-sm cursor-pointer  select-none ${
                               rentalDuration === p
-                                ? "bg-orange-100 text-orange-400 font-medium"
+                                ? "bg-lendora-100 text-lendora-500 font-medium"
                                 : "hover:bg-gray-100"
                             }`}
                           >
@@ -968,7 +968,7 @@ function CreatePage() {
           )}
 
           <button
-            className={`flex mt-3 w-full justify-center rounded py-4 col-span-12  bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow  font-semibold ${
+            className={`flex mt-3 w-full justify-center rounded py-4 col-span-12  bg-lendora-500  text-white hover:bg-lendora-600 hover:shadow-lg shadow  font-semibold ${
               loading ? "animate-pulse cursor-wait " : " opacity-100 "
             }`}
           >
@@ -976,7 +976,7 @@ function CreatePage() {
           </button>
           <button
             onClick={() => setStep(1)}
-            className={`lg:hidden flex mt-0w-full justify-center rounded py-4 col-span-12  border border-orange-400   hover:bg-zinc-100 hover:shadow-lg shadow  font-semibold`}
+            className={`lg:hidden flex mt-0w-full justify-center rounded py-4 col-span-12  border border-lendora-500   hover:bg-zinc-100 hover:shadow-lg shadow  font-semibold`}
           >
             Back
           </button>
@@ -1005,7 +1005,7 @@ function CreatePage() {
                       <a
                         target="_blank"
                         href="https://www.aandmedu.in/wp-content/uploads/2021/11/1-1-Aspect-Ratio-1024x1024.jpg"
-                        className="inline font-semibold text-orange-400 rounded-full underline shadow-md"
+                        className="inline font-semibold text-lendora-500 rounded-full underline shadow-md"
                       >
                         View Sample
                       </a>
@@ -1053,7 +1053,7 @@ function CreatePage() {
 
                 {/* next btn */}
                 <button
-                  className={`flex w-full justify-center rounded py-4 col-span-12  bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-2 font-semibold ${
+                  className={`flex w-full justify-center rounded py-4 col-span-12  bg-lendora-500  text-white hover:bg-lendora-600 hover:shadow-lg shadow mt-2 font-semibold ${
                     loading ? "animate-pulse cursor-wait " : " opacity-100 "
                   }`}
                 >
@@ -1062,7 +1062,7 @@ function CreatePage() {
 
                 <button
                   onClick={() => setStep(3)}
-                  className={`lg:hidden flex mt-0w-full justify-center rounded py-4 col-span-12  border border-orange-400   hover:bg-zinc-100 hover:shadow-lg shadow  font-semibold`}
+                  className={`lg:hidden flex mt-0w-full justify-center rounded py-4 col-span-12  border border-lendora-500   hover:bg-zinc-100 hover:shadow-lg shadow  font-semibold`}
                 >
                   Back
                 </button>
@@ -1119,7 +1119,7 @@ function CreatePage() {
                               value={state?.name}
                               className={`relative flex items-center px-2 py-2 text-sm cursor-pointer  select-none ${
                                 selectedState?.id === state?.id
-                                  ? "bg-orange-100 text-orange-400 font-medium"
+                                  ? "bg-lendora-100 text-lendora-500 font-medium"
                                   : "hover:bg-gray-100"
                               }`}
                             >
@@ -1183,7 +1183,7 @@ function CreatePage() {
                                 value={lga?.name}
                                 className={`relative flex items-center px-2 py-2 text-sm cursor-pointer  select-none ${
                                   selectedLGA?.id === lga?.id
-                                    ? "bg-orange-100 text-orange-400 font-medium"
+                                    ? "bg-lendora-100 text-lendora-500 font-medium"
                                     : "hover:bg-gray-100"
                                 }`}
                               >
@@ -1204,7 +1204,7 @@ function CreatePage() {
 
                 {/* next btn */}
                 <button
-                  className={`flex w-full justify-center rounded py-4 col-span-12  bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-2 font-semibold ${
+                  className={`flex w-full justify-center rounded py-4 col-span-12  bg-lendora-500  text-white hover:bg-lendora-600 hover:shadow-lg shadow mt-2 font-semibold ${
                     loading ? "animate-pulse cursor-wait " : " opacity-100 "
                   }`}
                 >
@@ -1213,7 +1213,7 @@ function CreatePage() {
 
                 <button
                   onClick={() => setStep(2)}
-                  className={`lg:hidden flex mt-0w-full justify-center rounded py-4 col-span-12  border border-orange-400   hover:bg-zinc-100 hover:shadow-lg shadow  font-semibold`}
+                  className={`lg:hidden flex mt-0w-full justify-center rounded py-4 col-span-12  border border-lendora-500   hover:bg-zinc-100 hover:shadow-lg shadow  font-semibold`}
                 >
                   Back
                 </button>
@@ -1290,7 +1290,7 @@ function CreatePage() {
                               value={p}
                               className={`relative capitalize flex items-center px-2 py-2 text-sm cursor-pointer  select-none ${
                                 productPurpose === p
-                                  ? "bg-orange-100 text-orange-400 font-medium"
+                                  ? "bg-lendora-100 text-lendora-500 font-medium"
                                   : "hover:bg-gray-100"
                               }`}
                             >
@@ -1355,7 +1355,7 @@ function CreatePage() {
                                   key={category.id + category.name}
                                   className={`flex items-center  cursor-pointer  px-3 py-2 rounded ${
                                     selectedCategory?.id === category?.id
-                                      ? "bg-orange-100 text-orange-400 font-medium"
+                                      ? "bg-lendora-100 text-lendora-500 font-medium"
                                       : "hover:bg-gray-100"
                                   }`}
                                   onClick={() => {
@@ -1385,7 +1385,7 @@ function CreatePage() {
                                   <div
                                     className={`flex items-center gap-2 cursor-pointer hover:bg-gray-100 px-3 py-2 rounded ${
                                       selectedSubCategory?.id === category?.id
-                                        ? "bg-orange-100 text-orange-400 font-medium"
+                                        ? "bg-lendora-100 text-lendora-500 font-medium"
                                         : "hover:bg-gray-100"
                                     }`}
                                     onClick={() => {
@@ -1407,7 +1407,7 @@ function CreatePage() {
                             >
                               <svg
                                 aria-hidden="true"
-                                className={` dark:text-gray-400 animate-spin w-8 h-8  text-gray-200 fill-orange-400 `}
+                                className={` dark:text-gray-400 animate-spin w-8 h-8  text-gray-200 fill-lendora-500 `}
                                 viewBox="0 0 100 101"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -1525,7 +1525,7 @@ function CreatePage() {
 
                 {/* next btn */}
                 <button
-                  className={`flex w-full justify-center rounded py-4 col-span-12  bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-0 font-semibold ${
+                  className={`flex w-full justify-center rounded py-4 col-span-12  bg-lendora-500  text-white hover:bg-lendora-600 hover:shadow-lg shadow mt-0 font-semibold ${
                     loading ? "animate-pulse cursor-wait " : " opacity-100 "
                   }`}
                 >

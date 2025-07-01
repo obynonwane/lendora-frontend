@@ -199,7 +199,7 @@ function SelectModal({
                               }}
                               className={`p-2 rounded flex justify-between items-center text-left transition text-sm ${
                                 selectedState?.id === item.id
-                                  ? "bg-orange-400 text-white"
+                                  ? "bg-lendora-500 text-white"
                                   : "bg-black/5 hover:bg-black/10"
                               }`}
                             >
@@ -254,7 +254,7 @@ function SelectModal({
                               onClick={() => handleLgaClick(item)}
                               className={`p-2 rounded flex justify-between items-center transition text-sm ${
                                 selectedLGA?.id === item.id
-                                  ? "bg-orange-400 text-white"
+                                  ? "bg-lendora-500 text-white"
                                   : "bg-black/5 hover:bg-black/10"
                               } w-full `}
                             >
@@ -275,7 +275,7 @@ function SelectModal({
               {" "}
               <svg
                 aria-hidden="true"
-                className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-400 fill-orange-400"
+                className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-400 fill-lendora-500"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"

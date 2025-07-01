@@ -53,7 +53,7 @@ function Page() {
           <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {/* our mission */}
             <section className="space-y-6 ">
-              <div className="flex items-center justify-center text-3xl rounded w-20 h-20 bg-orange-100 text-orange-400">
+              <div className="flex items-center justify-center text-3xl rounded w-20 h-20 bg-lendora-100 text-lendora-500">
                 <FiTarget className="" />
               </div>
               <h2 className="text-2xl font-semibold">Our Mission</h2>
@@ -76,7 +76,7 @@ function Page() {
             </section>
             {/* /sustainability  */}
             <section className="space-y-6 ">
-              <div className="flex items-center justify-center text-3xl rounded w-20 h-20 bg-orange-100 text-orange-400">
+              <div className="flex items-center justify-center text-3xl rounded w-20 h-20 bg-lendora-100 text-lendora-500">
                 <FaArrowTrendUp />
               </div>
               <h2 className="text-2xl font-semibold">
@@ -112,7 +112,7 @@ function Page() {
               <h2 className="md:text-3xl text-2xl font-semibold whitespace-nowrap">
                 How It Works
               </h2>
-              <div className="flex-grow h-1 rounded bg-orange-400"></div>
+              <div className="flex-grow h-1 rounded bg-lendora-500"></div>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="p-6 bg-green-50 rounded-lg border border-green-300">
@@ -160,7 +160,7 @@ function Page() {
           </section>
 
           {/* Call to Action */}
-          <section className="text-center py-10 px-4 lg:mt-10 mt-8 bg-gradient-to-br from-orange-400 to-red-500  max-w-7xl mx-auto rounded-lg border border-gray-200">
+          <section className="text-center py-10 px-4 lg:mt-10 mt-8 bg-gradient-to-br from-lendora-500 to-red-500  max-w-7xl mx-auto rounded-lg border border-gray-200">
             <h2 className="md:text-4xl text-3xl font-semibold mb-2 text-white">
               Join Our Community
             </h2>
@@ -171,7 +171,7 @@ function Page() {
             </p>
             <Link
               href="/signup"
-              className="block mt-5 w-fit mx-auto font-medium hover:bg-white/90  text-orange-400 bg-white px-10 py-3 rounded transition"
+              className="block mt-5 w-fit mx-auto font-medium hover:bg-white/90  text-lendora-500 bg-white px-10 py-3 rounded transition"
             >
               Signup Now!
             </Link>

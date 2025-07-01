@@ -61,7 +61,7 @@ function Sidebar({ categoryData }: { categoryData: Category_TYPE }) {
         {" "}
         <svg
           aria-hidden="true"
-          className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-400 fill-orange-400"
+          className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-400 fill-lendora-500"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ function Sidebar({ categoryData }: { categoryData: Category_TYPE }) {
   }
   return (
     <aside className="">
-      {/* <h1 className="mb-2 pl-1 border-l-4 border-l-orange-400 bg-orange-50 p-1">
+      {/* <h1 className="mb-2 pl-1 border-l-4 border-l-lendora-500 bg-lendora-50 p-1">
         {categoryData.name}
       </h1> */}
       <div className="w-full text-sm rounded bg-white grid  grid-cols-12 gap-3 lg:gap-0  relative lg:border mb-5">

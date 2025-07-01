@@ -147,9 +147,9 @@ function ProductPage({ product }: { product: ProductPageProduct }) {
           /> */}
 
           <ProductGallery images={restructureProductImages()} />
-          <p className="flex text-sm text-orange-400 mt-6 gap-x-1">
+          <p className="flex text-sm text-lendora-500 mt-6 gap-x-1">
             <Link
-              className="hover:text-orange-600"
+              className="hover:text-lendora-600"
               href={`/categories/${product.category.category_slug}`}
             >
               {" "}
@@ -157,7 +157,7 @@ function ProductPage({ product }: { product: ProductPageProduct }) {
             </Link>{" "}
             &gt;
             <Link
-              className="hover:text-orange-600"
+              className="hover:text-lendora-600"
               href={`/categories/${product.category.category_slug}?subcategory_id=${product.subcategory.subcategory_slug}`}
             >
               {product.subcategory.name}

@@ -81,7 +81,7 @@ function CategoryList() {
             {" "}
             <svg
               aria-hidden="true"
-              className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-400 fill-orange-400"
+              className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-400 fill-lendora-500"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +165,7 @@ function CategoryList() {
                           pathname.includes(
                             `/categories/${category.category_slug}`
                           )
-                            ? "text-orange-400"
+                            ? "text-lendora-500"
                             : ""
                         }`}
                       >
@@ -227,7 +227,7 @@ function CategoryList() {
               key={category.id + category.name}
               className={`lg:flex hidden items-center gap-3 ${
                 pathname.includes(`/categories/${category.category_slug}`)
-                  ? "text-orange-400"
+                  ? "text-lendora-500"
                   : ""
               }  hover:bg-zinc-100 group cursor-pointer  px-3 py-2 `}
               onMouseEnter={() => {

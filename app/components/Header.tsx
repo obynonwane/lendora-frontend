@@ -58,7 +58,7 @@ export default function Header() {
         isFixed ? "fixed inset-x-0" : "sticky"
       } top-0 z-40 drop-shadow-md lg:pb-0 pb-2`}
     >
-      <div className="h-7 text-center bg-orange-500 text-sm text-white flex items-center justify-center gap-3 p-1">
+      <div className="h-7 text-center bg-lendora-500 text-sm text-white flex items-center justify-center gap-3 p-1">
         Lendora for business{" "}
         <span className="block h-full bg-white w-[1px]"></span>{" "}
         <Link href="/lendora-for-business" className="underline">
@@ -82,7 +82,7 @@ export default function Header() {
         ) : (
           <div className="flex items-center gap-5 order-2 lg:order-3">
             <Link
-              className=" text-[22px]  flex items-center gap-1  hover:text-orange-400 "
+              className=" text-[22px]  flex items-center gap-1  hover:text-lendora-500 "
               href="/businesses"
             >
               <IoStorefrontOutline />{" "}
@@ -91,7 +91,7 @@ export default function Header() {
             {isAuthenticated && (
               <Link
                 href="/chat"
-                className="IconButton  text-2xl flex items-center gap-[6px]  hover:text-orange-400"
+                className="IconButton  text-2xl flex items-center gap-[6px]  hover:text-lendora-500"
                 aria-label="Update dimensions"
               >
                 <BsChatLeftDots className=" text-xl" />{" "}
@@ -102,7 +102,7 @@ export default function Header() {
             <Popover.Root>
               <Popover.Trigger asChild>
                 <button
-                  className="IconButton  text-2xl flex items-center gap-1  hover:text-orange-400 "
+                  className="IconButton  text-2xl flex items-center gap-1  hover:text-lendora-500 "
                   aria-label="Update dimensions"
                 >
                   <PiUserCircle className="" />{" "}
@@ -173,7 +173,7 @@ export default function Header() {
             </Popover.Root>
             {isAuthenticated && (
               <Link
-                className="bg-orange-400 text-white px-4 hover:bg-orange-500 py-2 rounded"
+                className="bg-lendora-500 text-white px-4 hover:bg-lendora-500 py-2 rounded"
                 href="/create"
               >
                 Create

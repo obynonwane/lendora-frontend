@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
-// import "swiper/css/navigation";
+import "swiper/scss/navigation";
 
 import hero2_img from "../../images/hero2_img.jpg";
 import hero12_img from "../../images/1343.jpg";
@@ -18,11 +18,11 @@ function HomepageSlider() {
         slidesPerView={1}
         loop={true}
         autoplay={{
-          delay: 5000,
+          delay: 100,
           disableOnInteraction: false,
         }}
         navigation
-        modules={[Autoplay]}
+        modules={[Autoplay, Navigation]}
         className="h-full"
       >
         {/* Slide 1 */}

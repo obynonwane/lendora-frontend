@@ -102,7 +102,7 @@ function Footer() {
                   href="https://www.instagram.com/lendora.ng/"
                   aria-label="instagram"
                   target="_blank"
-                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-orange-400 rounded-full flex items-center justify-center"
+                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-lendora-500 rounded-full flex items-center justify-center"
                 >
                   <AiFillInstagram />
                 </a>
@@ -111,7 +111,7 @@ function Footer() {
                   href="https://x.com/lendoraNG"
                   aria-label="facebook"
                   target="_blank"
-                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-orange-400 rounded-full flex items-center justify-center"
+                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-lendora-500 rounded-full flex items-center justify-center"
                 >
                   <FaFacebook />
                 </a>
@@ -119,7 +119,7 @@ function Footer() {
                   href="https://www.youtube.com/@lendoraNG"
                   aria-label="twitter"
                   target="_blank"
-                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-orange-400 rounded-full flex items-center justify-center"
+                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-lendora-500 rounded-full flex items-center justify-center"
                 >
                   <FaYoutube />
                 </a>
@@ -127,7 +127,7 @@ function Footer() {
                   href="https://x.com/lendoraNG"
                   aria-label="twitter"
                   target="_blank"
-                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-orange-400 rounded-full flex items-center justify-center"
+                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  w-8 h-8 flex-shrink-0 bg-gray-500 cursor-pointer hover:bg-lendora-500 rounded-full flex items-center justify-center"
                 >
                   <FaXTwitter />
                 </a>

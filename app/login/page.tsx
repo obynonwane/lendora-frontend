@@ -244,7 +244,7 @@ function LoginPage() {
 
           <button
             type="submit"
-            className={`flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white mt-5 py-4 ${
+            className={`flex w-full justify-center rounded font-semibold bg-lendora-500 hover:bg-lendora-300  hover:shadow-lg shadow text-white mt-5 py-4 ${
               isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
             }`}
           >
@@ -253,14 +253,14 @@ function LoginPage() {
 
           <p className="mt-5 text-center text-slate-700 text-sm ">
             Don&apos;t have an account?{" "}
-            <Link className="text-orange-400 underline" href="/signup">
+            <Link className="text-lendora-500 underline" href="/signup">
               Signup
             </Link>{" "}
           </p>
 
           <Link
             href="/forgot-password"
-            className={` text-center block mt-4 text-orange-400 text-sm  underline  `}
+            className={` text-center block mt-4 text-lendora-500 text-sm  underline  `}
           >
             Forgot Password?
           </Link>
@@ -278,7 +278,7 @@ function LoginPage() {
 
           <p className="mb-1   text-slate-700">
             Your email{" "}
-            <span className="text-orange-400 font-medium underline">
+            <span className="text-lendora-500 font-medium underline">
               {" "}
               {email}
             </span>{" "}
@@ -288,7 +288,7 @@ function LoginPage() {
 
           <button
             onClick={() => setStep("login-form")}
-            className={`flex w-full justify-center rounded bg-orange-400  text-white hover:bg-[#FFAB4E] hover:shadow-lg shadow mt-5 py-4 font-semibold `}
+            className={`flex w-full justify-center rounded bg-lendora-500  text-white hover:bg-lendora-600 hover:shadow-lg shadow mt-5 py-4 font-semibold `}
           >
             Back to Login
           </button>
@@ -335,7 +335,7 @@ function LoginPage() {
 
           <button
             onClick={() => setStep("resend-verification-email")}
-            className={`flex w-full justify-center rounded font-semibold bg-orange-400 hover:bg-[#FFAB4E]  hover:shadow-lg shadow text-white mt-5 py-4 ${
+            className={`flex w-full justify-center rounded font-semibold bg-lendora-500 hover:bg-lendora-600  hover:shadow-lg shadow text-white mt-5 py-4 ${
               isLoading ? "animate-pulse cursor-wait " : " opacity-100 "
             }`}
           >

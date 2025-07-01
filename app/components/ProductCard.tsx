@@ -20,11 +20,11 @@ function ProductCard({ product }: { product: InventoryItem }) {
           // className="w-full h-full max-w-full absolute object-cover  border-zinc-100 rounded-md "
         />
         <div className="text-xs  capitalize absolute bottom-0 left-0 right-0 overflow-hidden flex flex-wrap items-center gap-1  p-2">
-          <span className="lg:py-1 px-2 rounded-full border-orange-400 border shadow bg-white">
+          <span className="lg:py-1 px-2 rounded-full border-lendora-500 border shadow bg-white">
             {product.product_purpose}
           </span>{" "}
           {product.negotiable === "yes" && (
-            <span className="lg:py-1 px-2 rounded-full border-orange-400 border shadow bg-white">
+            <span className="lg:py-1 px-2 rounded-full border-lendora-500 border shadow bg-white">
               Negotiable
             </span>
           )}
@@ -32,7 +32,7 @@ function ProductCard({ product }: { product: InventoryItem }) {
       </div>
       <div className="px-0 pb-1 mt-2">
         <p>
-          <span className=" font-semibold text-sm text-orange-400">
+          <span className=" font-semibold text-sm text-lendora-500">
             {" "}
             {/* {product.category_slug.split("-").map((cs)=>{
               <span>
@@ -45,7 +45,7 @@ function ProductCard({ product }: { product: InventoryItem }) {
           {product.name}{" "}
         </h3>
         <p className=" flex flex-wrap items-center">
-          <span className=" font-semibold text-sm text-orange-400">
+          <span className=" font-semibold text-sm text-lendora-500">
             {" "}
             ₦{product.offer_price.toLocaleString()}
           </span>

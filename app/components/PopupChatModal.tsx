@@ -47,7 +47,7 @@ function PopupChatModal() {
                   onClick={() => {
                     router.push(`/login?redirect=${pathname}`); // Redirect to login page
                   }}
-                  className="bg-orange-400 hover:bg-[#FFAB4E] text-white font-semibold py-2 px-4 rounded"
+                  className="bg-lendora-500 hover:bg-lendora-600 text-white font-semibold py-2 px-4 rounded"
                 >
                   Go to Login
                 </button>
@@ -67,7 +67,7 @@ function PopupChatModal() {
 
       <div
         onClick={() => setIsShowChatModal(!isShowChatModal)}
-        className="size-16 fixed right-6 lg:right-10 bottom-7 cursor-pointer bg-orange-400 flex items-center justify-center rounded-full z-[99999999999999999999999999999999] "
+        className="size-16 fixed right-6 lg:right-10 bottom-7 cursor-pointer bg-lendora-500 flex items-center justify-center rounded-full z-[99999999999999999999999999999999] "
       >
         <IoChatbubbleEllipsesSharp className="text-2xl text-white" />
       </div>
